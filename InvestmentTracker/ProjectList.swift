@@ -13,6 +13,8 @@ struct ProjectList: View {
     @StateObject var portfolio: Portfolio
     
     @State private var showSettings = false
+    @State private var draft: Project? = nil
+    @State private var showAction = false
     
     var body: some View {
         NavigationView {
@@ -34,7 +36,20 @@ struct ProjectList: View {
                     showSettings = true
                 } label: {
                     Image(systemName: "gear")
+                },
+                trailing: Button {
+                    draft = Project(name: "New Project", note: "Project Note", entities: [], payments: [])
+                } label: {
+                    Image(systemName: "plus")
+                        .padding([.vertical, .leading])
                 }
+                .sheet(item: $draft) {
+                    draft = nil
+                } content: {
+                    ProjectView($0)
+                        .environmentObject(portfolio)
+                }
+                
             )
             .sheet(isPresented: $showSettings, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {
                 SettingsView()
@@ -67,8 +82,6 @@ struct ProjectList: View {
                     .font(.system(.footnote, design: .monospaced))
             }
             .foregroundColor(.secondary)
-            
-            Divider()
             
             HStack(alignment: .firstTextBaseline) {
                 Text("Total Net Investment")
@@ -127,10 +140,24 @@ struct ProjectList: View {
         .padding(.vertical, 8)
         .contextMenu {
             Button {
-                
+                showAction = true
             } label: {
-                Image(systemName: "plus")
-                Text("Add smth")
+                Image(systemName: "trash")
+                Text("Delete")
+            }
+            .actionSheet(isPresented: $showAction) {
+                ActionSheet(
+                    title: Text("Delete".uppercased()),
+                    message: Text("Do you really want to delete \(project.name)?\nThis action cannot be undone."),
+                    buttons: [
+                        .destructive(Text("Yes, delete"), action: {
+                            withAnimation {
+                                portfolio.deleteProject(project)
+                            }
+                        }),
+                        .cancel()
+                    ]
+                )
             }
         }
     }

@@ -11,6 +11,22 @@ import InvestmentDataModel
 final class Portfolio: ObservableObject {
     @Published private(set) var projects: [Project] = Project.projects
     
+    func addProject(_ project: Project) -> Bool {
+        if projectIsValid(project) {
+            projects.append(project)
+            return true
+        }
+        return false
+    }
+    
+    private func projectIsValid(_ project: Project) -> Bool {
+        !project.name.isEmpty && !project.note.isEmpty
+    }
+    
+    func deleteProject(_ project: Project) {
+        projects.removeAll { $0.id == project.id }
+    }
+    
     var totalInvestment: Double {
         projects
             .map { $0.totalInflows }

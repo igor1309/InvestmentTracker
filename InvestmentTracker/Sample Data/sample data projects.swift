@@ -83,7 +83,7 @@ extension Project {
         return Project(
             name: "Саперави Аминьевка",
             note: "ТЦ Квартал W (Ташир)",
-            entities: [Entity.progressOOO],
+            entities: [Entity.progressOOO, Entity.kitProgressOOO],
             payments: [payment1, payment2, payment3, payment4, payment5, payment6]
         )
     }()
