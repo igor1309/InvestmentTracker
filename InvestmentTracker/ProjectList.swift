@@ -23,7 +23,7 @@ struct ProjectList: View {
                 
                 ForEach(portfolio.projects) { project in
                     NavigationLink(
-                        destination: PaymentList(project: project)
+                        destination: ProjectEditor(project)
                     ) {
                         projectRow(project)
                     }
@@ -49,7 +49,6 @@ struct ProjectList: View {
                     ProjectView($0)
                         .environmentObject(portfolio)
                 }
-                
             )
             .sheet(isPresented: $showSettings, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {
                 SettingsView()
