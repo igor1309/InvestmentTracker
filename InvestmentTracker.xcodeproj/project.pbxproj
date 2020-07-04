@@ -3,17 +3,33 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		245B672924B080D3004F35F4 /* InvestmentDataModel in Frameworks */ = {isa = PBXBuildFile; productRef = 245B672824B080D3004F35F4 /* InvestmentDataModel */; };
+		245B672B24B0B479004F35F4 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B672A24B0B479004F35F4 /* Extension+Date.swift */; };
+		245B672D24B0B494004F35F4 /* PaymentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B672C24B0B494004F35F4 /* PaymentList.swift */; };
+		245B672F24B0B4C4004F35F4 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B672E24B0B4C4004F35F4 /* ProjectList.swift */; };
+		245B673124B0B4FF004F35F4 /* sample data projects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673024B0B4FF004F35F4 /* sample data projects.swift */; };
+		245B673324B0B894004F35F4 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673224B0B894004F35F4 /* Portfolio.swift */; };
+		245B673624B0B92E004F35F4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673524B0B92E004F35F4 /* Settings.swift */; };
+		245B673824B0BAC8004F35F4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673724B0BAC8004F35F4 /* SettingsView.swift */; };
 		246269F924B07A930008D0CB /* InvestmentTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246269F824B07A930008D0CB /* InvestmentTrackerApp.swift */; };
 		246269FB24B07A930008D0CB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246269FA24B07A930008D0CB /* ContentView.swift */; };
 		246269FD24B07A930008D0CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246269FC24B07A930008D0CB /* Assets.xcassets */; };
 		24626A0024B07A930008D0CB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246269FF24B07A930008D0CB /* Preview Assets.xcassets */; };
+		24FCF68D24B07D420035FC1C /* SwiftPI in Frameworks */ = {isa = PBXBuildFile; productRef = 24FCF68C24B07D420035FC1C /* SwiftPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		245B672A24B0B479004F35F4 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
+		245B672C24B0B494004F35F4 /* PaymentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentList.swift; sourceTree = "<group>"; };
+		245B672E24B0B4C4004F35F4 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
+		245B673024B0B4FF004F35F4 /* sample data projects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "sample data projects.swift"; sourceTree = "<group>"; };
+		245B673224B0B894004F35F4 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
+		245B673524B0B92E004F35F4 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		245B673724B0BAC8004F35F4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		246269F524B07A920008D0CB /* InvestmentTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InvestmentTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		246269F824B07A930008D0CB /* InvestmentTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentTrackerApp.swift; sourceTree = "<group>"; };
 		246269FA24B07A930008D0CB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -27,12 +43,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24FCF68D24B07D420035FC1C /* SwiftPI in Frameworks */,
+				245B672924B080D3004F35F4 /* InvestmentDataModel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		245B673424B0B91F004F35F4 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				245B673224B0B894004F35F4 /* Portfolio.swift */,
+				245B673524B0B92E004F35F4 /* Settings.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
 		246269EC24B07A920008D0CB = {
 			isa = PBXGroup;
 			children = (
@@ -54,6 +81,12 @@
 			children = (
 				246269F824B07A930008D0CB /* InvestmentTrackerApp.swift */,
 				246269FA24B07A930008D0CB /* ContentView.swift */,
+				245B673724B0BAC8004F35F4 /* SettingsView.swift */,
+				245B672E24B0B4C4004F35F4 /* ProjectList.swift */,
+				245B672C24B0B494004F35F4 /* PaymentList.swift */,
+				245B673424B0B91F004F35F4 /* View Model */,
+				245B673024B0B4FF004F35F4 /* sample data projects.swift */,
+				245B672A24B0B479004F35F4 /* Extension+Date.swift */,
 				246269FC24B07A930008D0CB /* Assets.xcassets */,
 				24626A0124B07A930008D0CB /* Info.plist */,
 				246269FE24B07A930008D0CB /* Preview Content */,
@@ -85,6 +118,10 @@
 			dependencies = (
 			);
 			name = InvestmentTracker;
+			packageProductDependencies = (
+				24FCF68C24B07D420035FC1C /* SwiftPI */,
+				245B672824B080D3004F35F4 /* InvestmentDataModel */,
+			);
 			productName = InvestmentTracker;
 			productReference = 246269F524B07A920008D0CB /* InvestmentTracker.app */;
 			productType = "com.apple.product-type.application";
@@ -112,6 +149,10 @@
 				Base,
 			);
 			mainGroup = 246269EC24B07A920008D0CB;
+			packageReferences = (
+				24FCF68B24B07D420035FC1C /* XCRemoteSwiftPackageReference "SwiftPI" */,
+				245B672724B080D3004F35F4 /* XCRemoteSwiftPackageReference "InvestmentDataModel" */,
+			);
 			productRefGroup = 246269F624B07A920008D0CB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,7 +179,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				245B673124B0B4FF004F35F4 /* sample data projects.swift in Sources */,
+				245B672B24B0B479004F35F4 /* Extension+Date.swift in Sources */,
+				245B673624B0B92E004F35F4 /* Settings.swift in Sources */,
+				245B673824B0BAC8004F35F4 /* SettingsView.swift in Sources */,
 				246269FB24B07A930008D0CB /* ContentView.swift in Sources */,
+				245B673324B0B894004F35F4 /* Portfolio.swift in Sources */,
+				245B672D24B0B494004F35F4 /* PaymentList.swift in Sources */,
+				245B672F24B0B4C4004F35F4 /* ProjectList.swift in Sources */,
 				246269F924B07A930008D0CB /* InvestmentTrackerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +376,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		245B672724B080D3004F35F4 /* XCRemoteSwiftPackageReference "InvestmentDataModel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/igor1309/InvestmentDataModel.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		24FCF68B24B07D420035FC1C /* XCRemoteSwiftPackageReference "SwiftPI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/igor1309/SwiftPI.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		245B672824B080D3004F35F4 /* InvestmentDataModel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 245B672724B080D3004F35F4 /* XCRemoteSwiftPackageReference "InvestmentDataModel" */;
+			productName = InvestmentDataModel;
+		};
+		24FCF68C24B07D420035FC1C /* SwiftPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24FCF68B24B07D420035FC1C /* XCRemoteSwiftPackageReference "SwiftPI" */;
+			productName = SwiftPI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 246269ED24B07A920008D0CB /* Project object */;
 }
