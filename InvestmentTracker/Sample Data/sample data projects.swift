@@ -8,14 +8,16 @@
 import Foundation
 import InvestmentDataModel
 
+extension Entity {
+    static let progressOOO = Entity("Прогресс, ООО")
+    static let kitProgressOOO = Entity("Кит-Прогресс, ООО")
+    static let igor = Entity("IM")
+}
+
 extension Project {
     static let projects: [Project] = [saperavi, vaiMe]
     
-    static let (saperavi, vaiMe): (Project, Project) = {
-        let progressOOO = Entity("Прогресс, ООО")
-        let kitProgressOOO = Entity("Кит-Прогресс, ООО")
-        let igor = Entity("IM")
-        
+    static let saperavi: Project = {
         let calendar = Calendar.autoupdatingCurrent
         
         let date1 = calendar.date(from: DateComponents(year: 2019, month: 12, day: 2))!
@@ -23,8 +25,8 @@ extension Project {
             date: date1,
             amount: 6_000_000,
             currency: .rub,
-            sender: igor,
-            recipient: progressOOO,
+            sender: Entity.igor,
+            recipient: Entity.progressOOO,
             note: "Транш по договору займа"
         )
         
@@ -33,8 +35,8 @@ extension Project {
             date: date2,
             amount: 4_000_000,
             currency: .rub,
-            sender: igor,
-            recipient: progressOOO,
+            sender: Entity.igor,
+            recipient: Entity.progressOOO,
             note: "Транш по договору займа"
         )
         
@@ -43,8 +45,8 @@ extension Project {
             date: date3,
             amount: 5_000_000,
             currency: .rub,
-            sender: igor,
-            recipient: progressOOO,
+            sender: Entity.igor,
+            recipient: Entity.progressOOO,
             note: "Транш по договору займа"
         )
         
@@ -53,8 +55,8 @@ extension Project {
             date: date4,
             amount: 5_000_000,
             currency: .rub,
-            sender: igor,
-            recipient: progressOOO,
+            sender: Entity.igor,
+            recipient: Entity.progressOOO,
             note: "Транш по договору займа"
         )
         
@@ -63,8 +65,8 @@ extension Project {
             date: date5,
             amount: 5_000_000,
             currency: .rub,
-            sender: igor,
-            recipient: progressOOO,
+            sender: Entity.igor,
+            recipient: Entity.progressOOO,
             note: "Транш по договору займа"
         )
         
@@ -73,56 +75,61 @@ extension Project {
             date: date6,
             amount: 5_000_000,
             currency: .rub,
-            sender: igor,
-            recipient: progressOOO,
+            sender: Entity.igor,
+            recipient: Entity.progressOOO,
             note: "Транш по договору займа"
         )
         
-        let saperavi = Project(
+        return Project(
             name: "Саперави Аминьевка",
             note: "ТЦ Квартал W (Ташир)",
-            entities: [progressOOO],
+            entities: [Entity.progressOOO],
             payments: [payment1, payment2, payment3, payment4, payment5, payment6]
         )
+    }()
+    
+    static let vaiMe: Project = {
+        let calendar = Calendar.autoupdatingCurrent
         
-        let date7 = calendar.date(from: DateComponents(year: 2020, month: 2, day: 18))!
-        let payment7 = Payment(
-            date: date7,
+        let date1 = calendar.date(from: DateComponents(year: 2020, month: 2, day: 18))!
+        let payment1 = Payment(
+            date: date1,
             amount: 9_000_000,
             currency: .rub,
-            sender: igor,
-            recipient: kitProgressOOO,
+            sender: Entity.igor,
+            recipient: Entity.kitProgressOOO,
             note: "Транш по договору займа"
         )
         
-        let date8 = calendar.date(from: DateComponents(year: 2020, month: 5, day: 20))!
-        let payment8 = Payment(
-            date: date8,
+        let date2 = calendar.date(from: DateComponents(year: 2020, month: 5, day: 20))!
+        let payment2 = Payment(
+            date: date2,
             amount: 2_000_000,
             currency: .rub,
-            sender: igor,
-            recipient: kitProgressOOO,
+            sender: Entity.igor,
+            recipient: Entity.kitProgressOOO,
             note: "Транш по договору займа"
         )
         
-        let date9 = calendar.date(from: DateComponents(year: 2020, month: 6, day: 9))!
-        let payment9 = Payment(
-            date: date9,
+        let date3 = calendar.date(from: DateComponents(year: 2020, month: 6, day: 9))!
+        let payment3 = Payment(
+            date: date3,
             amount: 2_000_000,
             currency: .rub,
-            sender: igor,
-            recipient: kitProgressOOO,
+            sender: Entity.igor,
+            recipient: Entity.kitProgressOOO,
             note: "Транш по договору займа"
         )
         
-        let vaiMe = Project(
+        let date4 = calendar.date(from: DateComponents(year: 2020, month: 7, day: 1))!
+        let payment4 = Payment(date: date4, amount: 500_000, currency: .rub, sender: Entity.kitProgressOOO, recipient: Entity.igor, note: "ВОЗВРАТНЫЙ ПЛАТЕЖ ДЛЯ ТЕСТИРОВАНИЯ")
+        
+        return Project(
             name: "ВайМэ! Щелково",
             note: "МФК Щелковский, ГК Киевская площадь",
-            entities: [kitProgressOOO],
-            payments: [payment7, payment8, payment9]
+            entities: [Entity.kitProgressOOO],
+            payments: [payment1, payment2, payment3, payment4]
         )
-        
-        return (saperavi, vaiMe)
     }()
 }
 

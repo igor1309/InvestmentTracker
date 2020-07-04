@@ -14,17 +14,29 @@ struct PaymentList: View {
     var body: some View {
         List {
             ForEach(project.payments) { payment in
-                HStack {
-                    Text(payment.date.toString())
+                VStack(alignment: .leading) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text(payment.date.toString())
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .trailing) {
+                            Text("\(payment.currency.symbol)\(payment.amount, specifier: "%.f")")
+                        }
+                    }
+                    .font(.subheadline)
                     
-                    Spacer()
-                    
-                    Text("\(payment.amount, specifier: "%.f")")
+                    Group {
+                        Text("from \(payment.sender.name) to \(payment.recipient.name)")
+                        Text(payment.note)
+                    }
+                    .foregroundColor(Color(UIColor.tertiaryLabel))
+                    .font(.footnote)
                 }
-                .font(.subheadline)
             }
         }
-        .navigationTitle(project.name)
+        .navigationTitle("\(project.name): Payments")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

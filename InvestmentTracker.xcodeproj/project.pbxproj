@@ -60,6 +60,14 @@
 			path = "View Model";
 			sourceTree = "<group>";
 		};
+		245B673924B105F1004F35F4 /* Sample Data */ = {
+			isa = PBXGroup;
+			children = (
+				245B673024B0B4FF004F35F4 /* sample data projects.swift */,
+			);
+			path = "Sample Data";
+			sourceTree = "<group>";
+		};
 		246269EC24B07A920008D0CB = {
 			isa = PBXGroup;
 			children = (
@@ -85,7 +93,7 @@
 				245B672E24B0B4C4004F35F4 /* ProjectList.swift */,
 				245B672C24B0B494004F35F4 /* PaymentList.swift */,
 				245B673424B0B91F004F35F4 /* View Model */,
-				245B673024B0B4FF004F35F4 /* sample data projects.swift */,
+				245B673924B105F1004F35F4 /* Sample Data */,
 				245B672A24B0B479004F35F4 /* Extension+Date.swift */,
 				246269FC24B07A930008D0CB /* Assets.xcassets */,
 				24626A0124B07A930008D0CB /* Info.plist */,

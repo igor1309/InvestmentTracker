@@ -25,9 +25,8 @@ struct ProjectList: View {
                     }
                 }
             }
-//            .listStyle(GroupedListStyle())
+            .listStyle(PlainListStyle())
             .navigationTitle("Projects")
-            .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(
                 leading: Button {
                     showSettings = true
@@ -43,39 +42,41 @@ struct ProjectList: View {
     }
     
     private func projectRow(_ project: Project) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 3) {
             
-            VStack(alignment: .leading, spacing: 3) {
-                HStack {
-                    Text(project.name)
+            HStack(alignment: .firstTextBaseline) {
+                VStack(alignment: .leading, spacing: 3) {                        Text(project.name)
                     
-                    Spacer()
-                    
-                    Text("\(project.netFlows, specifier: "%.f")")
-                        .foregroundColor(Color(UIColor.systemOrange))
-                        .font(.footnote)
-                }
-                Text(project.note)
-                    .foregroundColor(.secondary)
-                    .font(.subheadline)
-            }
-            
-            VStack(alignment: .leading, spacing: 2) {
-                HStack {
-                    Spacer()
-                    Text("+\(project.totalInflows, specifier: "%.f")")
+                    Text(project.note)
+                        .foregroundColor(.secondary)
+                        .font(.subheadline)
                 }
                 
-                if project.totalOutflows > 0 {
-                    HStack {
-                        Spacer()
-                        Text("-\(project.totalOutflows, specifier: "%.f")")
-                    }
+                Spacer()
+                
+                VStack(alignment: .leading, spacing: 3) {                        Text("\(project.totalInflows, specifier: "%.f")")
+                    .font(.system(.footnote, design: .monospaced))
+                    Text("total investment")
+                        .font(.caption2)
                 }
+                .foregroundColor(Color(UIColor.systemOrange))
             }
+            
+            VStack(alignment: .trailing, spacing: 2) {
+                if project.totalOutflows > 0 {
+                    Text("return \(project.totalOutflows, specifier: "%.f")")
+                }
+                
+                Text("net \(project.netFlows, specifier: "%.f")")
+                
+                Text("npv \(project.npv(rate: settings.rate), specifier: "%.f")")
+                    .foregroundColor(Color(UIColor.systemTeal))
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
             .foregroundColor(.secondary)
-            .font(.footnote)
+            .font(.system(.caption, design: .monospaced))
         }
+        .padding(.vertical, 8)
         .contextMenu {
             Button {
                 
@@ -91,5 +92,6 @@ struct ProjectList_Previews: PreviewProvider {
     static var previews: some View {
         ProjectList(portfolio: portfolio)
             .preferredColorScheme(.dark)
+            .environmentObject(Settings())
     }
 }
