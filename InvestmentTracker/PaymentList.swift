@@ -14,29 +14,49 @@ struct PaymentList: View {
     var body: some View {
         List {
             ForEach(project.payments) { payment in
-                VStack(alignment: .leading) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Text(payment.date.toString())
-                        
-                        Spacer()
-                        
-                        VStack(alignment: .trailing) {
-                            Text("\(payment.currency.symbol)\(payment.amount, specifier: "%.f")")
-                        }
-                    }
-                    .font(.subheadline)
-                    
-                    Group {
-                        Text("from \(payment.sender.name) to \(payment.recipient.name)")
-                        Text(payment.note)
-                    }
-                    .foregroundColor(Color(UIColor.tertiaryLabel))
-                    .font(.footnote)
-                }
+                paymentRow(payment)
             }
         }
+        .listStyle(PlainListStyle())
         .navigationTitle("\(project.name): Payments")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarItems(
+            leading: Button {
+                //  showSettings = true
+            } label: {
+                Image(systemName: "gear")
+            }
+        )
+    }
+    
+    private func paymentRow(_ payment: Payment) -> some View {
+        VStack(alignment: .leading) {
+            HStack(alignment: .firstTextBaseline) {
+                Text(payment.date.toString())
+                
+                Spacer()
+                
+                VStack(alignment: .trailing) {
+                    Text("\(payment.currency.symbol)\(payment.amount, specifier: "%.f")")
+                }
+            }
+            .font(.subheadline)
+            
+            Group {
+                Text("from \(payment.sender.name) to \(payment.recipient.name)")
+                Text(payment.note)
+            }
+            .foregroundColor(Color(UIColor.tertiaryLabel))
+            .font(.footnote)
+        }
+        .contextMenu {
+            Button {
+                
+            } label: {
+                Image(systemName: "plus")
+                Text("Add smth")
+            }
+        }
     }
 }
 
