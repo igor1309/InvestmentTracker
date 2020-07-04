@@ -20,13 +20,6 @@ struct PaymentList: View {
         .listStyle(PlainListStyle())
         .navigationTitle("\(project.name): Payments")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(
-            leading: Button {
-                //  showSettings = true
-            } label: {
-                Image(systemName: "gear")
-            }
-        )
     }
     
     private func paymentRow(_ payment: Payment) -> some View {

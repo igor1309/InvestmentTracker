@@ -17,6 +17,8 @@ struct ProjectList: View {
     var body: some View {
         NavigationView {
             List {
+                allProjectsTotals()
+                
                 ForEach(portfolio.projects) { project in
                     NavigationLink(
                         destination: PaymentList(project: project)
@@ -39,6 +41,52 @@ struct ProjectList: View {
                     .environmentObject(settings)
             }
         }
+    }
+    
+    private func allProjectsTotals() -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(alignment: .firstTextBaseline) {
+                Text("No of Projects")
+                Spacer()
+                Text("\(portfolio.projects.count)")
+                    .font(.system(.footnote, design: .monospaced))
+            }
+            
+            HStack(alignment: .firstTextBaseline) {
+                Text("Total Investment")
+                Spacer()
+                Text("\(portfolio.totalInvestment, specifier: "%.f")")
+                    .font(.system(.footnote, design: .monospaced))
+            }
+            .foregroundColor(Color(UIColor.systemOrange))
+            
+            HStack(alignment: .firstTextBaseline) {
+                Text("Total Return")
+                Spacer()
+                Text("\(portfolio.totalReturn, specifier: "%.f")")
+                    .font(.system(.footnote, design: .monospaced))
+            }
+            .foregroundColor(.secondary)
+            
+            Divider()
+            
+            HStack(alignment: .firstTextBaseline) {
+                Text("Total Net Investment")
+                Spacer()
+                Text("\(portfolio.totalNetInvestment, specifier: "%.f")")
+                    .font(.system(.footnote, design: .monospaced))
+            }
+            .foregroundColor(.secondary)
+            
+            HStack(alignment: .firstTextBaseline) {
+                Text("NPV")
+                Spacer()
+                Text("\(portfolio.npv(rate: settings.rate), specifier: "%.f")")
+                    .font(.system(.footnote, design: .monospaced))
+            }
+            .foregroundColor(Color(UIColor.systemTeal))
+        }
+        .font(.footnote)
     }
     
     private func projectRow(_ project: Project) -> some View {
