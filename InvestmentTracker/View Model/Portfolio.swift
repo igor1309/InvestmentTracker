@@ -11,6 +11,9 @@ import InvestmentDataModel
 final class Portfolio: ObservableObject {
     @Published private(set) var projects: [Project] = Project.projects
     
+    
+    //  MARK: Project handling
+    
     func addProject(_ project: Project) -> Bool {
         if projectIsValid(project) {
             projects.append(project)
@@ -24,8 +27,25 @@ final class Portfolio: ObservableObject {
     }
     
     func deleteProject(_ project: Project) {
-        projects.removeAll { $0.id == project.id }
+        if let index = projects.firstIndex(matching: project) {
+            projects.remove(at: index)
+        }
     }
+    
+    //  MARK: -
+    
+    var entities: [Entity] {
+        let entities = projects.flatMap { $0.entities }
+        let senders = projects.flatMap { $0.payments }.map { $0.sender }
+        let recipients = projects.flatMap { $0.payments }.map { $0.recipient }
+        
+        let all = entities + senders + recipients
+        let uniqueEntities = Set(all)
+        
+        return Array(uniqueEntities).sorted { $0.name < $1.name }
+    }
+    
+    //  MARK: Portfolio Totals
     
     var totalInvestment: Double {
         projects

@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import InvestmentDataModel
 
 struct EntityListEditor: View {
+    @Binding var project: Project
+    
     var body: some View {
         //  MARK: FINISH THIS
         
@@ -17,6 +20,6 @@ struct EntityListEditor: View {
 
 struct EntityListEditor_Previews: PreviewProvider {
     static var previews: some View {
-        EntityListEditor()
+        EntityListEditor(project: .constant(Project.natachtari))
     }
 }

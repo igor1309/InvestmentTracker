@@ -8,14 +8,66 @@
 import Foundation
 import InvestmentDataModel
 
+extension Payment {
+    static var payment01: Payment = {
+        let calendar = Calendar.autoupdatingCurrent
+        let date = calendar.date(from: DateComponents(year: 2020, month: 01, day: 05))!
+        
+        return Payment(
+            date: date,
+            amount: 10_000_000,
+            currency: .rub,
+            sender: Entity.igor,
+            recipient: Entity.kitProgressOOO,
+            note: "Sample payment for App Testing")
+    }()
+}
+
 extension Entity {
-    static let progressOOO = Entity("Прогресс, ООО")
-    static let kitProgressOOO = Entity("Кит-Прогресс, ООО")
-    static let igor = Entity("IM")
+    static let progressOOO = Entity("Прогресс, ООО", note: "")
+    static let kitProgressOOO = Entity("Кит-Прогресс, ООО", note: "")
+    static let igor = Entity("IM", note: "")
 }
 
 extension Project {
-    static let projects: [Project] = [saperavi, vaiMe]
+    static let projects: [Project] = [natachtari]//[saperavi, vaiMe]
+    
+    static let natachtari: Project = {
+        let calendar = Calendar.autoupdatingCurrent
+        
+        let date1 = calendar.date(from: DateComponents(year: 2020, month: 01, day: 10))!
+        let payment1 = Payment(
+            date: date1,
+            amount: 1_000_000,
+            currency: .rub,
+            sender: Entity.igor,
+            recipient: Entity.progressOOO,
+            note: "Первый транш по займу")
+        
+        let date2 = calendar.date(from: DateComponents(year: 2020, month: 02, day: 15))!
+        let payment2 = Payment(
+            date: date2,
+            amount: 1_000_000,
+            currency: .rub,
+            sender: Entity.igor,
+            recipient: Entity.progressOOO,
+            note: "Первый транш по займу")
+        
+        let date3 = calendar.date(from: DateComponents(year: 2020, month: 03, day: 20))!
+        let payment3 = Payment(
+            date: date3,
+            amount: 1_000_000,
+            currency: .rub,
+            sender: Entity.igor,
+            recipient: Entity.progressOOO,
+            note: "Первый транш по займу")
+        
+        return Project(
+            name: "Натахтари",
+            note: "Проект для тестирования приложения",
+            entities: [Entity.progressOOO, Entity.kitProgressOOO],
+            payments: [payment1, payment2, payment3])
+    }()
     
     static let saperavi: Project = {
         let calendar = Calendar.autoupdatingCurrent

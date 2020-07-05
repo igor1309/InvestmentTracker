@@ -19,6 +19,11 @@
 		245B673F24B13BC7004F35F4 /* EntityEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673E24B13BC7004F35F4 /* EntityEditor.swift */; };
 		245B674124B13CB6004F35F4 /* PaymentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674024B13CB6004F35F4 /* PaymentEditor.swift */; };
 		245B674324B1403F004F35F4 /* ProjectEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674224B1403F004F35F4 /* ProjectEditor.swift */; };
+		245B674624B1B771004F35F4 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674524B1B771004F35F4 /* Array+Identifiable.swift */; };
+		245B674824B1C07F004F35F4 /* PaymentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674724B1C07F004F35F4 /* PaymentRow.swift */; };
+		245B674A24B1D973004F35F4 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674924B1D973004F35F4 /* PaymentView.swift */; };
+		245B674C24B1F63E004F35F4 /* EntityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674B24B1F63E004F35F4 /* EntityPicker.swift */; };
+		245B674E24B209DD004F35F4 /* EditorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674D24B209DD004F35F4 /* EditorWrapper.swift */; };
 		246269F924B07A930008D0CB /* InvestmentTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246269F824B07A930008D0CB /* InvestmentTrackerApp.swift */; };
 		246269FB24B07A930008D0CB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246269FA24B07A930008D0CB /* ContentView.swift */; };
 		246269FD24B07A930008D0CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246269FC24B07A930008D0CB /* Assets.xcassets */; };
@@ -38,6 +43,11 @@
 		245B673E24B13BC7004F35F4 /* EntityEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityEditor.swift; sourceTree = "<group>"; };
 		245B674024B13CB6004F35F4 /* PaymentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentEditor.swift; sourceTree = "<group>"; };
 		245B674224B1403F004F35F4 /* ProjectEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditor.swift; sourceTree = "<group>"; };
+		245B674524B1B771004F35F4 /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
+		245B674724B1C07F004F35F4 /* PaymentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRow.swift; sourceTree = "<group>"; };
+		245B674924B1D973004F35F4 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
+		245B674B24B1F63E004F35F4 /* EntityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityPicker.swift; sourceTree = "<group>"; };
+		245B674D24B209DD004F35F4 /* EditorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWrapper.swift; sourceTree = "<group>"; };
 		246269F524B07A920008D0CB /* InvestmentTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InvestmentTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		246269F824B07A930008D0CB /* InvestmentTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentTrackerApp.swift; sourceTree = "<group>"; };
 		246269FA24B07A930008D0CB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,6 +86,15 @@
 			path = "Sample Data";
 			sourceTree = "<group>";
 		};
+		245B674424B1B762004F35F4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				245B672A24B0B479004F35F4 /* Extension+Date.swift */,
+				245B674524B1B771004F35F4 /* Array+Identifiable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		246269EC24B07A920008D0CB = {
 			isa = PBXGroup;
 			children = (
@@ -100,13 +119,17 @@
 				245B673724B0BAC8004F35F4 /* SettingsView.swift */,
 				245B672E24B0B4C4004F35F4 /* ProjectList.swift */,
 				245B673A24B12A67004F35F4 /* ProjectView.swift */,
+				245B674724B1C07F004F35F4 /* PaymentRow.swift */,
 				245B674224B1403F004F35F4 /* ProjectEditor.swift */,
+				245B674B24B1F63E004F35F4 /* EntityPicker.swift */,
 				245B673E24B13BC7004F35F4 /* EntityEditor.swift */,
+				245B674D24B209DD004F35F4 /* EditorWrapper.swift */,
 				245B673C24B13B0E004F35F4 /* EntityListEditor.swift */,
+				245B674924B1D973004F35F4 /* PaymentView.swift */,
 				245B674024B13CB6004F35F4 /* PaymentEditor.swift */,
 				245B673424B0B91F004F35F4 /* View Model */,
 				245B673924B105F1004F35F4 /* Sample Data */,
-				245B672A24B0B479004F35F4 /* Extension+Date.swift */,
+				245B674424B1B762004F35F4 /* Extensions */,
 				246269FC24B07A930008D0CB /* Assets.xcassets */,
 				24626A0124B07A930008D0CB /* Info.plist */,
 				246269FE24B07A930008D0CB /* Preview Content */,
@@ -200,15 +223,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				245B673124B0B4FF004F35F4 /* sample data projects.swift in Sources */,
+				245B674C24B1F63E004F35F4 /* EntityPicker.swift in Sources */,
 				245B674124B13CB6004F35F4 /* PaymentEditor.swift in Sources */,
 				245B674324B1403F004F35F4 /* ProjectEditor.swift in Sources */,
 				245B672B24B0B479004F35F4 /* Extension+Date.swift in Sources */,
 				245B673B24B12A67004F35F4 /* ProjectView.swift in Sources */,
+				245B674A24B1D973004F35F4 /* PaymentView.swift in Sources */,
+				245B674624B1B771004F35F4 /* Array+Identifiable.swift in Sources */,
 				245B673624B0B92E004F35F4 /* Settings.swift in Sources */,
 				245B673824B0BAC8004F35F4 /* SettingsView.swift in Sources */,
+				245B674824B1C07F004F35F4 /* PaymentRow.swift in Sources */,
 				246269FB24B07A930008D0CB /* ContentView.swift in Sources */,
 				245B673324B0B894004F35F4 /* Portfolio.swift in Sources */,
 				245B672F24B0B4C4004F35F4 /* ProjectList.swift in Sources */,
+				245B674E24B209DD004F35F4 /* EditorWrapper.swift in Sources */,
 				245B673F24B13BC7004F35F4 /* EntityEditor.swift in Sources */,
 				245B673D24B13B0E004F35F4 /* EntityListEditor.swift in Sources */,
 				246269F924B07A930008D0CB /* InvestmentTrackerApp.swift in Sources */,

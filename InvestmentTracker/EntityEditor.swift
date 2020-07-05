@@ -6,15 +6,55 @@
 //
 
 import SwiftUI
+import InvestmentDataModel
 
 struct EntityEditor: View {
+    
+    @Binding var entity: Entity
+    @Binding var shouldSave: Bool
+    
     var body: some View {
-        Text("TBD: EntityEditor")
+        EditorWrapper(draft: $entity, shouldSave: $shouldSave) {
+            Form {
+                TextField("Entity Name", text: $entity.name)
+                TextField("Note", text: $entity.note)
+            }
+            .navigationTitle("Edit Entity")
+        }
+    }
+}
+
+struct EntityEditor1: View {
+    @Environment(\.presentationMode) var presentation
+    
+    @Binding var entity: Entity
+    @Binding var shouldSave: Bool
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                TextField("Entity Name", text: $entity.name)
+                TextField("Note", text: $entity.note)
+            }
+            .navigationTitle("Edit Entity")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(
+                leading: Button("Cancel") {
+                    shouldSave = false
+                    presentation.wrappedValue.dismiss()
+                },
+                trailing: Button("Save") {
+                    shouldSave = true
+                    presentation.wrappedValue.dismiss()
+                }
+            )
+        }
     }
 }
 
 struct EntityEditor_Previews: PreviewProvider {
     static var previews: some View {
-        EntityEditor()
+        EntityEditor(entity: .constant(Entity.kitProgressOOO), shouldSave: .constant(true))
+            .preferredColorScheme(.dark)
     }
 }

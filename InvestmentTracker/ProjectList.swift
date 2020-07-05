@@ -23,7 +23,8 @@ struct ProjectList: View {
                 
                 ForEach(portfolio.projects) { project in
                     NavigationLink(
-                        destination: ProjectEditor(project)
+                        destination: ProjectView(project: project)
+                            .environmentObject(portfolio)
                     ) {
                         projectRow(project)
                     }
@@ -46,7 +47,7 @@ struct ProjectList: View {
                 .sheet(item: $draft) {
                     draft = nil
                 } content: {
-                    ProjectView($0)
+                    ProjectEditor($0)
                         .environmentObject(portfolio)
                 }
             )
@@ -106,6 +107,8 @@ struct ProjectList: View {
             
             HStack(alignment: .firstTextBaseline) {
                 VStack(alignment: .leading, spacing: 3) {                        Text(project.name)
+                        .font(.title3)
+                        .bold()
                     
                     Text(project.note)
                         .foregroundColor(.secondary)
