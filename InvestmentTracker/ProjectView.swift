@@ -9,11 +9,18 @@ import SwiftUI
 import InvestmentDataModel
 
 struct ProjectView: View {
+    //  need it here to fix error with dismissing modal by buttons in EditorWrapper
+    @Environment(\.presentationMode) var presentation
+    
     @EnvironmentObject var portfolio: Portfolio
+    @EnvironmentObject var settings: Settings
     
     var project: Project
     
     @State private var draft: Project = .natachtari
+    @State private var draftEntity: Entity = .empty()
+    @State private var draftPayment: Payment = .empty()
+    @State private var shouldSave = false
     
     enum Modal { case entityEditor, paymentEditor, projectEditor }
     
@@ -26,11 +33,7 @@ struct ProjectView: View {
         Form {
             Text(project.note)
             
-            //  MARK: - FINISH THIS
-            Section {
-                Text("ЗДЕСЬ ФИНАНСОВЫЙ БЛОК ПО ПРОЕКТУ - СМ ProjectList")
-                    .foregroundColor(.orange)
-            }
+            investmentSection()
             
             if !project.entities.isEmpty {
                 Section(header: Text("Entities".uppercased())) {
@@ -55,50 +58,127 @@ struct ProjectView: View {
         .navigationTitle(project.name)
         .navigationBarItems(
             trailing: HStack {
-                Button {
-                    showAddAction = true
-                } label: {
-                    Image(systemName: "plus")
-                        .padding()
-                }
-                Button("Edit") {
-                    draft = project
-                    modal = .projectEditor
-                    showModal = true
-                }
+                plusButton()
+                editButton()
+                    .sheet(isPresented: $showModal) {
+                        handleEditors() // onDismiss
+                    } content: {
+                        presentModal()
+                    }
             }
         )
-        .sheet(isPresented: $showModal) { presentModal() }
-        .actionSheet(isPresented: $showAddAction) { addAction() }
+    }
+    
+    private func handleEditors() {
+        if shouldSave {
+            switch modal {
+            case .projectEditor:
+                if draft != project {
+                    portfolio.update(project, with: draft)
+                }
+            case .entityEditor:
+                portfolio.addEntity(draftEntity, to: project)
+            case .paymentEditor:
+                portfolio.addPayment(draftPayment, to: project)
+            }
+            
+            shouldSave = false
+        }
     }
     
     @ViewBuilder private func presentModal() -> some View {
         switch modal {
         case .entityEditor:
-            Text("TBD: Entity Editor").foregroundColor(.blue)
+            EntityEditor(entity: $draftEntity, shouldSave: $shouldSave)
         case .paymentEditor:
-            Text("TBD: Payment Editor").foregroundColor(.blue)
+            PaymentEditor(draft: $draftPayment, shouldSave: $shouldSave)
         case .projectEditor:
-            ProjectEditor(project)
+            ProjectEditor(draft: $draft, shouldSave: $shouldSave)
                 .environmentObject(portfolio)
         }
     }
     
-    private func addAction() -> ActionSheet {
+    private func plusButton() -> some View {
+        Button {
+            showAddAction = true
+        } label: {
+            Image(systemName: "plus")
+                .padding()
+        }
+        .actionSheet(isPresented: $showAddAction) { selectWhatToAdd() }
+    }
+    
+    private func editButton() -> some View {
+        Button("Edit") {
+            draft = project
+            modal = .projectEditor
+            showModal = true
+        }
+    }
+    
+    private func selectWhatToAdd() -> ActionSheet {
+        func addEntity() {
+            shouldSave = false
+            draftEntity = Entity("", note: "")
+            modal = .entityEditor
+            showModal = true
+        }
+        
+        func addPayment() {
+            shouldSave = false
+            draftPayment = Payment.empty()
+            modal = .paymentEditor
+            showModal = true
+        }
+        
         return ActionSheet(
             title: Text("Add".uppercased()),
             message: Text("What would you like to add to the Project?"),
             buttons: [
-                .default(Text("Add Entity"), action: {
-                    modal = .entityEditor
-                    showModal = true
-                }),
-                .default(Text("Add Payment"), action: {
-                    modal = .paymentEditor
-                    showModal = true
-                }),
+                .default(Text("Add Entity")) { addEntity() },
+                .default(Text("Add Payment")) { addPayment() },
                 .cancel()
-            ])
+            ]
+        )
+    }
+    
+    private func investmentSection() -> some View {
+        Section(header: Text("Investment & Return".uppercased())) {
+            VStack(spacing: 6) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text("Total Investment")
+                    Spacer()
+                    Text("\(project.totalInflows, specifier: "%.f")")
+                        .font(.system(.subheadline, design: .monospaced))
+                }
+                .foregroundColor(Color(UIColor.systemOrange))
+                
+                if project.totalOutflows >= 0 {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("Return")
+                        Spacer()
+                        Text("\(project.totalOutflows, specifier: "%.f")")
+                            .font(.system(.subheadline, design: .monospaced))
+                    }
+                }
+                
+                HStack(alignment: .firstTextBaseline) {
+                    Text("Net")
+                    Spacer()
+                    Text("\(project.netFlows, specifier: "%.f")")
+                        .font(.system(.subheadline, design: .monospaced))
+                }
+                
+                HStack(alignment: .firstTextBaseline) {
+                    Text("NPV")
+                    Spacer()
+                    Text("\(project.npv(rate: settings.rate), specifier: "%.f")")
+                        .font(.system(.subheadline, design: .monospaced))
+                }
+                .foregroundColor(Color(UIColor.systemTeal))
+            }
+            .padding(.vertical, 3)
+        }
     }
 }
 
@@ -107,6 +187,7 @@ struct ProjectView_Previews: PreviewProvider {
         NavigationView {
             ProjectView(project: Project.natachtari)
                 .environmentObject(Portfolio())
+                .environmentObject(Settings())
         }
         .preferredColorScheme(.dark)
     }

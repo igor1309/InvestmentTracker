@@ -47,7 +47,7 @@ extension Project {
         let date2 = calendar.date(from: DateComponents(year: 2020, month: 02, day: 15))!
         let payment2 = Payment(
             date: date2,
-            amount: 1_000_000,
+            amount: 2_000_000,
             currency: .rub,
             sender: Entity.igor,
             recipient: Entity.progressOOO,
@@ -56,7 +56,7 @@ extension Project {
         let date3 = calendar.date(from: DateComponents(year: 2020, month: 03, day: 20))!
         let payment3 = Payment(
             date: date3,
-            amount: 1_000_000,
+            amount: 3_000_000,
             currency: .rub,
             sender: Entity.igor,
             recipient: Entity.progressOOO,

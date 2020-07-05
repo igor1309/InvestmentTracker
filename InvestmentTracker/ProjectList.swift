@@ -13,7 +13,9 @@ struct ProjectList: View {
     @StateObject var portfolio: Portfolio
     
     @State private var showSettings = false
-    @State private var draft: Project? = nil
+    @State private var showProjectEditor = false
+    @State private var draft: Project = .natachtari
+    @State private var shouldSave = false
     @State private var showAction = false
     
     var body: some View {
@@ -33,28 +35,42 @@ struct ProjectList: View {
             .listStyle(PlainListStyle())
             .navigationTitle("Projects")
             .navigationBarItems(
-                leading: Button {
-                    showSettings = true
-                } label: {
-                    Image(systemName: "gear")
-                },
-                trailing: Button {
-                    draft = Project(name: "New Project", note: "Project Note", entities: [], payments: [])
-                } label: {
-                    Image(systemName: "plus")
-                        .padding([.vertical, .leading])
-                }
-                .sheet(item: $draft) {
-                    draft = nil
-                } content: {
-                    ProjectEditor($0)
-                        .environmentObject(portfolio)
-                }
+                leading: showSettingsButton(),
+                trailing: editProjectButton()
             )
-            .sheet(isPresented: $showSettings, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {
-                SettingsView()
-                    .environmentObject(settings)
+        }
+    }
+    
+    private func showSettingsButton() -> some View {
+        Button {
+            showSettings = true
+        } label: {
+            Image(systemName: "gear")
+        }
+        .sheet(isPresented: $showSettings, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {
+            SettingsView()
+                .environmentObject(settings)
+        }
+    }
+    
+    private func editProjectButton() -> some View {
+        Button {
+            showProjectEditor = true
+            draft = Project(name: "New Project", note: "Project Note", entities: [], payments: [])
+        } label: {
+            Image(systemName: "plus")
+                .padding([.vertical, .leading])
+        }
+        .sheet(isPresented: $showProjectEditor) {
+            //  onDismiss
+            if shouldSave {
+                //  MARK: FINISH THIS
+                
+                shouldSave = false
             }
+        } content: {
+            ProjectEditor(draft: $draft, shouldSave: $shouldSave)
+                .environmentObject(portfolio)
         }
     }
     
@@ -106,7 +122,8 @@ struct ProjectList: View {
         VStack(alignment: .leading, spacing: 3) {
             
             HStack(alignment: .firstTextBaseline) {
-                VStack(alignment: .leading, spacing: 3) {                        Text(project.name)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(project.name)
                         .font(.title3)
                         .bold()
                     
@@ -117,8 +134,9 @@ struct ProjectList: View {
                 
                 Spacer()
                 
-                VStack(alignment: .leading, spacing: 3) {                        Text("\(project.totalInflows, specifier: "%.f")")
-                    .font(.system(.footnote, design: .monospaced))
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("\(project.totalInflows, specifier: "%.f")")
+                        .font(.system(.footnote, design: .monospaced))
                     Text("total investment")
                         .font(.caption2)
                 }
@@ -164,6 +182,7 @@ struct ProjectList: View {
         }
     }
 }
+
 struct ProjectList_Previews: PreviewProvider {
     @StateObject static var portfolio = Portfolio()
     static var previews: some View {

@@ -14,6 +14,26 @@ final class Portfolio: ObservableObject {
     
     //  MARK: Project handling
     
+    func addEntity(_ entity: Entity, to project: Project) {
+        guard let index = projects.firstIndex(matching: project) else { return }
+        
+        projects[index].entities.append(entity)
+    }
+    
+    func addPayment(_ payment: Payment, to project: Project) {
+        guard let index = projects.firstIndex(matching: project) else { return }
+        
+        projects[index].payments.append(payment)
+    }
+    
+    func update(_ project: Project, with draft: Project) {
+        guard let index = projects.firstIndex(matching: project) else { return }
+        
+        if projectIsValid(draft) {
+            projects[index] = draft
+        }
+    }
+    
     func addProject(_ project: Project) -> Bool {
         if projectIsValid(project) {
             projects.append(project)

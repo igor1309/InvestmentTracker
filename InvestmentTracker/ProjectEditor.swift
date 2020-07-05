@@ -11,20 +11,17 @@ import InvestmentDataModel
 struct ProjectEditor: View {
     @EnvironmentObject var portfolio: Portfolio
     
-    @State private var draft: Project
+    @Binding var draft: Project
+    @Binding var shouldSave: Bool
+    
+    
     @State private var showPaymentEditor = false
     @State private var showEntityEditor = false
     @State private var showEntityListEditor = false
     @State private var showAction = false
     
-    @State private var shouldSave = false
-    
     @State private var newEntity = Entity("", note: "")
     @State private var newPayment = Payment.payment01
-    
-    init(_ project: Project){
-        self._draft = State(initialValue: project)
-    }
     
     var body: some View {
         EditorWrapper(draft: $draft, shouldSave: $shouldSave) {
@@ -155,13 +152,7 @@ struct ProjectEditor: View {
     
     private func prepareNewPayment() {
         //  MARK: FINISH THIS
-        newPayment = Payment(
-            date: Date(),
-            amount: 0,
-            currency: .rub,
-            sender: Entity.igor,
-            recipient: Entity.progressOOO,
-            note: "Очередной транш")
+        newPayment = Payment.empty()
         
         showPaymentEditor = true
     }
@@ -199,7 +190,7 @@ struct ProjectEditor: View {
 
 struct ProjectEditor_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectEditor(Project.saperavi)
+        ProjectEditor(draft: .constant(Project.saperavi), shouldSave: .constant(true))
             .environmentObject(Portfolio())
             .preferredColorScheme(.dark)
     }
