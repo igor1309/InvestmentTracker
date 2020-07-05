@@ -13,6 +13,8 @@ struct ProjectView: View {
     
     var project: Project
     
+    @State private var draft: Project = .natachtari
+    
     enum Modal { case entityEditor, paymentEditor, projectEditor }
     
     @State private var modal: Modal = .projectEditor
@@ -23,6 +25,12 @@ struct ProjectView: View {
     var body: some View {
         Form {
             Text(project.note)
+            
+            //  MARK: - FINISH THIS
+            Section {
+                Text("ЗДЕСЬ ФИНАНСОВЫЙ БЛОК ПО ПРОЕКТУ - СМ ProjectList")
+                    .foregroundColor(.orange)
+            }
             
             if !project.entities.isEmpty {
                 Section(header: Text("Entities".uppercased())) {
@@ -54,6 +62,7 @@ struct ProjectView: View {
                         .padding()
                 }
                 Button("Edit") {
+                    draft = project
                     modal = .projectEditor
                     showModal = true
                 }
@@ -97,6 +106,7 @@ struct ProjectView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ProjectView(project: Project.natachtari)
+                .environmentObject(Portfolio())
         }
         .preferredColorScheme(.dark)
     }
