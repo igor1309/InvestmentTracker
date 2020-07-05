@@ -11,15 +11,18 @@ struct EditorWrapper<T, Editor: View>: View {
     @Environment(\.presentationMode) var presentation
     
     @Binding var draft: T
+//    @Binding var canSave: Bool
     @Binding var shouldSave: Bool
     
     var editor: Editor
     
     init(draft: Binding<T>,
+//         canSave: Binding<Bool>,
          shouldSave: Binding<Bool>,
          @ViewBuilder editor: () -> Editor
     ) {
         self._draft = draft
+//        self._canSave = canSave
         self._shouldSave = shouldSave
         self.editor = editor()
     }
@@ -39,6 +42,7 @@ struct EditorWrapper<T, Editor: View>: View {
                         shouldSave = true
                         presentation.wrappedValue.dismiss()
                     }
+//                    .disabled(!canSave)
                 )
         }
     }

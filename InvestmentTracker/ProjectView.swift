@@ -28,6 +28,7 @@ struct ProjectView: View {
     @State private var showModal = false
     
     @State private var showAddAction = false
+    @State private var showDeleteAction = false
     
     var body: some View {
         Form {
@@ -49,6 +50,17 @@ struct ProjectView: View {
                                 .environmentObject(portfolio)
                         ) {
                             PaymentRow(payment: payment)
+                                .contextMenu {
+                                    Button {
+                                        showDeleteAction = true
+                                    } label: {
+                                        Image(systemName: "trash")
+                                        Text("Delete")
+                                    }
+                                    .actionSheet(isPresented: $showDeleteAction) {
+                                        deleteActionSheet(payment)
+                                    }
+                                }
                         }
                     }
                 }
@@ -69,17 +81,41 @@ struct ProjectView: View {
         )
     }
     
+    private func deleteActionSheet(_ payment: Payment) -> ActionSheet {
+        ActionSheet(
+            title: Text("Delete?".uppercased()),
+            message: Text("Do you really want to delete this Payment of \(payment.currency.symbol)\(payment.amount, specifier: "%.f") on \(payment.date.toString())?\nThis operation cannot be undone."),
+            buttons: [
+                .destructive(Text("Yes, delete")) {
+                    withAnimation {
+                        portfolio.deletePayment(payment, from: project)
+                    }
+                },
+                .cancel()
+            ])
+    }
+    
     private func handleEditors() {
         if shouldSave {
             switch modal {
             case .projectEditor:
                 if draft != project {
-                    portfolio.update(project, with: draft)
+                    withAnimation {
+                        portfolio.update(project, with: draft)
+                    }
                 }
             case .entityEditor:
-                portfolio.addEntity(draftEntity, to: project)
+                withAnimation {
+                    portfolio.addEntity(draftEntity, to: project)
+                }
             case .paymentEditor:
-                portfolio.addPayment(draftPayment, to: project)
+                withAnimation {
+                    if portfolio.addPayment(draftPayment, to: project) {
+                        print("payment added ok")
+                    } else {
+                        print("error adding payment")
+                    }
+                }
             }
             
             shouldSave = false
@@ -90,8 +126,10 @@ struct ProjectView: View {
         switch modal {
         case .entityEditor:
             EntityEditor(entity: $draftEntity, shouldSave: $shouldSave)
+                .environmentObject(portfolio)
         case .paymentEditor:
             PaymentEditor(draft: $draftPayment, shouldSave: $shouldSave)
+                .environmentObject(portfolio)
         case .projectEditor:
             ProjectEditor(draft: $draft, shouldSave: $shouldSave)
                 .environmentObject(portfolio)

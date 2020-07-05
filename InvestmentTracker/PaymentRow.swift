@@ -16,11 +16,13 @@ struct PaymentRow: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .firstTextBaseline) {
                 Text(payment.date.toString())
+                    .font(.system(.footnote, design: .monospaced))
                 
                 Spacer()
                 
                 VStack(alignment: .trailing) {
                     Text("\(payment.currency.symbol)\(payment.amount, specifier: "%.f")")
+                        .font(.system(.footnote, design: .monospaced))
                 }
             }
             .font(.subheadline)

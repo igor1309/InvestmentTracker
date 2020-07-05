@@ -88,7 +88,8 @@ struct ProjectEditor: View {
     private func deleteConfirmationActionSheet() -> ActionSheet {
         ActionSheet(
             title: Text("Delete?".uppercased()),
-            message: Text("Do you really want to delete this payment?\nThis action cannot be undone."), buttons: [
+            message: Text("Do you really want to delete this payment?\nThis action cannot be undone."),
+            buttons: [
                 .destructive(Text("Yes, delete"), action: {
                     //  MARK: FINISH THIS
                     //  using @State private var offsets: IndexSet

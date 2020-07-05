@@ -20,10 +20,27 @@ final class Portfolio: ObservableObject {
         projects[index].entities.append(entity)
     }
     
-    func addPayment(_ payment: Payment, to project: Project) {
+    func addPayment(_ payment: Payment, to project: Project) -> Bool {
+        guard let index = projects.firstIndex(matching: project) else { return false }
+        
+        if paymentIsValid(payment) {
+            projects[index].payments.append(payment)
+            return true
+        }
+        
+        return false
+    }
+    
+    private func paymentIsValid(_ payment: Payment) -> Bool {
+        !(payment.amount != 0) && !payment.sender.name.isEmpty && !payment.recipient.name.isEmpty
+    }
+    
+    func deletePayment(_ payment: Payment, from project: Project) {
         guard let index = projects.firstIndex(matching: project) else { return }
         
-        projects[index].payments.append(payment)
+        guard let paymentIndex = projects[index].payments.firstIndex(matching: payment) else { return }
+        
+        projects[index].payments.remove(at: paymentIndex)
     }
     
     func update(_ project: Project, with draft: Project) {
