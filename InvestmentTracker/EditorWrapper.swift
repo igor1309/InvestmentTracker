@@ -19,7 +19,7 @@ struct EditorWrapper<T, Editor: View>: View {
     init(draft: Binding<T>,
 //         canSave: Binding<Bool>,
          shouldSave: Binding<Bool>,
-         @ViewBuilder editor: () -> Editor
+         @ViewBuilder editor: @escaping () -> Editor
     ) {
         self._draft = draft
 //        self._canSave = canSave

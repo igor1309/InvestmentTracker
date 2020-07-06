@@ -84,7 +84,7 @@ struct ProjectView: View {
     private func deleteActionSheet(_ payment: Payment) -> ActionSheet {
         ActionSheet(
             title: Text("Delete?".uppercased()),
-            message: Text("Do you really want to delete this Payment of \(payment.currency.symbol)\(payment.amount, specifier: "%.f") on \(payment.date.toString())?\nThis operation cannot be undone."),
+            message: Text("Do you really want to delete this Payment of \(payment.currency.symbol)\(payment.amount, specifier: "%.f") on \(payment.date, style: .date)?\nThis operation cannot be undone."),
             buttons: [
                 .destructive(Text("Yes, delete")) {
                     withAnimation {

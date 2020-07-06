@@ -15,7 +15,7 @@ struct PaymentRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .firstTextBaseline) {
-                Text(payment.date.toString())
+                Text(payment.date, style: .date)
                     .font(.system(.footnote, design: .monospaced))
                 
                 Spacer()

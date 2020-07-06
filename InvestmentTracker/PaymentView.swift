@@ -21,7 +21,7 @@ struct PaymentView: View {
             HStack {
                 Text("Payment Date").foregroundColor(.secondary)
                 Spacer()
-                Text(payment.date.toString())
+                Text(payment.date, style: .date)
             }
             HStack {
                 Text("Amount").foregroundColor(.secondary)

@@ -35,8 +35,30 @@ struct ProjectList: View {
             .listStyle(PlainListStyle())
             .navigationTitle("Projects")
             .navigationBarItems(
-                leading: showSettingsButton(),
-                trailing: editProjectButton()
+                leading: showSettingsButton()
+                    .sheet(isPresented: $showSettings) {
+                        SettingsView()
+                            .environmentObject(settings)
+                    }
+                ,
+                trailing: plusButton()
+                    .sheet(isPresented: $showProjectEditor) {
+                        //  onDismiss
+                        if shouldSave {
+                            //  MARK: FINISH THIS
+                            withAnimation {
+                                if portfolio.addProject(draft) {
+                                    print("projext added ok")
+                                } else {
+                                    print("error adding project")
+                                }
+                            }
+                            shouldSave = false
+                        }
+                    } content: {
+                        ProjectEditor(draft: $draft, shouldSave: $shouldSave)
+                            .environmentObject(portfolio)
+                    }
             )
         }
     }
@@ -47,30 +69,15 @@ struct ProjectList: View {
         } label: {
             Image(systemName: "gear")
         }
-        .sheet(isPresented: $showSettings, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {
-            SettingsView()
-                .environmentObject(settings)
-        }
     }
     
-    private func editProjectButton() -> some View {
+    private func plusButton() -> some View {
         Button {
             showProjectEditor = true
             draft = Project(name: "New Project", note: "Project Note", entities: [], payments: [])
         } label: {
             Image(systemName: "plus")
                 .padding([.vertical, .leading])
-        }
-        .sheet(isPresented: $showProjectEditor) {
-            //  onDismiss
-            if shouldSave {
-                //  MARK: FINISH THIS
-                
-                shouldSave = false
-            }
-        } content: {
-            ProjectEditor(draft: $draft, shouldSave: $shouldSave)
-                .environmentObject(portfolio)
         }
     }
     

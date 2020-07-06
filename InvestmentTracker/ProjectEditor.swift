@@ -175,7 +175,7 @@ struct ProjectEditor: View {
         .actionSheet(isPresented: $showAction) {
             ActionSheet(
                 title: Text("Delete?".uppercased()),
-                message: Text("Delete \(payment.amount, specifier: "%.f") payment on \(payment.date.toString()) from \(payment.sender.name) to \(payment.recipient.name)?\nThis action cannot be undone."),
+                message: Text("Delete \(payment.amount, specifier: "%.f") payment on \(payment.date, style: .date) from \(payment.sender.name) to \(payment.recipient.name)?\nThis action cannot be undone."),
                 buttons: [
                     .destructive(Text("Yes, delete"), action: {
                         //  MARK: FINISH THIS
