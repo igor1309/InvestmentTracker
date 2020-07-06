@@ -9,60 +9,6 @@ import SwiftUI
 import Combine
 import InvestmentDataModel
 
-extension Project {
-    
-    //  MARK: - Validation
-    
-    func isValidProject() -> Bool {
-        !name.isEmpty && !note.isEmpty
-    }
-    
-    //  MARK: - Entity Handling
-    
-    mutating func addEntity(_ entity: Entity) -> Bool {
-        if entity.isValidEntity() {
-            entities.append(entity)
-            return true
-        }
-        return false
-    }
-    
-    mutating func deleteEntity(_ entity: Entity) {
-        guard let index = entities.firstIndex(matching: entity) else { return }
-        
-        entities.remove(at: index)
-    }
-    
-    //  MARK: - Payment Handling
-    mutating func addPayment(_ payment: Payment) -> Bool {
-        if payment.isValidPayment() {
-            payments.append(payment)
-            return true
-        }
-        return false
-    }
-    
-    mutating func deletePayment(_ payment: Payment) {
-        guard let index = payments.firstIndex(matching: payment) else { return }
-        
-        payments.remove(at: index)
-    }
-
-}
-
-extension Payment {
-    func isValidPayment() -> Bool {
-        !(amount != 0) && !sender.name.isEmpty && !recipient.name.isEmpty
-    }
-}
-
-extension Entity {
-    func isValidEntity() -> Bool {
-        !name.isEmpty
-    }
-}
-    
-
 final class Portfolio: ObservableObject {
     @Published private(set) var projects: [Project] = Project.projects
     
@@ -130,7 +76,7 @@ final class Portfolio: ObservableObject {
     func update(_ project: Project, with draft: Project) -> Bool {
         guard let index = projects.firstIndex(matching: project) else { return false }
         
-        if draft.isValidProject() {
+        if draft.isValid {
             projects[index] = draft
             return true
         }
@@ -138,7 +84,7 @@ final class Portfolio: ObservableObject {
     }
     
     func addProject(_ project: Project) -> Bool {
-        if project.isValidProject() {
+        if project.isValid {
             projects.append(project)
             return true
         }

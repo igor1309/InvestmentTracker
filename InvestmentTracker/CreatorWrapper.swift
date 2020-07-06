@@ -1,5 +1,5 @@
 //
-//  EditorWrapper.swift
+//  CreatorWrapper.swift
 //  InvestmentTracker
 //
 //  Created by Igor Malyarov on 06.07.2020.
@@ -8,22 +8,22 @@
 import SwiftUI
 import InvestmentDataModel
 
-struct EditorWrapper<T: Validatable, Editor: View>: View {
+struct CreatorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
     
-    @Binding var original: T
+    @Binding var original: T?
     @Binding var isPresented: Bool
     
     let editor: (Binding<T>) -> Editor
     
     @State private var draft: T
     
-    init(draft: Binding<T>,
+    init(draft: Binding<T?>,
          isPresented: Binding<Bool>,
          editor: @escaping (Binding<T>) -> Editor
     ) {
         self._original = draft
         self._isPresented = isPresented
-        self._draft = State(initialValue: draft.wrappedValue)
+        self._draft = State(initialValue: draft.wrappedValue == nil ? T.init() : draft.wrappedValue!)
         self.editor = editor
     }
     
@@ -35,6 +35,7 @@ struct EditorWrapper<T: Validatable, Editor: View>: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(
                     leading: Button("Cancel") {
+                        original = nil
                         isPresented = false
                     },
                     trailing: Button("Save") {
@@ -47,33 +48,39 @@ struct EditorWrapper<T: Validatable, Editor: View>: View {
     }
 }
 
-struct EditorWrapperTest: View {
-    @State private var original = Entity("Some Entity", note: "some text as note here")
+struct CreatorWrapperTest: View {
+    @State private var original: Entity? = nil
     @State private var isPresented = false
     
     var body: some View {
         VStack {
-            Text(original.name)
-            Text(original.note)
-            
-            Button("Edit Entity") {
+            Text(original?.name ?? "--")
+            Button("Create New Entity") {
+                original = Entity()
                 isPresented = true
             }
             .sheet(isPresented: $isPresented) {
-                EditorWrapper(draft: $original, isPresented: $isPresented) { draft in
-                    Form {
-                        TextField("Name", text: draft.name)
-                        TextField("Note", text: draft.note)
-                    }
-                    .navigationTitle("Edit")
+                if original == nil {
+                    print("nothing was created")
+                } else {
+                    print("Entity with name '\(original!.name)' was created")
                 }
-            }
+            } content: {
+                CreatorWrapper(draft: $original, isPresented: $isPresented) { draft in
+                    Form {
+                        TextField("Text", text: draft.name)
+                    }
+                    .navigationTitle("Add")
+                }
+        }
         }
     }
 }
 
-struct EditorWrapper_Previews: PreviewProvider {
+
+
+struct CreatorWrapper_Previews: PreviewProvider {
     static var previews: some View {
-        EditorWrapperTest()
+        CreatorWrapperTest()
     }
 }

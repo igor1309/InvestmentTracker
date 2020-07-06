@@ -19,7 +19,7 @@ struct AddProject: View {
     @State private var showEntityEditor = false
     @State private var showEntityListEditor = false
     
-    @State private var newEntity = Entity.empty()
+    @State private var newEntity = Entity()
     
     var body: some View {
         NavigationView {
@@ -68,7 +68,7 @@ struct AddProject: View {
                     isPresented = false
 //                    presentation.wrappedValue.dismiss()
                 }
-                .disabled(!draft.isValidProject())
+                .disabled(!draft.isValid)
             )
         }
     }
@@ -110,7 +110,7 @@ struct AddProject: View {
     
     private func prepareNewEntity() {
         //  MARK: FINISH THIS
-        newEntity = Entity.empty()
+        newEntity = Entity()
         showEntityEditor = true
     }
     
@@ -118,7 +118,7 @@ struct AddProject: View {
 }
 
 struct AddProject_Previews: PreviewProvider {
-    @State static var project = Project.empty()
+    @State static var project = Project()
     @State static var isPresented = false
     @State static var shouldSave = false
     

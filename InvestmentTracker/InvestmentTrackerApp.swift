@@ -11,6 +11,8 @@ import SwiftUI
 struct InvestmentTrackerApp: App {
     var body: some Scene {
         WindowGroup {
+            //EditorWrapperTest()
+            //CreatorWrapperTest()
             ContentView()
         }
     }

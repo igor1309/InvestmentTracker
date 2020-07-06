@@ -20,8 +20,8 @@ struct ProjectEditor: View {
     @State private var showEntityListEditor = false
     @State private var showAction = false
     
-    @State private var newEntity = Entity.empty()
-    @State private var newPayment = Payment.empty()
+    @State private var newEntity = Entity.init()
+    @State private var newPayment = Payment.init()
     
     var body: some View {
         EditorWrapperOld(draft: $draft, shouldSave: $shouldSave) {
@@ -156,7 +156,7 @@ struct ProjectEditor: View {
     
     private func prepareNewPayment() {
         //  MARK: FINISH THIS
-        newPayment = Payment.empty()
+        newPayment = Payment.init()
         
         showPaymentEditor = true
     }

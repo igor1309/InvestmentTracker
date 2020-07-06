@@ -32,8 +32,8 @@ struct ProjectView: View {
     let project: Project
     
     @State private var draft: Project = .natachtari
-    @State private var draftEntity: Entity = .empty()
-    @State private var draftPayment: Payment = .empty()
+    @State private var draftEntity: Entity = .init()
+    @State private var draftPayment: Payment = .init()
     @State private var shouldSave = false
     
     enum Modal { case entityEditor, paymentEditor, projectEditor }
@@ -190,7 +190,7 @@ struct ProjectView: View {
         
         func addPayment() {
             shouldSave = false
-            draftPayment = Payment.empty()
+            draftPayment = Payment()
             modal = .paymentEditor
             showModal = true
         }

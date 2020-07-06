@@ -89,7 +89,7 @@ struct ProjectList: View {
     
     private var plusButton: some View {
         Button {
-            draft = Project.empty()
+            draft = Project()
             showProjectEditor = true
         } label: {
             Image(systemName: "plus")
