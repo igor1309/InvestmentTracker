@@ -48,8 +48,15 @@ struct EditorWrapper<T: Validatable, Editor: View>: View {
 }
 
 struct EditorWrapperTest: View {
-    @State private var original = Entity("Some Entity", note: "some text as note here")
+    var entity: Entity
+    
+    @State private var original: Entity
     @State private var isPresented = false
+    
+    init(entity: Entity) {
+        self.entity  = entity
+        self._original = State(initialValue: entity)
+    }
     
     var body: some View {
         VStack {
@@ -74,6 +81,6 @@ struct EditorWrapperTest: View {
 
 struct EditorWrapper_Previews: PreviewProvider {
     static var previews: some View {
-        EditorWrapperTest()
+        EditorWrapperTest(entity: Entity("Some Entity", note: "some text as note here"))
     }
 }
