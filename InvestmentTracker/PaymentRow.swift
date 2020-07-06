@@ -10,7 +10,8 @@ import InvestmentDataModel
 
 struct PaymentRow: View {
     @EnvironmentObject var portfolio: Portfolio
-    var payment: Payment
+    
+    let payment: Payment
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {

@@ -8,6 +8,14 @@
 import SwiftUI
 import InvestmentDataModel
 
+extension Payment: Comparable {
+    public static func < (lhs: Payment, rhs: Payment) -> Bool {
+        lhs.date < rhs.date
+    }
+    
+    
+}
+
 struct ProjectView: View {
     //  need it here to fix error with dismissing modal by buttons in EditorWrapper
     @Environment(\.presentationMode) var presentation
@@ -15,7 +23,7 @@ struct ProjectView: View {
     @EnvironmentObject var portfolio: Portfolio
     @EnvironmentObject var settings: Settings
     
-    var project: Project
+    let project: Project
     
     @State private var draft: Project = .natachtari
     @State private var draftEntity: Entity = .empty()
@@ -43,8 +51,10 @@ struct ProjectView: View {
             }
             
             if !project.payments.isEmpty {
-                Section(header: Text("Payments".uppercased())) {
-                    ForEach(project.payments.sorted(by: { $0.date < $1.date })) { payment in
+                Section(
+                    header: Text("Payments".uppercased())
+                ) {
+                    ForEach(project.payments.sorted(by: >)) { payment in
                         NavigationLink(
                             destination: PaymentView(payment: payment)
                                 .environmentObject(portfolio)

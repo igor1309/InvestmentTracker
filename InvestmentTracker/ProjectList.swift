@@ -21,18 +21,24 @@ struct ProjectList: View {
     var body: some View {
         NavigationView {
             List {
-                allProjectsTotals()
-                
-                ForEach(portfolio.projects) { project in
-                    NavigationLink(
-                        destination: ProjectView(project: project)
-                            .environmentObject(portfolio)
-                    ) {
-                        projectRow(project)
+                Section(
+                    header: allProjectsTotals()
+                        .textCase(.none)
+                ) {
+                    ForEach(portfolio.projects) { project in
+                        NavigationLink(
+                            destination: ProjectView(project: project)
+                                .environmentObject(portfolio)
+                        ) {
+                            projectRow(project)
+                        }
                     }
                 }
             }
-            .listStyle(PlainListStyle())
+            .onAppear {
+                UITableView.appearance().backgroundColor = UIColor(named: "Background")
+            }
+            .listStyle(InsetGroupedListStyle())
             .navigationTitle("Projects")
             .navigationBarItems(
                 leading: showSettingsButton()
@@ -121,6 +127,11 @@ struct ProjectList: View {
                     .font(.system(.footnote, design: .monospaced))
             }
             .foregroundColor(Color(UIColor.systemTeal))
+            
+            Text("Projects:")
+                .foregroundColor(.primary)
+                .font(.headline)
+                .padding(.top)
         }
         .font(.footnote)
     }
@@ -141,7 +152,7 @@ struct ProjectList: View {
                 
                 Spacer()
                 
-                VStack(alignment: .leading, spacing: 3) {
+                VStack(alignment: .trailing, spacing: 3) {
                     Text("\(project.totalInflows, specifier: "%.f")")
                         .font(.system(.footnote, design: .monospaced))
                     Text("total investment")

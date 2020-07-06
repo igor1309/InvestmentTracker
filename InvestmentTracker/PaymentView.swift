@@ -10,7 +10,8 @@ import InvestmentDataModel
 
 struct PaymentView: View {
     @EnvironmentObject var portfolio: Portfolio
-    var payment: Payment
+    
+    let payment: Payment
 
     @State private var draft: Payment = Payment.payment01
     @State private var shouldSave = false

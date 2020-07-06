@@ -14,7 +14,7 @@ struct EditorWrapper<T, Editor: View>: View {
 //    @Binding var canSave: Bool
     @Binding var shouldSave: Bool
     
-    var editor: Editor
+    let editor: Editor
     
     init(draft: Binding<T>,
 //         canSave: Binding<Bool>,
