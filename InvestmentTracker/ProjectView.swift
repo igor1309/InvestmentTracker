@@ -12,9 +12,15 @@ extension Payment: Comparable {
     public static func < (lhs: Payment, rhs: Payment) -> Bool {
         lhs.date < rhs.date
     }
-    
-    
 }
+
+//  MARK: USE THIS in ActionSheet message after figuring out how to format date and amount
+//extension Payment: CustomStringConvertible {
+//    public var description: String {
+//        "Payment of \(currency.symbol)\(amount, specifier: "%.f") on \(date, style: .date) from \(sender.name) to \(recipient.name)"
+//    }
+//}
+
 
 struct ProjectView: View {
     //  need it here to fix error with dismissing modal by buttons in EditorWrapper
@@ -107,23 +113,33 @@ struct ProjectView: View {
     
     private func handleEditors() {
         if shouldSave {
+            let generator = UINotificationFeedbackGenerator()
+            
             switch modal {
             case .projectEditor:
                 if draft != project {
                     withAnimation {
-                        portfolio.update(project, with: draft)
+                        if portfolio.update(project, with: draft) {
+                            generator.notificationOccurred(.success)
+                        } else {
+                            generator.notificationOccurred(.error)
+                        }
                     }
                 }
             case .entityEditor:
                 withAnimation {
-                    portfolio.addEntity(draftEntity, to: project)
+                    if portfolio.addEntity(draftEntity, to: project) {
+                        generator.notificationOccurred(.success)
+                    } else {
+                        generator.notificationOccurred(.error)
+                    }
                 }
             case .paymentEditor:
                 withAnimation {
                     if portfolio.addPayment(draftPayment, to: project) {
-                        print("payment added ok")
+                        generator.notificationOccurred(.success)
                     } else {
-                        print("error adding payment")
+                        generator.notificationOccurred(.error)
                     }
                 }
             }

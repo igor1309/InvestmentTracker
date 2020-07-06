@@ -22,7 +22,7 @@ struct ProjectList: View {
         NavigationView {
             List {
                 Section(
-                    header: allProjectsTotals()
+                    header: allProjectsTotals
                         .textCase(.none)
                 ) {
                     ForEach(portfolio.projects) { project in
@@ -41,35 +41,45 @@ struct ProjectList: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Projects")
             .navigationBarItems(
-                leading: showSettingsButton()
+                leading: showSettingsButton
                     .sheet(isPresented: $showSettings) {
                         SettingsView()
                             .environmentObject(settings)
                     }
                 ,
-                trailing: plusButton()
+                trailing: plusButton
                     .sheet(isPresented: $showProjectEditor) {
                         //  onDismiss
-                        if shouldSave {
-                            //  MARK: FINISH THIS
-                            withAnimation {
-                                if portfolio.addProject(draft) {
-                                    print("projext added ok")
-                                } else {
-                                    print("error adding project")
-                                }
-                            }
-                            shouldSave = false
-                        }
+                        handleProjectEditor()
                     } content: {
-                        ProjectEditor(draft: $draft, shouldSave: $shouldSave)
-                            .environmentObject(portfolio)
+                        AddProject(
+                            draft: $draft,
+                            isPresented: $showProjectEditor,
+                            shouldSave: $shouldSave
+                        )
+                        .environmentObject(portfolio)
                     }
             )
         }
     }
     
-    private func showSettingsButton() -> some View {
+    private func handleProjectEditor() {
+        if shouldSave {
+            let generator = UINotificationFeedbackGenerator()
+            withAnimation {
+                if portfolio.addProject(draft) {
+                    print("project added ok")
+                    generator.notificationOccurred(.success)
+                } else {
+                    print("error adding project")
+                    generator.notificationOccurred(.error)
+                }
+            }
+            shouldSave = false
+        }
+    }
+    
+    private var showSettingsButton: some View {
         Button {
             showSettings = true
         } label: {
@@ -77,17 +87,17 @@ struct ProjectList: View {
         }
     }
     
-    private func plusButton() -> some View {
+    private var plusButton: some View {
         Button {
+            draft = Project.empty()
             showProjectEditor = true
-            draft = Project(name: "New Project", note: "Project Note", entities: [], payments: [])
         } label: {
             Image(systemName: "plus")
                 .padding([.vertical, .leading])
         }
     }
     
-    private func allProjectsTotals() -> some View {
+    private var allProjectsTotals: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(alignment: .firstTextBaseline) {
                 Text("No of Projects")

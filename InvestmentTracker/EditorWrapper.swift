@@ -2,49 +2,70 @@
 //  EditorWrapper.swift
 //  InvestmentTracker
 //
-//  Created by Igor Malyarov on 05.07.2020.
+//  Created by Igor Malyarov on 06.07.2020.
 //
 
 import SwiftUI
 
 struct EditorWrapper<T, Editor: View>: View {
-    @Environment(\.presentationMode) var presentation
     
-    @Binding var draft: T
-//    @Binding var canSave: Bool
-    @Binding var shouldSave: Bool
+    @Binding var original: T
+    @Binding var isPresented: Bool
     
-    let editor: Editor
+    let editor: (Binding<T>) -> Editor
+    
+    @State private var draft: T
     
     init(draft: Binding<T>,
-//         canSave: Binding<Bool>,
-         shouldSave: Binding<Bool>,
-         @ViewBuilder editor: @escaping () -> Editor
+         isPresented: Binding<Bool>,
+         editor: @escaping (Binding<T>) -> Editor
     ) {
-        self._draft = draft
-//        self._canSave = canSave
-        self._shouldSave = shouldSave
-        self.editor = editor()
+        self._original = draft
+        self._isPresented = isPresented
+        self._draft = State(initialValue: draft.wrappedValue)
+        self.editor = editor
     }
     
     var body: some View {
         NavigationView {
             
-            editor
+            editor($draft)
                 
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(
                     leading: Button("Cancel") {
-                        shouldSave = false
-                        presentation.wrappedValue.dismiss()
+                        isPresented = false
                     },
                     trailing: Button("Save") {
-                        shouldSave = true
-                        presentation.wrappedValue.dismiss()
+                        original = draft
+                        isPresented = false
                     }
-//                    .disabled(!canSave)
                 )
         }
     }
 }
 
+struct EditorWrapperTest: View {
+    @State private var text: String = "Test String"
+    @State private var isPresented = false
+    
+    var body: some View {
+        Button("Edit \(text)") {
+            isPresented = true
+        }
+        .sheet(isPresented: $isPresented) {
+            EditorWrapper(draft: $text, isPresented: $isPresented) { draft in
+                Form {
+                    TextField("Text", text: draft)
+                }
+                .navigationTitle("Editor")
+            }
+        }
+    }
+}
+
+struct EditorWrapper_Previews: PreviewProvider {
+    static var previews: some View {
+        EditorWrapperTest()
+    }
+}

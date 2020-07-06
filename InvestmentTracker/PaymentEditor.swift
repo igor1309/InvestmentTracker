@@ -19,7 +19,7 @@ struct PaymentEditor: View {
     @Binding var shouldSave: Bool
     
     var body: some View {
-        EditorWrapper(draft: $draft, shouldSave: $shouldSave) {
+        EditorWrapperOld(draft: $draft, shouldSave: $shouldSave) {
             List {
                 DatePicker("Payment Date", selection: $draft.date, displayedComponents: .date)
                 

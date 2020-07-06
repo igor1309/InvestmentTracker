@@ -28,7 +28,7 @@ struct PaymentRow: View {
             }
             .font(.subheadline)
             
-            Group {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("from \(payment.sender.name) to \(payment.recipient.name)")
                 Text(payment.note)
             }

@@ -6,61 +6,143 @@
 //
 
 import SwiftUI
+import Combine
 import InvestmentDataModel
+
+extension Project {
+    
+    //  MARK: - Validation
+    
+    func isValidProject() -> Bool {
+        !name.isEmpty && !note.isEmpty
+    }
+    
+    //  MARK: - Entity Handling
+    
+    mutating func addEntity(_ entity: Entity) -> Bool {
+        if entity.isValidEntity() {
+            entities.append(entity)
+            return true
+        }
+        return false
+    }
+    
+    mutating func deleteEntity(_ entity: Entity) {
+        guard let index = entities.firstIndex(matching: entity) else { return }
+        
+        entities.remove(at: index)
+    }
+    
+    //  MARK: - Payment Handling
+    mutating func addPayment(_ payment: Payment) -> Bool {
+        if payment.isValidPayment() {
+            payments.append(payment)
+            return true
+        }
+        return false
+    }
+    
+    mutating func deletePayment(_ payment: Payment) {
+        guard let index = payments.firstIndex(matching: payment) else { return }
+        
+        payments.remove(at: index)
+    }
+
+}
+
+extension Payment {
+    func isValidPayment() -> Bool {
+        !(amount != 0) && !sender.name.isEmpty && !recipient.name.isEmpty
+    }
+}
+
+extension Entity {
+    func isValidEntity() -> Bool {
+        !name.isEmpty
+    }
+}
+    
 
 final class Portfolio: ObservableObject {
     @Published private(set) var projects: [Project] = Project.projects
     
+    init() {
+        //  MARK: Add loading projects from JSON
+        
+        $projects
+            .removeDuplicates()
+            .subscribe(on: DispatchQueue.global())
+            .sink { [weak self] in
+                self?.save($0)
+            }
+            .store(in: &cancellables)
+    }
     
-    //  MARK: Project handling
+    private var cancellables = Set<AnyCancellable>()
     
-    func addEntity(_ entity: Entity, to project: Project) {
+    deinit {
+        for cancell in cancellables {
+            cancell.cancel()
+        }
+    }
+    
+    //  MARK: Load & Save
+    //  MARK: - FINISH THIS!!!
+    
+    private func load() {
+        
+    }
+    
+    private func save(_ projects: [Project]) {
+        
+    }
+    
+    //  MARK: - Entity handling
+    
+    func addEntity(_ entity: Entity, to project: Project) -> Bool {
+        guard let index = projects.firstIndex(matching: project) else { return false }
+        
+        return projects[index].addEntity(entity)
+    }
+    
+    func deleteEntity(_ entity: Entity, from project: Project) {
         guard let index = projects.firstIndex(matching: project) else { return }
         
-        projects[index].entities.append(entity)
+        projects[index].deleteEntity(entity)
     }
+
+    //  MARK: - Payment handling
     
     func addPayment(_ payment: Payment, to project: Project) -> Bool {
         guard let index = projects.firstIndex(matching: project) else { return false }
         
-        if paymentIsValid(payment) {
-            projects[index].payments.append(payment)
-            return true
-        }
-        
-        return false
-    }
-    
-    private func paymentIsValid(_ payment: Payment) -> Bool {
-        !(payment.amount != 0) && !payment.sender.name.isEmpty && !payment.recipient.name.isEmpty
+        return projects[index].addPayment(payment)
     }
     
     func deletePayment(_ payment: Payment, from project: Project) {
         guard let index = projects.firstIndex(matching: project) else { return }
         
-        guard let paymentIndex = projects[index].payments.firstIndex(matching: payment) else { return }
-        
-        projects[index].payments.remove(at: paymentIndex)
+        projects[index].deletePayment(payment)
     }
     
-    func update(_ project: Project, with draft: Project) {
-        guard let index = projects.firstIndex(matching: project) else { return }
+    //  MARK: - Project handling
+    
+    func update(_ project: Project, with draft: Project) -> Bool {
+        guard let index = projects.firstIndex(matching: project) else { return false }
         
-        if projectIsValid(draft) {
+        if draft.isValidProject() {
             projects[index] = draft
-        }
-    }
-    
-    func addProject(_ project: Project) -> Bool {
-        if projectIsValid(project) {
-            projects.append(project)
             return true
         }
         return false
     }
     
-    private func projectIsValid(_ project: Project) -> Bool {
-        !project.name.isEmpty && !project.note.isEmpty
+    func addProject(_ project: Project) -> Bool {
+        if project.isValidProject() {
+            projects.append(project)
+            return true
+        }
+        return false
     }
     
     func deleteProject(_ project: Project) {

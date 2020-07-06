@@ -20,11 +20,11 @@ struct ProjectEditor: View {
     @State private var showEntityListEditor = false
     @State private var showAction = false
     
-    @State private var newEntity = Entity("", note: "")
-    @State private var newPayment = Payment.payment01
+    @State private var newEntity = Entity.empty()
+    @State private var newPayment = Payment.empty()
     
     var body: some View {
-        EditorWrapper(draft: $draft, shouldSave: $shouldSave) {
+        EditorWrapperOld(draft: $draft, shouldSave: $shouldSave) {
             Form {
                 Section {
                     TextField("Project Name", text: $draft.name)
@@ -57,6 +57,8 @@ struct ProjectEditor: View {
                     }
                 }
                 
+                //  MARK: DECIDE LATER
+                /*
                 Section(header: Text("Payments".uppercased())) {
                     Button {
                         prepareNewPayment()
@@ -77,6 +79,7 @@ struct ProjectEditor: View {
                         deleteConfirmationActionSheet()
                     }
                 }
+                */
             }
             .navigationTitle("Edit Project")
         }

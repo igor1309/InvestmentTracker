@@ -14,7 +14,7 @@ struct EntityEditor: View {
     @Binding var shouldSave: Bool
     
     var body: some View {
-        EditorWrapper(draft: $entity, shouldSave: $shouldSave) {
+        EditorWrapperOld(draft: $entity, shouldSave: $shouldSave) {
             Form {
                 TextField("Entity Name", text: $entity.name)
                 TextField("Note", text: $entity.note)
