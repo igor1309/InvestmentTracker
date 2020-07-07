@@ -36,9 +36,9 @@ struct ProjectView: View {
     @State private var draftPayment: Payment = .init()
     @State private var shouldSave = false
     
-    enum Modal { case entityEditor, paymentEditor, projectEditor }
+    enum Modal { case entityEditor, paymentEditor, projectEditor, projectEditorOLD }
     
-    @State private var modal: Modal = .projectEditor
+    @State private var modal: Modal = .projectEditorOLD
     @State private var showModal = false
     
     @State private var showAddAction = false
@@ -112,40 +112,48 @@ struct ProjectView: View {
     }
     
     private func handleEditors() {
-        if shouldSave {
-            let generator = UINotificationFeedbackGenerator()
-            
-            switch modal {
-            case .projectEditor:
-                if draft != project {
-                    withAnimation {
-                        if portfolio.update(project, with: draft) {
-                            generator.notificationOccurred(.success)
-                        } else {
-                            generator.notificationOccurred(.error)
-                        }
-                    }
-                }
-            case .entityEditor:
+        let generator = UINotificationFeedbackGenerator()
+        
+        switch modal {
+        case .projectEditor:
+            if draft != project {
                 withAnimation {
-                    if portfolio.addEntity(draftEntity, to: project) {
-                        generator.notificationOccurred(.success)
-                    } else {
-                        generator.notificationOccurred(.error)
-                    }
-                }
-            case .paymentEditor:
-                withAnimation {
-                    if portfolio.addPayment(draftPayment, to: project) {
+                    if portfolio.update(project, with: draft) {
                         generator.notificationOccurred(.success)
                     } else {
                         generator.notificationOccurred(.error)
                     }
                 }
             }
-            
-            shouldSave = false
+        case .projectEditorOLD:
+            if shouldSave && draft != project {
+                withAnimation {
+                    if portfolio.update(project, with: draft) {
+                        generator.notificationOccurred(.success)
+                    } else {
+                        generator.notificationOccurred(.error)
+                    }
+                }
+            }
+        case .entityEditor:
+            withAnimation {
+                if portfolio.addEntity(draftEntity, to: project) {
+                    generator.notificationOccurred(.success)
+                } else {
+                    generator.notificationOccurred(.error)
+                }
+            }
+        case .paymentEditor:
+            withAnimation {
+                if portfolio.addPayment(draftPayment, to: project) {
+                    generator.notificationOccurred(.success)
+                } else {
+                    generator.notificationOccurred(.error)
+                }
+            }
         }
+        
+        shouldSave = false
     }
     
     @ViewBuilder private func presentModal() -> some View {
@@ -157,7 +165,11 @@ struct ProjectView: View {
             PaymentEditor(draft: $draftPayment, shouldSave: $shouldSave)
                 .environmentObject(portfolio)
         case .projectEditor:
-            ProjectEditor(draft: $draft, shouldSave: $shouldSave)
+            EditorWrapper(draft: $draft, isPresented: $showModal) { draft in
+                ProjectEditor(draft: draft)
+            }
+        case .projectEditorOLD:
+            ProjectEditorOLD(draft: $draft, shouldSave: $shouldSave)
                 .environmentObject(portfolio)
         }
     }
@@ -176,6 +188,7 @@ struct ProjectView: View {
         Button("Edit") {
             draft = project
             modal = .projectEditor
+            //modal = .projectEditorOLD
             showModal = true
         }
     }

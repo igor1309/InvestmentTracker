@@ -8,6 +8,9 @@
 import SwiftUI
 import InvestmentDataModel
 
+/// This Wrapper returns nil if creation of new object or editind was cancelled,
+/// or returns edited value if object was validated and 'saved' ("Save" button was pressed)
+/// Return of values is done by binding
 struct CreatorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
     
     @Binding var original: T?
@@ -17,14 +20,21 @@ struct CreatorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
     
     @State private var draft: T
     
-    init(draft: Binding<T?>,
+    let title: String
+    
+    init(original: Binding<T?>,
          isPresented: Binding<Bool>,
          editor: @escaping (Binding<T>) -> Editor
     ) {
-        self._original = draft
+        self._original = original
         self._isPresented = isPresented
-        self._draft = State(initialValue: draft.wrappedValue == nil ? T.init() : draft.wrappedValue!)
+        
+        /// if original is nil than object is created with empty initializer (init(), since it is Placeholdable it has such init)
+        self._draft = State(initialValue: original.wrappedValue == nil ? T.init() : original.wrappedValue!)
         self.editor = editor
+        
+        /// if original is nil than it's creation of the new object, therwise editing of the existing one
+        self.title = original.wrappedValue == nil ? "Add" : "Edit"
     }
     
     var body: some View {
@@ -32,6 +42,7 @@ struct CreatorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
             
             editor($draft)
                 
+                .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(
                     leading: Button("Cancel") {
@@ -49,30 +60,35 @@ struct CreatorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
 }
 
 struct CreatorWrapperTest: View {
-    @State private var original: Entity? = nil
+    var entity: Entity
+    
+    @State private var original: Entity?
     @State private var isPresented = false
     
     var body: some View {
         VStack {
             Text(original?.name ?? "--")
             Button("Create New Entity") {
+                isPresented = true
+            }
+            Button("Edit Existing") {
                 original = Entity()
                 isPresented = true
             }
             .sheet(isPresented: $isPresented) {
+                //  onDismiss
                 if original == nil {
-                    print("nothing was created")
+                    print("nothing was created or edit was cancelled")
                 } else {
-                    print("Entity with name '\(original!.name)' was created")
+                    print("Entity with name '\(original!.name)' was created or edited, ready to use")
                 }
             } content: {
-                CreatorWrapper(draft: $original, isPresented: $isPresented) { draft in
+                CreatorWrapper(original: $original, isPresented: $isPresented) { draft in
                     Form {
                         TextField("Text", text: draft.name)
                     }
-                    .navigationTitle("Add")
                 }
-        }
+            }
         }
     }
 }
@@ -81,6 +97,6 @@ struct CreatorWrapperTest: View {
 
 struct CreatorWrapper_Previews: PreviewProvider {
     static var previews: some View {
-        CreatorWrapperTest()
+        CreatorWrapperTest(entity: Entity())
     }
 }

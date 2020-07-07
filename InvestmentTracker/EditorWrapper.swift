@@ -32,6 +32,7 @@ struct EditorWrapper<T: Validatable, Editor: View>: View {
             
             editor($draft)
                 
+                .navigationTitle("Edit")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(
                     leading: Button("Cancel") {
@@ -43,6 +44,44 @@ struct EditorWrapper<T: Validatable, Editor: View>: View {
                     }
                     .disabled(!draft.isValid)
                 )
+        }
+    }
+}
+
+struct WrapperTest: View {
+    var entity: Entity
+    
+    @State private var original: Entity?
+    @State private var isPresented = false
+    
+    init(entity: Entity) {
+        self.entity  = entity
+        self._original = State(initialValue: entity)
+    }
+    
+    var body: some View {
+        VStack {
+            Text(original?.name ?? "")
+            Text(original?.note ?? "")
+            
+            Button("Edit Entity") {
+                isPresented = true
+            }
+            .sheet(isPresented: $isPresented) {
+                //  onDismiss
+                if original == nil {
+                    print("nothing was created or edit was cancelled")
+                } else {
+                    print("Entity with name '\(original!.name)' was created or edited, ready to use")
+                }
+            } content: {
+                CreatorWrapper(original: $original, isPresented: $isPresented) { draft in
+                    Form {
+                        TextField("Name", text: draft.name)
+                        TextField("Note", text: draft.note)
+                    }
+                }
+            }
         }
     }
 }
@@ -72,7 +111,6 @@ struct EditorWrapperTest: View {
                         TextField("Name", text: draft.name)
                         TextField("Note", text: draft.note)
                     }
-                    .navigationTitle("Edit")
                 }
             }
         }

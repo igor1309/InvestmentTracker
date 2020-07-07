@@ -14,6 +14,8 @@
 		24277C9324B37FB2006DE82A /* Placeholdable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9224B37FB2006DE82A /* Placeholdable.swift */; };
 		24277C9524B37FD2006DE82A /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9424B37FD2006DE82A /* Validatable.swift */; };
 		24277C9724B38078006DE82A /* CreatorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9624B38078006DE82A /* CreatorWrapper.swift */; };
+		24277C9924B398F1006DE82A /* ProjectEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9824B398F1006DE82A /* ProjectEditor.swift */; };
+		24277C9E24B4A599006DE82A /* Uniqued+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9D24B4A599006DE82A /* Uniqued+String.swift */; };
 		245B672924B080D3004F35F4 /* InvestmentDataModel in Frameworks */ = {isa = PBXBuildFile; productRef = 245B672824B080D3004F35F4 /* InvestmentDataModel */; };
 		245B672F24B0B4C4004F35F4 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B672E24B0B4C4004F35F4 /* ProjectList.swift */; };
 		245B673124B0B4FF004F35F4 /* sample data projects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673024B0B4FF004F35F4 /* sample data projects.swift */; };
@@ -24,7 +26,7 @@
 		245B673D24B13B0E004F35F4 /* EntityListEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673C24B13B0E004F35F4 /* EntityListEditor.swift */; };
 		245B673F24B13BC7004F35F4 /* EntityEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673E24B13BC7004F35F4 /* EntityEditor.swift */; };
 		245B674124B13CB6004F35F4 /* PaymentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674024B13CB6004F35F4 /* PaymentEditor.swift */; };
-		245B674324B1403F004F35F4 /* ProjectEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674224B1403F004F35F4 /* ProjectEditor.swift */; };
+		245B674324B1403F004F35F4 /* ProjectEditorOLD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674224B1403F004F35F4 /* ProjectEditorOLD.swift */; };
 		245B674624B1B771004F35F4 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674524B1B771004F35F4 /* Array+Identifiable.swift */; };
 		245B674824B1C07F004F35F4 /* PaymentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674724B1C07F004F35F4 /* PaymentRow.swift */; };
 		245B674A24B1D973004F35F4 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674924B1D973004F35F4 /* PaymentView.swift */; };
@@ -45,6 +47,9 @@
 		24277C9224B37FB2006DE82A /* Placeholdable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholdable.swift; sourceTree = "<group>"; };
 		24277C9424B37FD2006DE82A /* Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
 		24277C9624B38078006DE82A /* CreatorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorWrapper.swift; sourceTree = "<group>"; };
+		24277C9824B398F1006DE82A /* ProjectEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditor.swift; sourceTree = "<group>"; };
+		24277C9D24B4A599006DE82A /* Uniqued+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Uniqued+String.swift"; sourceTree = "<group>"; };
+		24277C9F24B4A6E2006DE82A /* String uniqued.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "String uniqued.playground"; path = "InvestmentTracker/Playgrounds/String uniqued.playground"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		245B672E24B0B4C4004F35F4 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		245B673024B0B4FF004F35F4 /* sample data projects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "sample data projects.swift"; sourceTree = "<group>"; };
 		245B673224B0B894004F35F4 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
@@ -54,7 +59,7 @@
 		245B673C24B13B0E004F35F4 /* EntityListEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityListEditor.swift; sourceTree = "<group>"; };
 		245B673E24B13BC7004F35F4 /* EntityEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityEditor.swift; sourceTree = "<group>"; };
 		245B674024B13CB6004F35F4 /* PaymentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentEditor.swift; sourceTree = "<group>"; };
-		245B674224B1403F004F35F4 /* ProjectEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditor.swift; sourceTree = "<group>"; };
+		245B674224B1403F004F35F4 /* ProjectEditorOLD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditorOLD.swift; sourceTree = "<group>"; };
 		245B674524B1B771004F35F4 /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
 		245B674724B1C07F004F35F4 /* PaymentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRow.swift; sourceTree = "<group>"; };
 		245B674924B1D973004F35F4 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
@@ -106,6 +111,7 @@
 			children = (
 				245B674524B1B771004F35F4 /* Array+Identifiable.swift */,
 				24277C8A24B334D0006DE82A /* Extension+Date.swift */,
+				24277C9D24B4A599006DE82A /* Uniqued+String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -135,7 +141,8 @@
 				245B672E24B0B4C4004F35F4 /* ProjectList.swift */,
 				245B673A24B12A67004F35F4 /* ProjectView.swift */,
 				24277C8C24B35899006DE82A /* AddProject.swift */,
-				245B674224B1403F004F35F4 /* ProjectEditor.swift */,
+				24277C9824B398F1006DE82A /* ProjectEditor.swift */,
+				245B674224B1403F004F35F4 /* ProjectEditorOLD.swift */,
 				245B674724B1C07F004F35F4 /* PaymentRow.swift */,
 				245B674B24B1F63E004F35F4 /* EntityPicker.swift */,
 				245B673E24B13BC7004F35F4 /* EntityEditor.swift */,
@@ -145,6 +152,7 @@
 				245B673C24B13B0E004F35F4 /* EntityListEditor.swift */,
 				245B674924B1D973004F35F4 /* PaymentView.swift */,
 				245B674024B13CB6004F35F4 /* PaymentEditor.swift */,
+				24B4F70024B4AF7500DA8EA5 /* Playgrounds */,
 				245B673424B0B91F004F35F4 /* View Model */,
 				245B673924B105F1004F35F4 /* Sample Data */,
 				245B674424B1B762004F35F4 /* Extensions */,
@@ -161,6 +169,14 @@
 				246269FF24B07A930008D0CB /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		24B4F70024B4AF7500DA8EA5 /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				24277C9F24B4A6E2006DE82A /* String uniqued.playground */,
+			);
+			path = Playgrounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,7 +261,7 @@
 				245B674124B13CB6004F35F4 /* PaymentEditor.swift in Sources */,
 				24277C8D24B35899006DE82A /* AddProject.swift in Sources */,
 				24277C8B24B334D0006DE82A /* Extension+Date.swift in Sources */,
-				245B674324B1403F004F35F4 /* ProjectEditor.swift in Sources */,
+				245B674324B1403F004F35F4 /* ProjectEditorOLD.swift in Sources */,
 				245B673B24B12A67004F35F4 /* ProjectView.swift in Sources */,
 				24277C9524B37FD2006DE82A /* Validatable.swift in Sources */,
 				24277C9724B38078006DE82A /* CreatorWrapper.swift in Sources */,
@@ -260,8 +276,10 @@
 				245B673324B0B894004F35F4 /* Portfolio.swift in Sources */,
 				245B672F24B0B4C4004F35F4 /* ProjectList.swift in Sources */,
 				245B674E24B209DD004F35F4 /* EditorWrapperOld.swift in Sources */,
+				24277C9E24B4A599006DE82A /* Uniqued+String.swift in Sources */,
 				245B673F24B13BC7004F35F4 /* EntityEditor.swift in Sources */,
 				24277C8F24B364A7006DE82A /* EditorWrapper.swift in Sources */,
+				24277C9924B398F1006DE82A /* ProjectEditor.swift in Sources */,
 				245B673D24B13B0E004F35F4 /* EntityListEditor.swift in Sources */,
 				246269F924B07A930008D0CB /* InvestmentTrackerApp.swift in Sources */,
 			);
