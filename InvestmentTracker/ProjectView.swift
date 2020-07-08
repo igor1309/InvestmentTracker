@@ -31,7 +31,7 @@ struct ProjectView: View {
     
     let project: Project
     
-    @State private var draft: Project?
+    @State private var original: Project?
     @State private var draftEntity: Entity = .init()
     @State private var draftPayment: Payment = .init()
     @State private var shouldSave = false
@@ -89,7 +89,8 @@ struct ProjectView: View {
                 plusButton()
                 editButton()
                     .sheet(isPresented: $showModal) {
-                        handleEditors() // onDismiss
+                        // onDismiss
+                        handleEditorsOnDismiss()
                     } content: {
                         presentModal()
                     }
@@ -111,14 +112,17 @@ struct ProjectView: View {
             ])
     }
     
-    private func handleEditors() {
+    private func handleEditorsOnDismiss() {
         let generator = UINotificationFeedbackGenerator()
         
         switch modal {
         case .projectEditor:
-            if draft != project {
+            if original == nil {
+                print("nothing was created or edit was cancelled")
+            } else {
+                print("Entity with name '\(original!.name)' was created or edited, ready to use")
                 withAnimation {
-                    if portfolio.update(project, with: draft!) {
+                    if portfolio.update(project, with: original!) {
                         generator.notificationOccurred(.success)
                     } else {
                         generator.notificationOccurred(.error)
@@ -155,7 +159,7 @@ struct ProjectView: View {
             PaymentEditor(draft: $draftPayment, shouldSave: $shouldSave)
                 .environmentObject(portfolio)
         case .projectEditor:
-            EditorWrapper(original: $draft, isPresented: $showModal) { draft in
+            EditorWrapper(original: $original, isPresented: $showModal) { draft in
                 ProjectEditor(draft: draft)
             }
         }
@@ -173,7 +177,8 @@ struct ProjectView: View {
     
     private func editButton() -> some View {
         Button("Edit") {
-            draft = project
+            original = project
+            print("original: \(String(describing: original))")
             modal = .projectEditor
             showModal = true
         }

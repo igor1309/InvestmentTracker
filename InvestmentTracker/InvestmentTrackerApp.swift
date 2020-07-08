@@ -7,13 +7,15 @@
 
 import SwiftUI
 
+import InvestmentDataModel
+
 @main
 struct InvestmentTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            //EditorWrapperTest()
+            Edit_EditorWrapperTest(entity: Entity("Test", note: "Test Entity"))
             //CreatorWrapperTest()
-            ContentView()
+            //ContentView()
         }
     }
 }

@@ -17,11 +17,15 @@ struct Edit_EditorWrapperTest: View {
     
     var body: some View {
         VStack {
-            Text(original?.name ?? "")
-            Text(original?.note ?? "")
+            Text(entity.name)
+            Text(entity.note)
+            
+            Divider()
             
             Button("Edit Entity") {
+                print("original: \(String(describing: original))")
                 original = entity
+                print("original: \(String(describing: original))")
                 isPresented = true
             }
             .sheet(isPresented: $isPresented) {
@@ -30,9 +34,13 @@ struct Edit_EditorWrapperTest: View {
                     print("nothing was created or edit was cancelled")
                 } else {
                     print("Entity with name '\(original!.name)' was created or edited, ready to use")
+                    original = nil
                 }
             } content: {
-                EditorWrapper(original: $original, isPresented: $isPresented) { draft in
+                EditorWrapper(
+                    original: $original,
+                    isPresented: $isPresented
+                ) { draft in
                     Form {
                         TextField("Name", text: draft.name)
                         TextField("Note", text: draft.note)
@@ -44,9 +52,7 @@ struct Edit_EditorWrapperTest: View {
 }
 
 struct Edit_EditorWrapperTest_Previews: PreviewProvider {
-    static let entity = Entity("Test", note: "Test Entityt")
-    
     static var previews: some View {
-        Edit_EditorWrapperTest(entity: entity)
+        Edit_EditorWrapperTest(entity: Entity("Test", note: "Test Entity"))
     }
 }

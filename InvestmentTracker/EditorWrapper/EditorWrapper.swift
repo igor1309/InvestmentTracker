@@ -26,11 +26,13 @@ struct EditorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
          isPresented: Binding<Bool>,
          @ViewBuilder editor: @escaping (Binding<T>) -> Editor
     ) {
+        print("init: original.wrappedValue: \(String(describing: original.wrappedValue))")
+        
         self._original = original
         self._isPresented = isPresented
         
         /// if original is nil than object is created with empty initializer (init(), since it is Placeholdable it has such init)
-        self._draft = State(initialValue: original.wrappedValue == nil ? T.init() : original.wrappedValue!)
+        self._draft = State(initialValue: original.wrappedValue ?? T.init())
         self.editor = editor
         
         /// if original is nil than it's creation of the new object, therwise editing of the existing one

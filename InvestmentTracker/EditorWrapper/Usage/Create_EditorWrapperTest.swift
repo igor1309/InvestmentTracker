@@ -30,6 +30,7 @@ struct Create_EditorWrapperTest: View {
                     print("nothing was created or edit was cancelled")
                 } else {
                     print("Entity with name '\(original!.name)' was created or edited, ready to use")
+                    original = nil
                 }
             } content: {
                 CreatorWrapper(original: $original, isPresented: $isPresented) { draft in
@@ -44,9 +45,7 @@ struct Create_EditorWrapperTest: View {
 }
 
 struct Create_EditorWrapperTest_Previews: PreviewProvider {
-    static let entity = Entity("Test", note: "Test Entityt")
-    
     static var previews: some View {
-        Create_EditorWrapperTest(entity: entity)
+        Create_EditorWrapperTest(entity: Entity("Test", note: "Test Entity"))
     }
 }
