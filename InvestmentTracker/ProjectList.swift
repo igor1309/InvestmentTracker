@@ -10,11 +10,11 @@ import InvestmentDataModel
 
 struct ProjectList: View {
     @EnvironmentObject var settings: Settings
-    @StateObject var portfolio: Portfolio
+    
+    @ObservedObject var portfolio: Portfolio
     
     @State private var showSettings = false
     @State private var showProjectEditor = false
-    @State private var shouldSave = false
     @State private var showAction = false
     
     @State private var original: Project? = nil
