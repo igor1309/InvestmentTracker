@@ -9,9 +9,8 @@ import SwiftUI
 import InvestmentDataModel
 
 struct ProjectList: View {
+    @EnvironmentObject var portfolio: Portfolio
     @EnvironmentObject var settings: Settings
-    
-    @ObservedObject var portfolio: Portfolio
     
     @State private var showSettings = false
     @State private var showProjectEditor = false
@@ -217,8 +216,10 @@ struct ProjectList: View {
 
 struct ProjectList_Previews: PreviewProvider {
     @StateObject static var portfolio = Portfolio()
+    
     static var previews: some View {
-        ProjectList(portfolio: portfolio)
+        ProjectList()
+            .environmentObject(portfolio)
             .preferredColorScheme(.dark)
             .environmentObject(Settings())
     }
