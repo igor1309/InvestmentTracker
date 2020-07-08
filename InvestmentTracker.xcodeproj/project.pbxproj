@@ -51,6 +51,7 @@
 		24277C9824B398F1006DE82A /* ProjectEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditor.swift; sourceTree = "<group>"; };
 		24277C9D24B4A599006DE82A /* Uniqued+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Uniqued+String.swift"; sourceTree = "<group>"; };
 		24277C9F24B4A6E2006DE82A /* String uniqued.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "String uniqued.playground"; path = "InvestmentTracker/Playgrounds/String uniqued.playground"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		24523B2924B5FD3100FB0D97 /* EditorResult.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = EditorResult.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		245B672E24B0B4C4004F35F4 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		245B673024B0B4FF004F35F4 /* sample data projects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "sample data projects.swift"; sourceTree = "<group>"; };
 		245B673224B0B894004F35F4 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
@@ -173,6 +174,7 @@
 		24B4F70024B4AF7500DA8EA5 /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				24523B2924B5FD3100FB0D97 /* EditorResult.playground */,
 				24277C9F24B4A6E2006DE82A /* String uniqued.playground */,
 			);
 			path = Playgrounds;

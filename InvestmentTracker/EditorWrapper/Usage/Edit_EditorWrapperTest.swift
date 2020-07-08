@@ -8,12 +8,25 @@
 import SwiftUI
 import InvestmentDataModel
 
+enum EditorAction { case save, cancel }
+enum EditorResult<Value> {
+    case value(Value)
+    case action(EditorAction)
+}
+
+
+
 //  MARK: How to use EditorWrapper for Editing
 struct Edit_EditorWrapperTest: View {
     var entity: Entity
     
-    @State private var original: Entity?
+    @State private var original: EditorResult = .value(Entity())
     @State private var isPresented = false
+    
+    init(entity: Entity) {
+        self.entity = entity
+        _original = State(initialValue: .value(entity))
+    }
     
     var body: some View {
         VStack {
@@ -24,17 +37,18 @@ struct Edit_EditorWrapperTest: View {
             
             Button("Edit Entity") {
                 print("original: \(String(describing: original))")
-                original = entity
+                original = .value(entity)
                 print("original: \(String(describing: original))")
                 isPresented = true
             }
             .sheet(isPresented: $isPresented) {
                 //  onDismiss
-                if original == nil {
+                switch original {
+                case .action(_):
                     print("nothing was created or edit was cancelled")
-                } else {
-                    print("Entity with name '\(original!.name)' was created or edited, ready to use")
-                    original = nil
+                case .value(let original):
+                    print("Entity with name '\(original.name)' was created or edited, ready to use")
+//                    original = nil
                 }
             } content: {
                 EditorWrapper(

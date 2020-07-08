@@ -159,9 +159,10 @@ struct ProjectView: View {
             PaymentEditor(draft: $draftPayment, shouldSave: $shouldSave)
                 .environmentObject(portfolio)
         case .projectEditor:
-            EditorWrapper(original: $original, isPresented: $showModal) { draft in
-                ProjectEditor(draft: draft)
-            }
+            Text("TBD")
+//            EditorWrapper(original: $original, isPresented: $showModal) { draft in
+//                ProjectEditor(draft: draft)
+//            }
         }
     }
     

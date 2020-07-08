@@ -13,16 +13,16 @@ import InvestmentDataModel
 /// Return of values is done by binding
 struct EditorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
     
-    @Binding var original: T?
+    @Binding var original: EditorResult<T>
     @Binding var isPresented: Bool
     
     let editor: (Binding<T>) -> Editor
     
     @State private var draft: T
     
-    let title: String
+    let title: String = "Editor"
     
-    init(original: Binding<T?>,
+    init(original: Binding<EditorResult<T>>,
          isPresented: Binding<Bool>,
          @ViewBuilder editor: @escaping (Binding<T>) -> Editor
     ) {
@@ -32,11 +32,18 @@ struct EditorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
         self._isPresented = isPresented
         
         /// if original is nil than object is created with empty initializer (init(), since it is Placeholdable it has such init)
-        self._draft = State(initialValue: original.wrappedValue ?? T.init())
+        switch original.wrappedValue {
+        case .value(let original):
+            print("got value")
+            self._draft = State(initialValue: original)
+        case .action(_):
+            print("got action")
+            self._draft = State(initialValue: T.init())
+        }
         self.editor = editor
         
         /// if original is nil than it's creation of the new object, therwise editing of the existing one
-        self.title = original.wrappedValue == nil ? "Add" : "Edit"
+//        self.title = original.wrappedValue == nil ? "Add" : "Edit"
     }
     
     var body: some View {
@@ -48,14 +55,14 @@ struct EditorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(
                     leading: Button("Cancel") {
-                        original = nil
+                        original = .action(.cancel)
                         isPresented = false
                     },
                     trailing: Button("Save") {
-                        original = draft
+                        original = .value(draft)
                         isPresented = false
                     }
-                    .disabled(!draft.isValid)
+//                    .disabled(!draft.isValid)
                 )
         }
     }
