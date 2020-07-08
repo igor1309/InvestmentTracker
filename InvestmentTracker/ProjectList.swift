@@ -14,9 +14,10 @@ struct ProjectList: View {
     
     @State private var showSettings = false
     @State private var showProjectEditor = false
-    @State private var draft: Project = .natachtari
     @State private var shouldSave = false
     @State private var showAction = false
+    
+    @State private var original: Project? = nil
     
     var body: some View {
         NavigationView {
@@ -50,24 +51,26 @@ struct ProjectList: View {
                 trailing: plusButton
                     .sheet(isPresented: $showProjectEditor) {
                         //  onDismiss
-                        handleProjectEditor()
+                        handleEditorOnDismiss()
                     } content: {
-                        AddProject(
-                            draft: $draft,
-                            isPresented: $showProjectEditor,
-                            shouldSave: $shouldSave
-                        )
+                        EditorWrapper(original: $original,
+                                      isPresented: $showProjectEditor
+                        ) { draft in
+                            ProjectEditor(draft: draft)
+                        }
                         .environmentObject(portfolio)
                     }
             )
         }
     }
     
-    private func handleProjectEditor() {
-        if shouldSave {
-            let generator = UINotificationFeedbackGenerator()
-            withAnimation {
-                if portfolio.addProject(draft) {
+    private func handleEditorOnDismiss() {
+        let generator = UINotificationFeedbackGenerator()
+        withAnimation {
+            if original == nil {
+                print("nothing was created or edit was cancelled")
+            } else {
+                if portfolio.addProject(original!) {
                     print("project added ok")
                     generator.notificationOccurred(.success)
                 } else {
@@ -75,8 +78,8 @@ struct ProjectList: View {
                     generator.notificationOccurred(.error)
                 }
             }
-            shouldSave = false
         }
+        original = nil
     }
     
     private var showSettingsButton: some View {
@@ -89,7 +92,6 @@ struct ProjectList: View {
     
     private var plusButton: some View {
         Button {
-            draft = Project()
             showProjectEditor = true
         } label: {
             Image(systemName: "plus")
@@ -193,20 +195,22 @@ struct ProjectList: View {
                 Image(systemName: "trash")
                 Text("Delete")
             }
-            .actionSheet(isPresented: $showAction) {
-                ActionSheet(
-                    title: Text("Delete".uppercased()),
-                    message: Text("Do you really want to delete \(project.name)?\nThis action cannot be undone."),
-                    buttons: [
-                        .destructive(Text("Yes, delete"), action: {
-                            withAnimation {
-                                portfolio.deleteProject(project)
-                            }
-                        }),
-                        .cancel()
-                    ]
-                )
+        }
+        .actionSheet(isPresented: $showAction) {
+            func delete() {
+                withAnimation {
+                    portfolio.deleteProject(project)
+                }
             }
+            
+            return ActionSheet(
+                title: Text("Delete".uppercased()),
+                message: Text("Do you really want to delete \(project.name)?\nThis action cannot be undone."),
+                buttons: [
+                    .destructive(Text("Yes, delete"), action: delete),
+                    .cancel()
+                ]
+            )
         }
     }
 }
