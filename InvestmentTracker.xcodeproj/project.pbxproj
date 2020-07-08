@@ -26,7 +26,6 @@
 		245B673D24B13B0E004F35F4 /* EntityListEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673C24B13B0E004F35F4 /* EntityListEditor.swift */; };
 		245B673F24B13BC7004F35F4 /* EntityEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673E24B13BC7004F35F4 /* EntityEditor.swift */; };
 		245B674124B13CB6004F35F4 /* PaymentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674024B13CB6004F35F4 /* PaymentEditor.swift */; };
-		245B674324B1403F004F35F4 /* ProjectEditorOLD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674224B1403F004F35F4 /* ProjectEditorOLD.swift */; };
 		245B674624B1B771004F35F4 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674524B1B771004F35F4 /* Array+Identifiable.swift */; };
 		245B674824B1C07F004F35F4 /* PaymentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674724B1C07F004F35F4 /* PaymentRow.swift */; };
 		245B674A24B1D973004F35F4 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674924B1D973004F35F4 /* PaymentView.swift */; };
@@ -36,6 +35,8 @@
 		246269FB24B07A930008D0CB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246269FA24B07A930008D0CB /* ContentView.swift */; };
 		246269FD24B07A930008D0CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246269FC24B07A930008D0CB /* Assets.xcassets */; };
 		24626A0024B07A930008D0CB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246269FF24B07A930008D0CB /* Preview Assets.xcassets */; };
+		24F5E1CE24B5C8CE00D8453F /* Create_EditorWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F5E1CD24B5C8CE00D8453F /* Create_EditorWrapperTest.swift */; };
+		24F5E1D224B5C98D00D8453F /* Edit_EditorWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F5E1D124B5C98D00D8453F /* Edit_EditorWrapperTest.swift */; };
 		24FCF68D24B07D420035FC1C /* SwiftPI in Frameworks */ = {isa = PBXBuildFile; productRef = 24FCF68C24B07D420035FC1C /* SwiftPI */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +60,6 @@
 		245B673C24B13B0E004F35F4 /* EntityListEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityListEditor.swift; sourceTree = "<group>"; };
 		245B673E24B13BC7004F35F4 /* EntityEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityEditor.swift; sourceTree = "<group>"; };
 		245B674024B13CB6004F35F4 /* PaymentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentEditor.swift; sourceTree = "<group>"; };
-		245B674224B1403F004F35F4 /* ProjectEditorOLD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditorOLD.swift; sourceTree = "<group>"; };
 		245B674524B1B771004F35F4 /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
 		245B674724B1C07F004F35F4 /* PaymentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRow.swift; sourceTree = "<group>"; };
 		245B674924B1D973004F35F4 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
@@ -71,6 +71,8 @@
 		246269FC24B07A930008D0CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		246269FF24B07A930008D0CB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		24626A0124B07A930008D0CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		24F5E1CD24B5C8CE00D8453F /* Create_EditorWrapperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create_EditorWrapperTest.swift; sourceTree = "<group>"; };
+		24F5E1D124B5C98D00D8453F /* Edit_EditorWrapperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit_EditorWrapperTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,13 +144,10 @@
 				245B673A24B12A67004F35F4 /* ProjectView.swift */,
 				24277C8C24B35899006DE82A /* AddProject.swift */,
 				24277C9824B398F1006DE82A /* ProjectEditor.swift */,
-				245B674224B1403F004F35F4 /* ProjectEditorOLD.swift */,
 				245B674724B1C07F004F35F4 /* PaymentRow.swift */,
 				245B674B24B1F63E004F35F4 /* EntityPicker.swift */,
 				245B673E24B13BC7004F35F4 /* EntityEditor.swift */,
-				245B674D24B209DD004F35F4 /* EditorWrapperOld.swift */,
-				24277C8E24B364A7006DE82A /* EditorWrapper.swift */,
-				24277C9624B38078006DE82A /* CreatorWrapper.swift */,
+				24F5E1CF24B5C94900D8453F /* EditorWrapper */,
 				245B673C24B13B0E004F35F4 /* EntityListEditor.swift */,
 				245B674924B1D973004F35F4 /* PaymentView.swift */,
 				245B674024B13CB6004F35F4 /* PaymentEditor.swift */,
@@ -177,6 +176,26 @@
 				24277C9F24B4A6E2006DE82A /* String uniqued.playground */,
 			);
 			path = Playgrounds;
+			sourceTree = "<group>";
+		};
+		24F5E1CF24B5C94900D8453F /* EditorWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				24277C8E24B364A7006DE82A /* EditorWrapper.swift */,
+				24F5E1D024B5C96400D8453F /* Usage */,
+				245B674D24B209DD004F35F4 /* EditorWrapperOld.swift */,
+				24277C9624B38078006DE82A /* CreatorWrapper.swift */,
+			);
+			path = EditorWrapper;
+			sourceTree = "<group>";
+		};
+		24F5E1D024B5C96400D8453F /* Usage */ = {
+			isa = PBXGroup;
+			children = (
+				24F5E1CD24B5C8CE00D8453F /* Create_EditorWrapperTest.swift */,
+				24F5E1D124B5C98D00D8453F /* Edit_EditorWrapperTest.swift */,
+			);
+			path = Usage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,13 +280,14 @@
 				245B674124B13CB6004F35F4 /* PaymentEditor.swift in Sources */,
 				24277C8D24B35899006DE82A /* AddProject.swift in Sources */,
 				24277C8B24B334D0006DE82A /* Extension+Date.swift in Sources */,
-				245B674324B1403F004F35F4 /* ProjectEditorOLD.swift in Sources */,
 				245B673B24B12A67004F35F4 /* ProjectView.swift in Sources */,
 				24277C9524B37FD2006DE82A /* Validatable.swift in Sources */,
+				24F5E1D224B5C98D00D8453F /* Edit_EditorWrapperTest.swift in Sources */,
 				24277C9724B38078006DE82A /* CreatorWrapper.swift in Sources */,
 				245B674A24B1D973004F35F4 /* PaymentView.swift in Sources */,
 				245B674624B1B771004F35F4 /* Array+Identifiable.swift in Sources */,
 				245B673624B0B92E004F35F4 /* Settings.swift in Sources */,
+				24F5E1CE24B5C8CE00D8453F /* Create_EditorWrapperTest.swift in Sources */,
 				24277C9324B37FB2006DE82A /* Placeholdable.swift in Sources */,
 				245B673824B0BAC8004F35F4 /* SettingsView.swift in Sources */,
 				24277C9124B37EA1006DE82A /* Model Extensions.swift in Sources */,

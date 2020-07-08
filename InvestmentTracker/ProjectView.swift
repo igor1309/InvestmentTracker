@@ -31,14 +31,14 @@ struct ProjectView: View {
     
     let project: Project
     
-    @State private var draft: Project = .natachtari
+    @State private var draft: Project?
     @State private var draftEntity: Entity = .init()
     @State private var draftPayment: Payment = .init()
     @State private var shouldSave = false
     
-    enum Modal { case entityEditor, paymentEditor, projectEditor, projectEditorOLD }
+    enum Modal { case entityEditor, paymentEditor, projectEditor }
     
-    @State private var modal: Modal = .projectEditorOLD
+    @State private var modal: Modal = .projectEditor
     @State private var showModal = false
     
     @State private var showAddAction = false
@@ -118,17 +118,7 @@ struct ProjectView: View {
         case .projectEditor:
             if draft != project {
                 withAnimation {
-                    if portfolio.update(project, with: draft) {
-                        generator.notificationOccurred(.success)
-                    } else {
-                        generator.notificationOccurred(.error)
-                    }
-                }
-            }
-        case .projectEditorOLD:
-            if shouldSave && draft != project {
-                withAnimation {
-                    if portfolio.update(project, with: draft) {
+                    if portfolio.update(project, with: draft!) {
                         generator.notificationOccurred(.success)
                     } else {
                         generator.notificationOccurred(.error)
@@ -165,12 +155,9 @@ struct ProjectView: View {
             PaymentEditor(draft: $draftPayment, shouldSave: $shouldSave)
                 .environmentObject(portfolio)
         case .projectEditor:
-            EditorWrapper(draft: $draft, isPresented: $showModal) { draft in
+            EditorWrapper(original: $draft, isPresented: $showModal) { draft in
                 ProjectEditor(draft: draft)
             }
-        case .projectEditorOLD:
-            ProjectEditorOLD(draft: $draft, shouldSave: $shouldSave)
-                .environmentObject(portfolio)
         }
     }
     
@@ -181,14 +168,13 @@ struct ProjectView: View {
             Image(systemName: "plus")
                 .padding()
         }
-        .actionSheet(isPresented: $showAddAction) { selectWhatToAdd() }
+        .actionSheet(isPresented: $showAddAction) { selectWhatToAdd()   }
     }
     
     private func editButton() -> some View {
         Button("Edit") {
             draft = project
             modal = .projectEditor
-            //modal = .projectEditorOLD
             showModal = true
         }
     }
