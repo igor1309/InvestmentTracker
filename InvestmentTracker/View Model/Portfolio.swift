@@ -43,12 +43,83 @@ final class Portfolio: ObservableObject {
         
     }
     
+    //  MARK: - Generic functions to handle Entities and Payments
+    
+    func add<T: Identifiable & Validatable>(
+        _ value: T,
+        to project: Project,
+        keyPath: WritableKeyPath<Project, [T]>
+    ) -> Bool {
+        /// validate
+        guard value.isValid else { return false }
+        
+        /// find index of the project
+        guard let index = projects.firstIndex(matching: project) else { return false }
+        
+        /// add new element
+        projects[index][keyPath: keyPath].append(value)
+        
+        return true
+    }
+    
+    func update<T: Identifiable & Validatable>(
+        _ value: T,
+        in project: Project,
+        keyPath: WritableKeyPath<Project, [T]>
+    ) -> Bool {
+        /// validate
+        guard value.isValid else { return false }
+        
+        /// find index of the project
+        guard let index = projects.firstIndex(matching: project) else { return false }
+
+        /// find index of the value in project
+        guard let valueIndex = project[keyPath: keyPath].firstIndex(matching: value) else { return false }
+
+        /// update value
+        projects[index][keyPath: keyPath][valueIndex] = value
+        
+        return true
+    }
+    
+    func delete<T: Identifiable & Validatable>(
+        _ value: T,
+        from project: Project,
+        keyPath: WritableKeyPath<Project, [T]>
+    ) -> Bool {
+        /// find index of the project
+        guard let index = projects.firstIndex(matching: project) else { return false }
+
+        /// find index of the value in project
+        guard let valueIndex = project[keyPath: keyPath].firstIndex(matching: value) else { return false }
+
+        /// remove
+        projects[index][keyPath: keyPath].remove(at: valueIndex)
+        
+        return true
+    }
+
+    
     //  MARK: - Entity handling
     
     func addEntity(_ entity: Entity, to project: Project) -> Bool {
+        guard entity.isValid else { return false }
+        
         guard let index = projects.firstIndex(matching: project) else { return false }
         
         return projects[index].addEntity(entity)
+    }
+    
+    func updateEntity(_ entity: Entity, to project: Project) -> Bool {
+        guard entity.isValid else { return false }
+        
+        guard let index = projects.firstIndex(matching: project) else { return false }
+        
+        guard let entityIndex = project.entities.firstIndex(matching: entity) else { return false }
+        
+        projects[index].entities[entityIndex] = entity
+        
+        return true
     }
     
     func deleteEntity(_ entity: Entity, from project: Project) {
@@ -60,9 +131,23 @@ final class Portfolio: ObservableObject {
     //  MARK: - Payment handling
     
     func addPayment(_ payment: Payment, to project: Project) -> Bool {
+        guard payment.isValid else { return false }
+        
         guard let index = projects.firstIndex(matching: project) else { return false }
         
         return projects[index].addPayment(payment)
+    }
+    
+    func updatePayment(_ payment: Payment, in project: Project) -> Bool {
+        guard payment.isValid else { return false }
+        
+        guard let index = projects.firstIndex(matching: project) else { return false }
+        
+        guard let paymentIndex = project.payments.firstIndex(matching: payment) else { return false }
+        
+        projects[index].payments[paymentIndex] = payment
+        
+        return true
     }
     
     func deletePayment(_ payment: Payment, from project: Project) {
