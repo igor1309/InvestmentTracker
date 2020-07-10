@@ -86,11 +86,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		241DABCB24B85966001B5FB8 /* Entity Views */ = {
+			isa = PBXGroup;
+			children = (
+				245B674B24B1F63E004F35F4 /* EntityPicker.swift */,
+				245B673E24B13BC7004F35F4 /* EntityEditor.swift */,
+				245B673C24B13B0E004F35F4 /* EntityListEditor.swift */,
+			);
+			path = "Entity Views";
+			sourceTree = "<group>";
+		};
+		241DABCC24B85975001B5FB8 /* Payment Views */ = {
+			isa = PBXGroup;
+			children = (
+				245B674924B1D973004F35F4 /* PaymentView.swift */,
+				245B674024B13CB6004F35F4 /* PaymentEditor.swift */,
+				241DABC924B856CA001B5FB8 /* AmountPicker.swift */,
+			);
+			path = "Payment Views";
+			sourceTree = "<group>";
+		};
+		241DABCD24B8597F001B5FB8 /* Project Views */ = {
+			isa = PBXGroup;
+			children = (
+				245B672E24B0B4C4004F35F4 /* ProjectList.swift */,
+				245B673A24B12A67004F35F4 /* ProjectView.swift */,
+				24277C9824B398F1006DE82A /* ProjectEditor.swift */,
+				245B674724B1C07F004F35F4 /* PaymentRow.swift */,
+			);
+			path = "Project Views";
+			sourceTree = "<group>";
+		};
 		242B4B6B24B845220084AF8B /* Model Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				24BBF15424B845F200CDF613 /* Validatable.swift */,
 				24277C9224B37FB2006DE82A /* Placeholdable.swift */,
+				24277C9024B37EA1006DE82A /* Project Extensions.swift */,
 			);
 			path = "Model Extensions";
 			sourceTree = "<group>";
@@ -99,7 +131,6 @@
 			isa = PBXGroup;
 			children = (
 				245B673224B0B894004F35F4 /* Portfolio.swift */,
-				24277C9024B37EA1006DE82A /* Project Extensions.swift */,
 				242B4B6B24B845220084AF8B /* Model Extensions */,
 				245B673524B0B92E004F35F4 /* Settings.swift */,
 			);
@@ -146,16 +177,9 @@
 				246269F824B07A930008D0CB /* InvestmentTrackerApp.swift */,
 				246269FA24B07A930008D0CB /* ContentView.swift */,
 				245B673724B0BAC8004F35F4 /* SettingsView.swift */,
-				245B672E24B0B4C4004F35F4 /* ProjectList.swift */,
-				245B673A24B12A67004F35F4 /* ProjectView.swift */,
-				24277C9824B398F1006DE82A /* ProjectEditor.swift */,
-				245B674724B1C07F004F35F4 /* PaymentRow.swift */,
-				245B674B24B1F63E004F35F4 /* EntityPicker.swift */,
-				245B673E24B13BC7004F35F4 /* EntityEditor.swift */,
-				245B673C24B13B0E004F35F4 /* EntityListEditor.swift */,
-				245B674924B1D973004F35F4 /* PaymentView.swift */,
-				245B674024B13CB6004F35F4 /* PaymentEditor.swift */,
-				241DABC924B856CA001B5FB8 /* AmountPicker.swift */,
+				241DABCD24B8597F001B5FB8 /* Project Views */,
+				241DABCB24B85966001B5FB8 /* Entity Views */,
+				241DABCC24B85975001B5FB8 /* Payment Views */,
 				24F5E1CF24B5C94900D8453F /* EditorWrapper */,
 				245B673424B0B91F004F35F4 /* View Model */,
 				245B673924B105F1004F35F4 /* Sample Data */,

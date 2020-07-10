@@ -13,7 +13,7 @@ final class Portfolio: ObservableObject {
     @Published private(set) var projects: [Project] = Project.projects
     
     init() {
-        //  MARK: Add loading projects from JSON
+        //  MARK: FINISH THIS: Add loading projects from JSON
         
         $projects
             .removeDuplicates()
