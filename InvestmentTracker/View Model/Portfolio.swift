@@ -51,21 +51,11 @@ final class Portfolio: ObservableObject {
         for paymentType: Payment.PaymentType,
         in project: Project
     ) -> [Entity] {
-        switch entityType {
-        case .sender:
-            switch paymentType {
-            case .investment:
-                return investors
-            case .return:
-                return project.entities
-            }
-        case .recipient:
-            switch paymentType {
-            case .investment:
-                return project.entities
-            case .return:
-                return investors
-            }
+        switch (entityType, paymentType) {
+        case (.sender, .investment), (.recipient, .return):
+            return investors
+        default:
+            return project.entities
         }
     }
     

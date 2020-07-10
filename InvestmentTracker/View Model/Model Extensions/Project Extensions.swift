@@ -10,17 +10,17 @@ import InvestmentDataModel
 
 extension Project {
     
-    //  MARK: -
-    
-    var allEntities: [Entity] {
-        let senders = payments.map { $0.sender }
-        let recipients = payments.map { $0.recipient }
-        
-        let all = entities + senders + recipients
-        let uniqueEntities = Set(all)
-        
-        return Array(uniqueEntities).sorted { $0.name < $1.name }
-    }
+//    //  MARK: -
+//    
+//    var allEntities: [Entity] {
+//        let senders = payments.map { $0.sender }
+//        let recipients = payments.map { $0.recipient }
+//        
+//        let all = entities + senders + recipients
+//        let uniqueEntities = Set(all)
+//        
+//        return Array(uniqueEntities).sorted { $0.name < $1.name }
+//    }
 
     
     //  MARK: - Entity Handling

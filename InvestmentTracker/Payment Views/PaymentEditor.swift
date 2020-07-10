@@ -11,8 +11,6 @@ import InvestmentDataModel
 struct PaymentEditor: View {
     @EnvironmentObject var portfolio: Portfolio
     
-    let paymentTypes = ["investment", "return"]
-    
     @State private var showModal = false
     
     @Binding var payment: Payment
@@ -22,10 +20,12 @@ struct PaymentEditor: View {
         List {
             DatePicker("Payment Date", selection: $payment.date, displayedComponents: .date)
             
+            //  MARK: - changing payment type leads to swap in sender-recipient
+            //  TODO: FINISH THIS
             Section(header: Text("Type".uppercased())) {
                 Picker("Type", selection: $payment.type) {
                     ForEach(Payment.PaymentType.allCases, id: \.self) { type in
-                        Text(type.rawValue).tag(type)
+                        Text(type.id).tag(type)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -51,9 +51,19 @@ struct PaymentEditor: View {
                 //  TextEditor(text: $payment.note)
             }
             
-            EntitySelector(type: .sender, entity: $payment.sender, project: project)
+            EntitySelector(
+                type: .sender,
+                paymentType: payment.type,
+                entity: $payment.sender,
+                project: project
+            )
             
-            EntitySelector(type: .recipient, entity: $payment.recipient, project: project)
+            EntitySelector(
+                type: .recipient,
+                paymentType: payment.type,
+                entity: $payment.recipient,
+                project: project
+            )
         }
         .sheet(isPresented: $showModal) {
             AmountPicker(amount: $payment.amount)

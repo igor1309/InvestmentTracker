@@ -26,6 +26,7 @@ struct EntitySelector: View {
     }
     
     let type: EntityType
+    let paymentType: Payment.PaymentType
     
     @Binding var entity: Entity
     let project: Project
@@ -35,21 +36,26 @@ struct EntitySelector: View {
     
     var body: some View {
         Section(header: Text(type.header.uppercased())) {
-//            Picker(type.rawValue, selection: $entity) {
-//                //  MARK: WHY portfolio.entities????????? SHOULD BE project????
-//                ForEach(portfolio.entities, id: \.id) { entity in
-//                    Text(entity.name).tag(entity)
-//                }
-//                .debugPrint("payment.sender: \(entity)")
-//            }
+            //            Picker(type.rawValue, selection: $entity) {
+            //                //  MARK: WHY portfolio.entities????????? SHOULD BE project????
+            //                ForEach(portfolio.entities, id: \.id) { entity in
+            //                    Text(entity.name).tag(entity)
+            //                }
+            //                .debugPrint("payment.sender: \(entity)")
+            //            }
             Button {
                 showModal = true
             } label: {
                 Text(entity.name.isEmpty ? "select…" : entity.name)
             }
             .sheet(isPresented: $showModal) {
-                EntityPicker(entity: $entity, project: project)
-                    .environmentObject(portfolio)
+                EntityPicker(
+                    entity: $entity,
+                    entityType: type,
+                    paymentType: paymentType,
+                    project: project
+                )
+                .environmentObject(portfolio)
             }
         }
     }
@@ -62,8 +68,18 @@ struct EntitySelector_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             List {
-                EntitySelector(type: .sender, entity: $entity, project: project)
-                EntitySelector(type: .recipient, entity: $entity, project: project)
+                EntitySelector(
+                    type: .sender,
+                    paymentType: Payment.PaymentType.investment,
+                    entity: $entity,
+                    project: project
+                )
+                EntitySelector(
+                    type: .recipient,
+                    paymentType: Payment.PaymentType.investment,
+                    entity: $entity,
+                    project: project
+                )
             }
             .listStyle(InsetGroupedListStyle())
         }

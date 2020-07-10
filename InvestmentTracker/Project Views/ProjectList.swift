@@ -162,7 +162,7 @@ struct ProjectList: View {
                 
                 Spacer()
                 
-                VStack(alignment: .trailing, spacing: 3) {
+                VStack(alignment: .trailing, spacing: 0) {
                     Text("\(project.totalInflows, specifier: "%.f")")
                         .font(.system(.footnote, design: .monospaced))
                     Text("total investment")

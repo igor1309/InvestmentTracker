@@ -14,15 +14,21 @@ struct EntityPicker: View {
     
     @Binding var entity: Entity
     
+    let entityType: EntitySelector.EntityType
+    let paymentType: Payment.PaymentType
     let project: Project
     
     @State private var draft: Entity?
     @State private var showEditor = false
     
+    var entities: [Entity] {
+        portfolio.entitiesToPickFrom(as: entityType, for: paymentType, in: project)
+    }
+    
     var body: some View {
         NavigationView {
             List {
-                ForEach(project.allEntities, id: \.id) { entity in
+                ForEach(entities) { entity in
                     HStack {
                         Text(entity.name).tag(entity)
                             .foregroundColor(color(for: entity))
@@ -41,7 +47,7 @@ struct EntityPicker: View {
             .navigationBarItems(
                 trailing: Button {
                     //  MARK: FINISH THIS
-//                    draft = Entity("New Entity", note: "")
+                    //                    draft = Entity("New Entity", note: "")
                     showEditor = true
                 } label: {
                     Image(systemName: "plus")
@@ -62,14 +68,25 @@ struct EntityPicker: View {
     private func handleEditorOnDismiss() {
         if let draft = draft {
             print("Entity with name '\(draft.name)' was created or edited, ready to use")
-        
+            
             let generator = UINotificationFeedbackGenerator()
-
+            
             withAnimation {
-                if portfolio.add(draft, to: project, keyPath: \.entities) {
-                    generator.notificationOccurred(.success)
-                } else {
-                    generator.notificationOccurred(.error)
+                switch (entityType, paymentType) {
+                case (.sender, .investment), (.recipient, .return):
+                    /// add investor
+                    if portfolio.add(draft, keyPath: \.investors) {
+                        generator.notificationOccurred(.success)
+                    } else {
+                        generator.notificationOccurred(.error)
+                    }
+                default:
+                    /// add Entity
+                    if portfolio.add(draft, to: project, keyPath: \.entities) {
+                        generator.notificationOccurred(.success)
+                    } else {
+                        generator.notificationOccurred(.error)
+                    }
                 }
             }
         } else {
@@ -87,8 +104,13 @@ struct EntityPicker_Previews: PreviewProvider {
     static let project = Project()//.natachtari
     
     static var previews: some View {
-        EntityPicker(entity: $entity, project: project)
-            .preferredColorScheme(.dark)
-            .environmentObject(Portfolio())
+        EntityPicker(
+            entity: $entity,
+            entityType: EntitySelector.EntityType.sender,
+            paymentType: Payment.PaymentType.investment,
+            project: project
+        )
+        .preferredColorScheme(.dark)
+        .environmentObject(Portfolio())
     }
 }
