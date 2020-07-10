@@ -21,37 +21,13 @@ struct EntityEditor: View {
     }
 }
 
-struct EntityEditor1: View {
-    @Environment(\.presentationMode) var presentation
-    
-    @Binding var entity: Entity
-    @Binding var shouldSave: Bool
-    
-    var body: some View {
-        NavigationView {
-            Form {
-                TextField("Entity Name", text: $entity.name)
-                TextField("Note", text: $entity.note)
-            }
-            .navigationTitle("Edit Entity")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(
-                leading: Button("Cancel") {
-                    shouldSave = false
-                    presentation.wrappedValue.dismiss()
-                },
-                trailing: Button("Save") {
-                    shouldSave = true
-                    presentation.wrappedValue.dismiss()
-                }
-            )
-        }
-    }
-}
-
 struct EntityEditor_Previews: PreviewProvider {
+    @State static var entity = Entity.kitProgressOOO
+    
     static var previews: some View {
-        EntityEditor(entity: .constant(Entity.kitProgressOOO))
-            .preferredColorScheme(.dark)
+        NavigationView {
+            EntityEditor(entity: $entity)
+        }
+        .preferredColorScheme(.dark)
     }
 }
