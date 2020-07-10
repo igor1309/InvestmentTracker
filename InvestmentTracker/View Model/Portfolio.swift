@@ -10,7 +10,8 @@ import Combine
 import InvestmentDataModel
 
 final class Portfolio: ObservableObject {
-    @Published private(set) var projects: [Project] = Project.projects
+    /// `private(set)` doesn't work with ReferenceWritableKeyPath
+    @Published /*private(set)*/ var projects: [Project] = Project.projects
     
     init() {
         //  MARK: FINISH THIS: Add loading projects from JSON
@@ -43,100 +44,18 @@ final class Portfolio: ObservableObject {
         
     }
     
-    //  MARK: - Generic functions to handle Entities and Payments
-    
-    func add<T: Identifiable & Validatable>(
-        _ value: T,
-        to project: Project,
-        keyPath: WritableKeyPath<Project, [T]>
-    ) -> Bool {
-        /// validate
-        guard value.isValid else { return false }
-        
-        /// find index of the project
-        guard let index = projects.firstIndex(matching: project) else { return false }
-        
-        /// add new element
-        projects[index][keyPath: keyPath].append(value)
-        
-        return true
-    }
-    
-    func update<T: Identifiable & Validatable>(
-        _ value: T,
-        in project: Project,
-        keyPath: WritableKeyPath<Project, [T]>
-    ) -> Bool {
-        /// validate
-        guard value.isValid else { return false }
-        
-        /// find index of the project
-        guard let index = projects.firstIndex(matching: project) else { return false }
-
-        /// find index of the value in project
-        guard let valueIndex = project[keyPath: keyPath].firstIndex(matching: value) else { return false }
-
-        /// update value
-        projects[index][keyPath: keyPath][valueIndex] = value
-        
-        return true
-    }
-    
-    func delete<T: Identifiable & Validatable>(
-        _ value: T,
-        from project: Project,
-        keyPath: WritableKeyPath<Project, [T]>
-    ) -> Bool {
-        /// find index of the project
-        guard let index = projects.firstIndex(matching: project) else { return false }
-
-        /// find index of the value in project
-        guard let valueIndex = project[keyPath: keyPath].firstIndex(matching: value) else { return false }
-
-        /// remove
-        projects[index][keyPath: keyPath].remove(at: valueIndex)
-        
-        return true
-    }
-
-    //  MARK: - Project handling
-    
-    func update(_ project: Project, with draft: Project) -> Bool {
-        guard let index = projects.firstIndex(matching: project) else { return false }
-        
-        if draft.isValid {
-            projects[index] = draft
-            return true
-        }
-        return false
-    }
-    
-    func addProject(_ project: Project) -> Bool {
-        if project.isValid {
-            projects.append(project)
-            return true
-        }
-        return false
-    }
-    
-    func deleteProject(_ project: Project) {
-        if let index = projects.firstIndex(matching: project) {
-            projects.remove(at: index)
-        }
-    }
-    
-    //  MARK: -
-    
-    var entities: [Entity] {
-        let entities = projects.flatMap { $0.entities }
-        let senders = projects.flatMap { $0.payments }.map { $0.sender }
-        let recipients = projects.flatMap { $0.payments }.map { $0.recipient }
-        
-        let all = entities + senders + recipients
-        let uniqueEntities = Set(all)
-        
-        return Array(uniqueEntities).sorted { $0.name < $1.name }
-    }
+//    //  MARK: -
+//
+//    var entities: [Entity] {
+//        let entities = projects.flatMap { $0.entities }
+//        let senders = projects.flatMap { $0.payments }.map { $0.sender }
+//        let recipients = projects.flatMap { $0.payments }.map { $0.recipient }
+//
+//        let all = entities + senders + recipients
+//        let uniqueEntities = Set(all)
+//
+//        return Array(uniqueEntities).sorted { $0.name < $1.name }
+//    }
     
     //  MARK: - Portfolio Totals
     
@@ -164,4 +83,3 @@ final class Portfolio: ObservableObject {
             .reduce(0, +)
     }
 }
-

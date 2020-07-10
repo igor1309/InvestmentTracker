@@ -22,7 +22,7 @@ extension Payment: Validatable {
     var isValid: Bool {
         //  MARK: Uncomment after fixing TextField for amount
         //!(amount != 0) &&
-            !sender.name.isEmpty && !recipient.name.isEmpty
+        !sender.name.isEmpty && !recipient.name.isEmpty && sender.name != recipient.name
     }
 }
 

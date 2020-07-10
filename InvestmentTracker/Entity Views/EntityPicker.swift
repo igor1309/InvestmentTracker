@@ -11,16 +11,18 @@ import InvestmentDataModel
 struct EntityPicker: View {
     @Environment(\.presentationMode) var presentation
     @EnvironmentObject var portfolio: Portfolio
+    
     @Binding var entity: Entity
     
+    let project: Project
+    
+    @State private var draft: Entity?
     @State private var showEditor = false
-    @State private var draft = Entity("", note: "")
-    @State private var shouldSave = false
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(portfolio.entities, id: \.id) { entity in
+                ForEach(project.allEntities, id: \.id) { entity in
                     HStack {
                         Text(entity.name).tag(entity)
                             .foregroundColor(color(for: entity))
@@ -33,12 +35,13 @@ struct EntityPicker: View {
                     }
                 }
             }
-            .navigationTitle("Entity Picker")
+            .listStyle(InsetGroupedListStyle())
+            .navigationTitle("Select Entity")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(
                 trailing: Button {
                     //  MARK: FINISH THIS
-                    draft = Entity("New Entity", note: "")
+//                    draft = Entity("New Entity", note: "")
                     showEditor = true
                 } label: {
                     Image(systemName: "plus")
@@ -46,16 +49,31 @@ struct EntityPicker: View {
                 }
                 .sheet(isPresented: $showEditor) {
                     //  on Dismiss
-                    if shouldSave {
-                        //  MARK: FINISH THIS
-                        print("saving...")
-                        
-                        shouldSave = false
-                    }
+                    handleEditorOnDismiss()
                 } content: {
-                    EntityEditor(entity: $draft)
+                    EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
+                        EntityEditor(entity: draft, project: project)
+                    }
                 }
             )
+        }
+    }
+    
+    private func handleEditorOnDismiss() {
+        if let draft = draft {
+            print("Entity with name '\(draft.name)' was created or edited, ready to use")
+        
+            let generator = UINotificationFeedbackGenerator()
+
+            withAnimation {
+                if portfolio.add(draft, to: project, keyPath: \.entities) {
+                    generator.notificationOccurred(.success)
+                } else {
+                    generator.notificationOccurred(.error)
+                }
+            }
+        } else {
+            print("nothing was created or edit was cancelled")
         }
     }
     
@@ -65,8 +83,11 @@ struct EntityPicker: View {
 }
 
 struct EntityPicker_Previews: PreviewProvider {
+    @State static var entity = Entity.progressOOO
+    static let project = Project()//.natachtari
+    
     static var previews: some View {
-        EntityPicker(entity: .constant(Entity.progressOOO))
+        EntityPicker(entity: $entity, project: project)
             .preferredColorScheme(.dark)
             .environmentObject(Portfolio())
     }

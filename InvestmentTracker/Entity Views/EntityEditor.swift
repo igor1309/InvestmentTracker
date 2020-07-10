@@ -11,22 +11,28 @@ import InvestmentDataModel
 struct EntityEditor: View {
     
     @Binding var entity: Entity
+    let project: Project
     
     var body: some View {
-        Form {
+        List {
             TextField("Entity Name", text: $entity.name)
             TextField("Note", text: $entity.note)
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationTitle("Edit Entity")
     }
 }
 
 struct EntityEditor_Previews: PreviewProvider {
-    @State static var entity = Entity.kitProgressOOO
+    @State static var entity: Entity? = Entity.kitProgressOOO
+    
+    static let project = Project.natachtari
     
     static var previews: some View {
         NavigationView {
-            EntityEditor(entity: $entity)
+            EditorWrapper(original: $entity, isPresented: .constant(true)) { draft in
+                EntityEditor(entity: draft, project: project)
+            }
         }
         .preferredColorScheme(.dark)
     }

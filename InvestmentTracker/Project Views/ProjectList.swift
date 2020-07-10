@@ -68,7 +68,7 @@ struct ProjectList: View {
             if original == nil {
                 print("nothing was created or edit was cancelled")
             } else {
-                if portfolio.addProject(original!) {
+                if portfolio.add(original!, keyPath: \.projects) {
                     print("project added ok")
                     generator.notificationOccurred(.success)
                 } else {
@@ -196,8 +196,14 @@ struct ProjectList: View {
         }
         .actionSheet(isPresented: $showAction) {
             func delete() {
+                let generator = UINotificationFeedbackGenerator()
+                
                 withAnimation {
-                    portfolio.deleteProject(project)
+                    if portfolio.delete(project, keyPath: \.projects) {
+                        generator.notificationOccurred(.success)
+                    } else {
+                        generator.notificationOccurred(.error)
+                    }
                 }
             }
             

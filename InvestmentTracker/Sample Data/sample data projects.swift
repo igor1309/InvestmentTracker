@@ -17,9 +17,11 @@ extension Payment {
             date: date,
             amount: 10_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.kitProgressOOO,
-            note: "Sample payment for App Testing")
+            note: "Sample payment for App Testing"
+        )
     }()
 }
 
@@ -40,6 +42,7 @@ extension Project {
             date: date1,
             amount: 1_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.progressOOO,
             note: "Первый транш по займу")
@@ -49,6 +52,7 @@ extension Project {
             date: date2,
             amount: 2_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.progressOOO,
             note: "Первый транш по займу")
@@ -58,6 +62,7 @@ extension Project {
             date: date3,
             amount: 3_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.progressOOO,
             note: "Первый транш по займу")
@@ -77,6 +82,7 @@ extension Project {
             date: date1,
             amount: 6_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.progressOOO,
             note: "Транш по договору займа"
@@ -87,6 +93,7 @@ extension Project {
             date: date2,
             amount: 4_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.progressOOO,
             note: "Транш по договору займа"
@@ -97,6 +104,7 @@ extension Project {
             date: date3,
             amount: 5_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.progressOOO,
             note: "Транш по договору займа"
@@ -107,6 +115,7 @@ extension Project {
             date: date4,
             amount: 5_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.progressOOO,
             note: "Транш по договору займа"
@@ -117,6 +126,7 @@ extension Project {
             date: date5,
             amount: 5_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.progressOOO,
             note: "Транш по договору займа"
@@ -127,6 +137,7 @@ extension Project {
             date: date6,
             amount: 5_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.progressOOO,
             note: "Транш по договору займа"
@@ -148,6 +159,7 @@ extension Project {
             date: date1,
             amount: 9_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.kitProgressOOO,
             note: "Транш по договору займа"
@@ -158,6 +170,7 @@ extension Project {
             date: date2,
             amount: 2_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.kitProgressOOO,
             note: "Транш по договору займа"
@@ -168,13 +181,22 @@ extension Project {
             date: date3,
             amount: 2_000_000,
             currency: .rub,
+            type: .investment,
             sender: Entity.igor,
             recipient: Entity.kitProgressOOO,
             note: "Транш по договору займа"
         )
         
         let date4 = calendar.date(from: DateComponents(year: 2020, month: 7, day: 1))!
-        let payment4 = Payment(date: date4, amount: 500_000, currency: .rub, sender: Entity.kitProgressOOO, recipient: Entity.igor, note: "ВОЗВРАТНЫЙ ПЛАТЕЖ ДЛЯ ТЕСТИРОВАНИЯ")
+        let payment4 = Payment(
+            date: date4,
+            amount: 500_000,
+            currency: .rub,
+            type: .return,
+            sender: Entity.kitProgressOOO,
+            recipient: Entity.igor,
+            note: "ВОЗВРАТНЫЙ ПЛАТЕЖ ДЛЯ ТЕСТИРОВАНИЯ"
+        )
         
         return Project(
             name: "ВайМэ! Щелково",

@@ -11,10 +11,10 @@ import InvestmentDataModel
 struct PaymentView: View {
     @EnvironmentObject var portfolio: Portfolio
     
-    let project: Project
     let payment: Payment
+    let project: Project
     
-    init(project: Project, payment: Payment) {
+    init(payment: Payment, in project: Project) {
         self.project = project
         self.payment = payment
         _draft = State(initialValue: payment)
@@ -30,12 +30,17 @@ struct PaymentView: View {
                 Spacer()
                 Text(payment.date, style: .date)
             }
+            Text(payment.type.rawValue)
+            
             HStack {
                 Text("Amount").foregroundColor(.secondary)
                 Spacer()
                 Text("\(payment.currency.symbol)\(payment.amount, specifier: "%.f")")
             }
-            Text(payment.note)
+            
+            if !payment.note.isEmpty {
+                Text(payment.note)
+            }
             
             Section(header: Text("from".uppercased())) {
                 Text(payment.sender.name)
@@ -68,7 +73,7 @@ struct PaymentView: View {
                 }
             } content: {
                 EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
-                    PaymentEditor(payment: draft)
+                    PaymentEditor(payment: draft, project: project)
                 }
                 .environmentObject(portfolio)
             }
@@ -79,7 +84,7 @@ struct PaymentView: View {
 struct PaymentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PaymentView(project: Project(), payment: Payment())
+            PaymentView(payment: Payment(), in: Project())
                 .environmentObject(Portfolio())
         }
         .preferredColorScheme(.dark)

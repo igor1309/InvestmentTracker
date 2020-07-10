@@ -27,6 +27,14 @@ extension Entity: Placeholdable {
 
 extension Payment: Placeholdable {
     init() {
-        self.init(date: Date(), amount: 1, currency: .rub, sender: Entity(), recipient: Entity(), note: "")
+        self.init(
+            date: Date(),
+            amount: 1_000_000,
+            currency: .rub,
+            type: .investment,
+            sender: Entity(),
+            recipient: Entity(),
+            note: ""
+        )
     }
 }

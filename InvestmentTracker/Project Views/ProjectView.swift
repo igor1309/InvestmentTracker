@@ -66,7 +66,7 @@ struct ProjectView: View {
                 ) {
                     ForEach(project.payments.sorted(by: >)) { payment in
                         NavigationLink(
-                            destination: PaymentView(project: project, payment: payment)
+                            destination: PaymentView(payment: payment, in: project)
                                 .environmentObject(portfolio)
                         ) {
                             PaymentRow(payment: payment)
@@ -130,7 +130,7 @@ struct ProjectView: View {
             if let original = original {
                 print("Entity with name '\(original.name)' was created or edited, ready to use")
                 withAnimation {
-                    if portfolio.update(project, with: original) {
+                    if portfolio.update(project, keyPath: \.projects) {
                         generator.notificationOccurred(.success)
                     } else {
                         generator.notificationOccurred(.error)
@@ -172,12 +172,12 @@ struct ProjectView: View {
         switch modal {
         case .entityEditor:
             EditorWrapper(original: $draftEntity, isPresented: $showModal) { draft in
-                EntityEditor(entity: draft)
+                EntityEditor(entity: draft, project: project)
             }
             .environmentObject(portfolio)
         case .paymentEditor:
             EditorWrapper(original: $draftPayment, isPresented: $showModal) { draft in
-                PaymentEditor(payment: draft)
+                PaymentEditor(payment: draft, project: project)
             }
             .environmentObject(portfolio)
         case .projectEditor:
