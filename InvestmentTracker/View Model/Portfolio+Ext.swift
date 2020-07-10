@@ -5,7 +5,6 @@
 //  Created by Igor Malyarov on 10.07.2020.
 //
 
-import Foundation
 import InvestmentDataModel
 
 extension Portfolio {

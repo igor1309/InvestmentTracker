@@ -18,23 +18,40 @@ struct PaymentEditor: View {
     
     var body: some View {
         List {
+            Section(
+                            header: Text("Payment".uppercased())
+            ) {
             DatePicker("Payment Date", selection: $payment.date, displayedComponents: .date)
+                .labelsHidden()
             
             //  MARK: - changing payment type leads to swap in sender-recipient
             //  TODO: FINISH THIS
-            Section(header: Text("Type".uppercased())) {
+//            Section(
+//                header: Text("Type".uppercased())
+//                ,
+//                footer: Text(errorNote()).foregroundColor(Color(UIColor.red))
+//            ) {
                 Picker("Type", selection: $payment.type) {
                     ForEach(Payment.PaymentType.allCases, id: \.self) { type in
                         Text(type.id).tag(type)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
+//                .debugPrint(payment.type)
             }
+            
             
             Section(header: Text("Amount".uppercased())) {
                 //  MARK: FINISH THIS!!!
                 //TextField("Amount", value: $payment.amount, formatter: formatter())
                     //.keyboardType(.decimalPad)
+                
+                Picker("Currency", selection: $payment.currency) {
+                    ForEach(Currency.allCases, id: \.self) { currency in
+                        Text(currency.symbol).tag(currency)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
                 
                 Stepper(onIncrement: increase, onDecrement: decrease) {
                     Button {
@@ -45,9 +62,9 @@ struct PaymentEditor: View {
                 }
             }
             
-            Section(header: Text("Note".uppercased())) {
-                //  MARK: change to TextEditor when it get fixed
+            Section(header: Text("Payment Note".uppercased())) {
                 TextField("Note", text: $payment.note)
+                //  MARK: change to TextEditor when it get fixed
                 //  TextEditor(text: $payment.note)
             }
             

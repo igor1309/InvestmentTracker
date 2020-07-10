@@ -46,15 +46,13 @@ struct EntityPicker: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(
                 trailing: Button {
-                    //  MARK: FINISH THIS
-                    //                    draft = Entity("New Entity", note: "")
                     showEditor = true
                 } label: {
                     Image(systemName: "plus")
                         .padding([.vertical, .leading])
                 }
                 .sheet(isPresented: $showEditor) {
-                    //  on Dismiss
+                    ///  on Dismiss
                     handleEditorOnDismiss()
                 } content: {
                     EditorWrapper(original: $draft, isPresented: $showEditor) { draft in

@@ -30,10 +30,9 @@ struct PaymentView: View {
                 Spacer()
                 Text(payment.date, style: .date)
             }
-            Text(payment.type.rawValue)
             
             HStack {
-                Text("Amount").foregroundColor(.secondary)
+                Text(payment.type.id)
                 Spacer()
                 Text("\(payment.currency.symbol)\(payment.amount, specifier: "%.f")")
             }

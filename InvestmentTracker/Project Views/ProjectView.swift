@@ -221,8 +221,8 @@ struct ProjectView: View {
             title: Text("Add".uppercased()),
             message: Text("What would you like to add to the Project?"),
             buttons: [
-                .default(Text("Add Entity")) { addEntity() },
                 .default(Text("Add Payment")) { addPayment() },
+                .default(Text("Add Entity")) { addEntity() },
                 .cancel()
             ]
         )
