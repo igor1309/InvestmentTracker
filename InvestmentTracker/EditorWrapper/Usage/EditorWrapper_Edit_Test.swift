@@ -1,5 +1,5 @@
 //
-//  Edit_EditorWrapperTest.swift
+//  EditorWrapperTest_Edit.swift
 //  InvestmentTracker
 //
 //  Created by Igor Malyarov on 08.07.2020.
@@ -9,7 +9,7 @@ import SwiftUI
 import InvestmentDataModel
 
 //  MARK: How to use EditorWrapper for Editing
-struct Edit_EditorWrapper: View {
+struct EditorWrapper_Edit: View {
     var entity: Entity
     
     @State private var original: Entity?
@@ -56,16 +56,16 @@ struct Edit_EditorWrapper: View {
     }
 }
 
-struct Edit_EditorWrapperTest: View {
+struct EditorWrapper_Edit_Test: View {
     var entity = Entity("Test", note: "Test Entity")
     
     var body: some View {
-        Edit_EditorWrapper(entity: entity)
+        EditorWrapper_Edit(entity: entity)
     }
 }
 
-struct Edit_EditorWrapperTest_Previews: PreviewProvider {
+struct EditorWrapper_Edit_Test_Previews: PreviewProvider {
     static var previews: some View {
-        Edit_EditorWrapperTest()
+        EditorWrapper_Edit_Test()
     }
 }

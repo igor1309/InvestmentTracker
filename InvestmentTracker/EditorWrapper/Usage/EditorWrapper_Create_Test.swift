@@ -9,7 +9,7 @@ import SwiftUI
 import InvestmentDataModel
 
 //  MARK: How to use EditorWrapper for Creating new entity
-struct Create_EditorWrapperTest: View {
+struct EditorWrapper_Create_Test: View {
     var entity: Entity
     
     @State private var original: Entity?
@@ -44,8 +44,8 @@ struct Create_EditorWrapperTest: View {
     }
 }
 
-struct Create_EditorWrapperTest_Previews: PreviewProvider {
+struct EditorWrapper_Create_Test_Previews: PreviewProvider {
     static var previews: some View {
-        Create_EditorWrapperTest(entity: Entity("Test", note: "Test Entity"))
+        EditorWrapper_Create_Test(entity: Entity("Test", note: "Test Entity"))
     }
 }

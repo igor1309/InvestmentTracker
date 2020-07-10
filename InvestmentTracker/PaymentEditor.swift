@@ -8,34 +8,6 @@
 import SwiftUI
 import InvestmentDataModel
 
-struct AmountPicker: View {
-    @Environment(\.presentationMode) var presentation
-    
-    @Binding var amount: Double
-    
-    let amounts: [Double] = [10_000, 100_000, 500_000, 1_000_000, 2_000_000, 3_000_000, 5_000_000, 10_000_000]
-    
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(amounts, id: \.self) { amount in
-                    HStack {
-                        Spacer()
-                        Text("\(amount, specifier: "%.f")").tag(amount)
-                    }
-                    .onTapGesture {
-                        self.amount = amount
-                        presentation.wrappedValue.dismiss()
-                    }
-                }
-            }
-            .listStyle(InsetListStyle())
-            .navigationTitle("Select Amount")
-            .navigationBarTitleDisplayMode(.inline)
-        }
-    }
-}
-
 struct PaymentEditor: View {
     @EnvironmentObject var portfolio: Portfolio
     
