@@ -1,5 +1,5 @@
 //
-//  Model Extensions.swift
+//  Project Extensions.swift
 //  InvestmentTracker
 //
 //  Created by Igor Malyarov on 06.07.2020.
@@ -12,7 +12,7 @@ extension Project {
     
     //  MARK: - Entity Handling
     
-    mutating func addEntity(_ entity: Entity) -> Bool {
+    private mutating func addEntity(_ entity: Entity) -> Bool {
         if entity.isValid {
             entities.append(entity)
             return true
@@ -20,14 +20,14 @@ extension Project {
         return false
     }
     
-    mutating func deleteEntity(_ entity: Entity) {
+    private mutating func deleteEntity(_ entity: Entity) {
         guard let index = entities.firstIndex(matching: entity) else { return }
         
         entities.remove(at: index)
     }
     
     //  MARK: - Payment Handling
-    mutating func addPayment(_ payment: Payment) -> Bool {
+    private mutating func addPayment(_ payment: Payment) -> Bool {
         if payment.isValid {
             payments.append(payment)
             return true
@@ -35,7 +35,7 @@ extension Project {
         return false
     }
     
-    mutating func deletePayment(_ payment: Payment) {
+    private mutating func deletePayment(_ payment: Payment) {
         guard let index = payments.firstIndex(matching: payment) else { return }
         
         payments.remove(at: index)

@@ -11,10 +11,16 @@ import InvestmentDataModel
 struct PaymentView: View {
     @EnvironmentObject var portfolio: Portfolio
     
+    let project: Project
     let payment: Payment
-
-    @State private var draft: Payment = Payment.payment01
-    @State private var shouldSave = false
+    
+    init(project: Project, payment: Payment) {
+        self.project = project
+        self.payment = payment
+        _draft = State(initialValue: payment)
+    }
+    
+    @State private var draft: Payment?
     @State private var showEditor = false
     
     var body: some View {
@@ -45,16 +51,26 @@ struct PaymentView: View {
             trailing: Button("Edit") {
                 showEditor = true
             }
-            .sheet(isPresented: $showEditor, onDismiss: {
-                if shouldSave {
-                    //  MARK: FINISH THIS
-                    print("saving...")
-                    
-                    shouldSave = false
+            .sheet(isPresented: $showEditor) {
+                let generator = UINotificationFeedbackGenerator()
+                if let draft = draft {
+                    print("Payment for \(draft.currency.symbol)\(draft.amount) was created or edited, ready to use")
+                    withAnimation {
+                        if portfolio.update(draft, in: project, keyPath: \.payments) {
+                            generator.notificationOccurred(.success)
+                        } else {
+                            generator.notificationOccurred(.error)
+                        }
+                    }
+                } else {
+                    print("nothing was created or edit was cancelled")
+                    draft = payment
                 }
-            }) {
-                PaymentEditor(draft: $draft, shouldSave: $showEditor)
-                    .environmentObject(portfolio)
+            } content: {
+                EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
+                    PaymentEditor(payment: draft)
+                }
+                .environmentObject(portfolio)
             }
         )
     }
@@ -63,7 +79,7 @@ struct PaymentView: View {
 struct PaymentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PaymentView(payment: Payment.payment01)
+            PaymentView(project: Project(), payment: Payment())
                 .environmentObject(Portfolio())
         }
         .preferredColorScheme(.dark)

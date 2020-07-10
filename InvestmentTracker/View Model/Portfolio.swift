@@ -99,63 +99,6 @@ final class Portfolio: ObservableObject {
         return true
     }
 
-    
-    //  MARK: - Entity handling
-    
-    func addEntity(_ entity: Entity, to project: Project) -> Bool {
-        guard entity.isValid else { return false }
-        
-        guard let index = projects.firstIndex(matching: project) else { return false }
-        
-        return projects[index].addEntity(entity)
-    }
-    
-    func updateEntity(_ entity: Entity, to project: Project) -> Bool {
-        guard entity.isValid else { return false }
-        
-        guard let index = projects.firstIndex(matching: project) else { return false }
-        
-        guard let entityIndex = project.entities.firstIndex(matching: entity) else { return false }
-        
-        projects[index].entities[entityIndex] = entity
-        
-        return true
-    }
-    
-    func deleteEntity(_ entity: Entity, from project: Project) {
-        guard let index = projects.firstIndex(matching: project) else { return }
-        
-        projects[index].deleteEntity(entity)
-    }
-
-    //  MARK: - Payment handling
-    
-    func addPayment(_ payment: Payment, to project: Project) -> Bool {
-        guard payment.isValid else { return false }
-        
-        guard let index = projects.firstIndex(matching: project) else { return false }
-        
-        return projects[index].addPayment(payment)
-    }
-    
-    func updatePayment(_ payment: Payment, in project: Project) -> Bool {
-        guard payment.isValid else { return false }
-        
-        guard let index = projects.firstIndex(matching: project) else { return false }
-        
-        guard let paymentIndex = project.payments.firstIndex(matching: payment) else { return false }
-        
-        projects[index].payments[paymentIndex] = payment
-        
-        return true
-    }
-    
-    func deletePayment(_ payment: Payment, from project: Project) {
-        guard let index = projects.firstIndex(matching: project) else { return }
-        
-        projects[index].deletePayment(payment)
-    }
-    
     //  MARK: - Project handling
     
     func update(_ project: Project, with draft: Project) -> Bool {
@@ -195,7 +138,7 @@ final class Portfolio: ObservableObject {
         return Array(uniqueEntities).sorted { $0.name < $1.name }
     }
     
-    //  MARK: Portfolio Totals
+    //  MARK: - Portfolio Totals
     
     var totalInvestment: Double {
         projects

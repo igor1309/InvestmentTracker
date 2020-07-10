@@ -13,9 +13,9 @@ import InvestmentDataModel
 struct InvestmentTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            Edit_EditorWrapperTest(entity: Entity("Test", note: "Test Entity"))
-            //CreatorWrapperTest()
-            //ContentView()
+            //Create_EditorWrapperTest(entity: Entity("Test", note: "Test Entity"))
+            //Edit_EditorWrapperTest(entity: Entity("Test", note: "Test Entity"))
+            ContentView()
         }
     }
 }

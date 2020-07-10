@@ -8,24 +8,16 @@
 import SwiftUI
 import InvestmentDataModel
 
-enum EditorAction { case save, cancel }
-enum EditorResult<Value> {
-    case value(Value)
-    case action(EditorAction)
-}
-
-
-
 //  MARK: How to use EditorWrapper for Editing
-struct Edit_EditorWrapperTest: View {
+struct Edit_EditorWrapper: View {
     var entity: Entity
     
-    @State private var original: EditorResult = .value(Entity())
+    @State private var original: Entity?
     @State private var isPresented = false
     
     init(entity: Entity) {
         self.entity = entity
-        _original = State(initialValue: .value(entity))
+        _original = State(initialValue: entity)
     }
     
     var body: some View {
@@ -37,19 +29,18 @@ struct Edit_EditorWrapperTest: View {
             
             Button("Edit Entity") {
                 print("original: \(String(describing: original))")
-                original = .value(entity)
+                original = entity
                 print("original: \(String(describing: original))")
                 isPresented = true
             }
             .sheet(isPresented: $isPresented) {
                 //  onDismiss
-                switch original {
-                case .action(_):
-                    print("nothing was created or edit was cancelled")
-                case .value(let original):
+                if let original = original {
                     print("Entity with name '\(original.name)' was created or edited, ready to use")
-//                    original = nil
+                } else {
+                    print("nothing was created or edit was cancelled")
                 }
+                original = entity
             } content: {
                 EditorWrapper(
                     original: $original,
@@ -65,8 +56,16 @@ struct Edit_EditorWrapperTest: View {
     }
 }
 
+struct Edit_EditorWrapperTest: View {
+    var entity = Entity("Test", note: "Test Entity")
+    
+    var body: some View {
+        Edit_EditorWrapper(entity: entity)
+    }
+}
+
 struct Edit_EditorWrapperTest_Previews: PreviewProvider {
     static var previews: some View {
-        Edit_EditorWrapperTest(entity: Entity("Test", note: "Test Entity"))
+        Edit_EditorWrapperTest()
     }
 }

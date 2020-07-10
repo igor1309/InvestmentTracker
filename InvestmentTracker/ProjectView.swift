@@ -31,10 +31,14 @@ struct ProjectView: View {
     
     let project: Project
     
+    init(project: Project) {
+        self.project = project
+        _original = State(initialValue: project)
+    }
+    
     @State private var original: Project?
-    @State private var draftEntity: Entity = .init()
-    @State private var draftPayment: Payment = .init()
-    @State private var shouldSave = false
+    @State private var draftEntity: Entity?
+    @State private var draftPayment: Payment?
     
     enum Modal { case entityEditor, paymentEditor, projectEditor }
     
@@ -45,7 +49,7 @@ struct ProjectView: View {
     @State private var showDeleteAction = false
     
     var body: some View {
-        Form {
+        List {
             Text(project.note)
             
             investmentSection()
@@ -62,7 +66,7 @@ struct ProjectView: View {
                 ) {
                     ForEach(project.payments.sorted(by: >)) { payment in
                         NavigationLink(
-                            destination: PaymentView(payment: payment)
+                            destination: PaymentView(project: project, payment: payment)
                                 .environmentObject(portfolio)
                         ) {
                             PaymentRow(payment: payment)
@@ -83,6 +87,7 @@ struct ProjectView: View {
             }
             
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationTitle(project.name)
         .navigationBarItems(
             trailing: HStack {
@@ -104,8 +109,13 @@ struct ProjectView: View {
             message: Text("Do you really want to delete this Payment of \(payment.currency.symbol)\(payment.amount, specifier: "%.f") on \(payment.date, style: .date)?\nThis operation cannot be undone."),
             buttons: [
                 .destructive(Text("Yes, delete")) {
+                    let generator = UINotificationFeedbackGenerator()
                     withAnimation {
-                        portfolio.deletePayment(payment, from: project)
+                        if portfolio.delete(payment, from: project, keyPath: \.payments) {
+                            generator.notificationOccurred(.success)
+                        } else {
+                            generator.notificationOccurred(.error)
+                        }
                     }
                 },
                 .cancel()
@@ -117,52 +127,64 @@ struct ProjectView: View {
         
         switch modal {
         case .projectEditor:
-            if original == nil {
-                print("nothing was created or edit was cancelled")
-            } else {
-                print("Entity with name '\(original!.name)' was created or edited, ready to use")
+            if let original = original {
+                print("Entity with name '\(original.name)' was created or edited, ready to use")
                 withAnimation {
-                    if portfolio.update(project, with: original!) {
+                    if portfolio.update(project, with: original) {
                         generator.notificationOccurred(.success)
                     } else {
                         generator.notificationOccurred(.error)
                     }
                 }
+            } else {
+                print("nothing was created or edit was cancelled")
             }
         case .entityEditor:
-            withAnimation {
-                if portfolio.addEntity(draftEntity, to: project) {
-                    generator.notificationOccurred(.success)
-                } else {
-                    generator.notificationOccurred(.error)
+            if let draftEntity = draftEntity {
+                print("Entity with name '\(draftEntity.name)' was created or edited, ready to use")
+                withAnimation {
+                    if portfolio.add(draftEntity, to: project, keyPath: \.entities) {
+                        generator.notificationOccurred(.success)
+                    } else {
+                        generator.notificationOccurred(.error)
+                    }
                 }
+            } else {
+                print("nothing was created or edit was cancelled")
             }
         case .paymentEditor:
-            withAnimation {
-                if portfolio.addPayment(draftPayment, to: project) {
-                    generator.notificationOccurred(.success)
-                } else {
-                    generator.notificationOccurred(.error)
+            if let draftPayment = draftPayment {
+                print("Payment for \(draftPayment.currency.symbol)\(draftPayment.amount) was created or edited, ready to use")
+                withAnimation {
+                    if portfolio.add(draftPayment, to: project, keyPath: \.payments) {
+                        generator.notificationOccurred(.success)
+                    } else {
+                        generator.notificationOccurred(.error)
+                    }
                 }
+            } else {
+                print("nothing was created or edit was cancelled")
             }
         }
-        
-        shouldSave = false
     }
     
     @ViewBuilder private func presentModal() -> some View {
         switch modal {
         case .entityEditor:
-            EntityEditor(entity: $draftEntity, shouldSave: $shouldSave)
-                .environmentObject(portfolio)
+            EditorWrapper(original: $draftEntity, isPresented: $showModal) { draft in
+                EntityEditor(entity: draft)
+            }
+            .environmentObject(portfolio)
         case .paymentEditor:
-            PaymentEditor(draft: $draftPayment, shouldSave: $shouldSave)
-                .environmentObject(portfolio)
+            EditorWrapper(original: $draftPayment, isPresented: $showModal) { draft in
+                PaymentEditor(payment: draft)
+            }
+            .environmentObject(portfolio)
         case .projectEditor:
-            Text("TBD")
-//            EditorWrapper(original: $original, isPresented: $showModal) { draft in
-//                ProjectEditor(draft: draft)
-//            }
+            EditorWrapper(original: $original, isPresented: $showModal) { draft in
+                ProjectEditor(draft: draft)
+            }
+            .environmentObject(portfolio)
         }
     }
     
@@ -179,7 +201,6 @@ struct ProjectView: View {
     private func editButton() -> some View {
         Button("Edit") {
             original = project
-            print("original: \(String(describing: original))")
             modal = .projectEditor
             showModal = true
         }
@@ -187,15 +208,11 @@ struct ProjectView: View {
     
     private func selectWhatToAdd() -> ActionSheet {
         func addEntity() {
-            shouldSave = false
-            draftEntity = Entity("", note: "")
             modal = .entityEditor
             showModal = true
         }
         
         func addPayment() {
-            shouldSave = false
-            draftPayment = Payment()
             modal = .paymentEditor
             showModal = true
         }

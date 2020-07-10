@@ -20,7 +20,9 @@ extension Entity: Validatable {
 
 extension Payment: Validatable {
     var isValid: Bool {
-        !(amount != 0) && !sender.name.isEmpty && !recipient.name.isEmpty
+        //  MARK: Uncomment after fixing TextField for amount
+        //!(amount != 0) &&
+            !sender.name.isEmpty && !recipient.name.isEmpty
     }
 }
 

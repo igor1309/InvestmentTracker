@@ -26,14 +26,14 @@ struct Create_EditorWrapperTest: View {
             
             .sheet(isPresented: $isPresented) {
                 //  onDismiss
-                if original == nil {
-                    print("nothing was created or edit was cancelled")
+                if let original = original {
+                    print("Entity with name '\(original.name)' was created or edited, ready to use")
                 } else {
-                    print("Entity with name '\(original!.name)' was created or edited, ready to use")
-                    original = nil
+                    print("nothing was created or edit was cancelled")
                 }
+                original = nil
             } content: {
-                CreatorWrapper(original: $original, isPresented: $isPresented) { draft in
+                EditorWrapper(original: $original, isPresented: $isPresented) { draft in
                     Form {
                         TextField("Name", text: draft.name)
                         TextField("Note", text: draft.note)

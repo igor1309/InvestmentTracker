@@ -23,6 +23,7 @@ struct EntityPicker: View {
                 ForEach(portfolio.entities, id: \.id) { entity in
                     HStack {
                         Text(entity.name).tag(entity)
+                            .foregroundColor(color(for: entity))
                         Spacer()
                     }
                     .contentShape(Rectangle())
@@ -52,10 +53,14 @@ struct EntityPicker: View {
                         shouldSave = false
                     }
                 } content: {
-                    EntityEditor(entity: $draft, shouldSave: $shouldSave)
+                    EntityEditor(entity: $draft)
                 }
             )
         }
+    }
+    
+    func color(for entity: Entity) -> Color {
+        self.entity == entity ? Color(UIColor.systemOrange) : .primary
     }
 }
 

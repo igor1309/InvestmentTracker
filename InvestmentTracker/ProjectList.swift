@@ -28,7 +28,6 @@ struct ProjectList: View {
                     ForEach(portfolio.projects) { project in
                         NavigationLink(
                             destination: ProjectView(project: project)
-                                .environmentObject(portfolio)
                         ) {
                             projectRow(project)
                         }

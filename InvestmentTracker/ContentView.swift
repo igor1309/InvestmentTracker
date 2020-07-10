@@ -13,7 +13,8 @@ struct ContentView: View {
     @StateObject var settings: Settings = Settings()
     
     var body: some View {
-        ProjectList(portfolio: portfolio)
+        ProjectList()
+            .environmentObject(portfolio)
             .environmentObject(settings)
     }
 }

@@ -8,153 +8,123 @@
 import SwiftUI
 import InvestmentDataModel
 
-struct PaymentEditor: View {
-    @EnvironmentObject var portfolio: Portfolio
-    
-    enum Modal { case sender, recipient }
-    @State private var modal = Modal.sender
-    @State private var showModal = false
-    
-    @Binding var draft: Payment
-    @Binding var shouldSave: Bool
-    
-    var body: some View {
-        EditorWrapperOld(draft: $draft, shouldSave: $shouldSave) {
-            List {
-                DatePicker("Payment Date", selection: $draft.date, displayedComponents: .date)
-                
-                Section(header: Text("Amount".uppercased())) {
-                    TextField("Amount", value: $draft.amount, formatter: formatter())
-                        .keyboardType(.decimalPad)
-                }
-                
-                Section(header: Text("Note".uppercased())) {
-                    //  MARK: change to TextEditor when it get fixed
-                    TextField("Note", text: $draft.note)
-                    //  TextEditor(text: $draft.note)
-                }
-                
-                Section(header: Text("from".uppercased())) {
-                    Button {
-                        modal = .sender
-                        showModal = true
-                    } label: {
-                        Text(draft.sender.name)
-                    }
-                }
-                
-                Section(header: Text("to".uppercased())) {
-                    Button {
-                        modal = .recipient
-                        showModal = true
-                    } label: {
-                        Text(draft.recipient.name)
-                    }
-                }
-            }
-            .sheet(isPresented: $showModal) {
-                presentModal()
-            }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Edit Payment")
-        }
-    }
-    
-    @ViewBuilder private func presentModal() -> some View {
-        switch modal {
-        case .sender:
-            EntityPicker(entity: $draft.sender)
-                .environmentObject(portfolio)
-        case .recipient:
-            EntityPicker(entity: $draft.recipient)
-                .environmentObject(portfolio)
-        }
-    }
-    
-    private func formatter() -> Formatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        
-        return formatter
-    }
-}
-
-struct PaymentEditor1: View {
+struct AmountPicker: View {
     @Environment(\.presentationMode) var presentation
-    @EnvironmentObject var portfolio: Portfolio
     
-    enum Modal { case sender, recipient }
-    @State private var modal = Modal.sender
-    @State private var showModal = false
+    @Binding var amount: Double
     
-    @State private var draft: Payment
-    
-    init(payment: Payment) {
-        _draft = State(initialValue: payment)
-    }
+    let amounts: [Double] = [10_000, 100_000, 500_000, 1_000_000, 2_000_000, 3_000_000, 5_000_000, 10_000_000]
     
     var body: some View {
         NavigationView {
             List {
-                DatePicker("Payment Date", selection: $draft.date, displayedComponents: .date)
-                
-                
-                
-                Section(header: Text("Amount".uppercased())) {
-                    TextField("Amount", value: $draft.amount, formatter: formatter())
-                        .keyboardType(.decimalPad)
-//                    Text("\(draft.currency.symbol)\(draft.amount, specifier: "%.f")")
-                }
-                
-                Section(header: Text("Note".uppercased())) {
-                    //  MARK: change to TextEditor when it get fixed
-                    TextField("Note", text: $draft.note)
-                    //  TextEditor(text: $draft.note)
-                }
-                
-                Section(header: Text("from".uppercased())) {
-                    Button {
-                        modal = .sender
-                        showModal = true
-                    } label: {
-                        Text(draft.sender.name)
+                ForEach(amounts, id: \.self) { amount in
+                    HStack {
+                        Spacer()
+                        Text("\(amount, specifier: "%.f")").tag(amount)
                     }
-                }
-                
-                Section(header: Text("to".uppercased())) {
-                    Button {
-                        modal = .recipient
-                        showModal = true
-                    } label: {
-                        Text(draft.recipient.name)
+                    .onTapGesture {
+                        self.amount = amount
+                        presentation.wrappedValue.dismiss()
                     }
                 }
             }
-            .sheet(isPresented: $showModal) {
-                presentModal()
-            }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Edit Payment")
+            .listStyle(InsetListStyle())
+            .navigationTitle("Select Amount")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(
-                leading: Button("Cancel") {
-                    presentation.wrappedValue.dismiss()
-                },
-                trailing: Button("Save") {
-                    //  MARK: FINISH THIS
-                    presentation.wrappedValue.dismiss()
-                }
-            )
         }
+    }
+}
+
+struct PaymentEditor: View {
+    @EnvironmentObject var portfolio: Portfolio
+    
+    let amounts: [Double] = [10_000, 100_000, 500_000, 1_000_000, 2_000_000, 3_000_000, 5_000_000, 10_000_000]
+    
+    enum Modal { case amount, sender, recipient }
+    @State private var modal = Modal.sender
+    @State private var showModal = false
+    
+    @Binding var payment: Payment
+    
+    var body: some View {
+        List {
+            DatePicker("Payment Date", selection: $payment.date, displayedComponents: .date)
+            
+            Section(header: Text("Amount".uppercased())) {
+                TextField("Amount", value: $payment.amount, formatter: formatter())
+                    .keyboardType(.decimalPad)
+                
+                Stepper("\(payment.amount, specifier: "%.f")", onIncrement: increase, onDecrement: decrease)
+                
+                Picker("Amount", selection: $payment.amount) {
+                    ForEach(amounts, id: \.self) { amount in
+                        HStack {
+                            Spacer()
+                            Text("\(amount, specifier: "%.f")").tag(amount)
+                        }
+                    }
+                }
+                .labelsHidden()
+                
+                Button {
+                    modal = .amount
+                    showModal = true
+                } label: {
+                    Text("\(payment.amount, specifier: "%.f")")
+                }
+            }
+            
+            Section(header: Text("Note".uppercased())) {
+                //  MARK: change to TextEditor when it get fixed
+                TextField("Note", text: $payment.note)
+                //  TextEditor(text: $payment.note)
+            }
+            
+            Section(header: Text("from".uppercased())) {
+                Picker("Sender", selection: $payment.sender) {
+                    ForEach(portfolio.entities, id: \.id) { entity in
+                        Text(entity.name).tag(entity)
+                    }
+                }
+                Button {
+                    modal = .sender
+                    showModal = true
+                } label: {
+                    Text(payment.sender.name)
+                }
+            }
+            
+            Section(header: Text("to".uppercased())) {
+                Picker("Recipient", selection: $payment.recipient) {
+                    ForEach(portfolio.entities, id: \.id) { entity in
+                        Text(entity.name).tag(entity)
+                    }
+                }
+                Button {
+                    modal = .recipient
+                    showModal = true
+                } label: {
+                    Text(payment.recipient.name)
+                }
+            }
+        }
+        .sheet(isPresented: $showModal) {
+            presentModal()
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("Edit Payment")
     }
     
     @ViewBuilder private func presentModal() -> some View {
         switch modal {
+        case .amount:
+            AmountPicker(amount: $payment.amount)
         case .sender:
-            EntityPicker(entity: $draft.sender)
+            EntityPicker(entity: $payment.sender)
                 .environmentObject(portfolio)
         case .recipient:
-            EntityPicker(entity: $draft.recipient)
+            EntityPicker(entity: $payment.recipient)
                 .environmentObject(portfolio)
         }
     }
@@ -165,12 +135,29 @@ struct PaymentEditor1: View {
         
         return formatter
     }
+    
+    private func increase() {
+        payment.amount += 10_000
+    }
+    
+    private func decrease() {
+        if payment.amount > 10_000 {
+            payment.amount -= 10_000
+        } else {
+            payment.amount = 0
+        }
+    }
 }
 
 struct PaymentEditor_Previews: PreviewProvider {
+    @State static var payment = Payment()
+    
     static var previews: some View {
-        PaymentEditor(draft: .constant(Payment.payment01), shouldSave: .constant(true))
-            .environmentObject(Portfolio())
-            .preferredColorScheme(.dark)
+        NavigationView {
+            PaymentEditor(payment: $payment)
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .environmentObject(Portfolio())
+        .preferredColorScheme(.dark)
     }
 }

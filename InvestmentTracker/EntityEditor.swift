@@ -11,16 +11,13 @@ import InvestmentDataModel
 struct EntityEditor: View {
     
     @Binding var entity: Entity
-    @Binding var shouldSave: Bool
     
     var body: some View {
-        EditorWrapperOld(draft: $entity, shouldSave: $shouldSave) {
-            Form {
-                TextField("Entity Name", text: $entity.name)
-                TextField("Note", text: $entity.note)
-            }
-            .navigationTitle("Edit Entity")
+        Form {
+            TextField("Entity Name", text: $entity.name)
+            TextField("Note", text: $entity.note)
         }
+        .navigationTitle("Edit Entity")
     }
 }
 
@@ -54,7 +51,7 @@ struct EntityEditor1: View {
 
 struct EntityEditor_Previews: PreviewProvider {
     static var previews: some View {
-        EntityEditor(entity: .constant(Entity.kitProgressOOO), shouldSave: .constant(true))
+        EntityEditor(entity: .constant(Entity.kitProgressOOO))
             .preferredColorScheme(.dark)
     }
 }
