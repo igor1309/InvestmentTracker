@@ -50,8 +50,9 @@ struct ProjectList: View {
                         //  onDismiss
                         handleEditorOnDismiss()
                     } content: {
-                        EditorWrapper(original: $original,
-                                      isPresented: $showProjectEditor
+                        EditorWrapper(
+                            original: $original,
+                            isPresented: $showProjectEditor
                         ) { draft in
                             ProjectEditor(draft: draft)
                         }

@@ -55,28 +55,33 @@ struct PaymentView: View {
             trailing: Button("Edit") {
                 showEditor = true
             }
-            .sheet(isPresented: $showEditor) {
-                let generator = UINotificationFeedbackGenerator()
-                if let draft = draft {
-                    print("Payment for \(draft.currency.symbol)\(draft.amount) was created or edited, ready to use")
-                    withAnimation {
-                        if portfolio.update(draft, in: project, keyPath: \.payments) {
-                            generator.notificationOccurred(.success)
-                        } else {
-                            generator.notificationOccurred(.error)
-                        }
-                    }
-                } else {
-                    print("nothing was created or edit was cancelled")
-                    draft = payment
-                }
-            } content: {
-                EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
-                    PaymentEditor(payment: draft, project: project)
-                }
-                .environmentObject(portfolio)
-            }
         )
+        .sheet(isPresented: $showEditor) {
+            handleEditor()
+        } content: {
+            EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
+                PaymentEditor(payment: draft, project: project)
+            }
+            .environmentObject(portfolio)
+        }
+    }
+    
+    private func handleEditor() {
+        let generator = UINotificationFeedbackGenerator()
+        
+        if let draft = draft {
+            print("Payment for \(draft.currency.symbol)\(draft.amount) was created or edited, ready to use")
+            withAnimation {
+                if portfolio.update(draft, in: project, keyPath: \.payments) {
+                    generator.notificationOccurred(.success)
+                } else {
+                    generator.notificationOccurred(.error)
+                }
+            }
+        } else {
+            print("nothing was created or edit was cancelled")
+            draft = payment
+        }
     }
 }
 

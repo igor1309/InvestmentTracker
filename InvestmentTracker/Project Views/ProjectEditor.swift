@@ -12,7 +12,7 @@ struct ProjectEditor: View {
     @Binding var draft: Project
     
     var body: some View {
-        Form {
+        List {
             Section {
                 TextField("Project Name", text: $draft.name)
                 TextField("Note", text: $draft.note)
@@ -68,11 +68,15 @@ struct ProjectEditor: View {
             }
             */
         }
+        .listStyle(InsetGroupedListStyle())
     }
 }
 
 struct ProjectEditor_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectEditor(draft: .constant(Project()))
+        NavigationView {
+            ProjectEditor(draft: .constant(Project()))
+        }
+        .preferredColorScheme(.dark)
     }
 }

@@ -67,7 +67,7 @@ struct ProjectView: View {
                             destination: PaymentView(payment: payment, in: project)
                                 .environmentObject(portfolio)
                         ) {
-                            PaymentRow(payment: payment, project: project)
+                            PaymentRow(payment: payment, in: project)
                         }
                     }
                 }
@@ -120,8 +120,7 @@ struct ProjectView: View {
                 print("nothing was created or edit was cancelled")
             }
         case .entityList:
-            //  MARK: FINISH THIS
-            print("")
+            print("nothing to do here")
         }
     }
     
@@ -138,7 +137,6 @@ struct ProjectView: View {
             }
             .environmentObject(portfolio)
         case .entityList:
-            //  MARK: FINISH THIS
             EntityPicker(
                 entityID: .constant(UUID()),
                 title: "Entity List",

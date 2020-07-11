@@ -103,7 +103,7 @@ struct ProjectRow: View {
             
             return ActionSheet(
                 title: Text("Delete".uppercased()),
-                message: Text("Do you really want to delete \(project.name)?\nThis action cannot be undone."),
+                message: Text("Do you really want to delete project '\(project.name)'?\nThis action cannot be undone."),
                 buttons: [
                     .destructive(Text("Yes, delete"), action: delete),
                     .cancel()
