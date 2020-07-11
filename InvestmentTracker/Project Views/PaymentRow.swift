@@ -14,6 +14,8 @@ struct PaymentRow: View {
     let payment: Payment
     let project: Project
     
+    @State private var showDeleteAction = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .firstTextBaseline) {
@@ -28,7 +30,7 @@ struct PaymentRow: View {
                 }
             }
             .font(.subheadline)
-
+            
             VStack(alignment: .leading, spacing: 4) {
                 Text("from \(portfolio.entityForID(payment.senderID, in: project)?.name ?? "") to \(portfolio.entityForID(payment.recipientID, in: project)?.name ?? "")")
                 Text(payment.note)
@@ -36,6 +38,38 @@ struct PaymentRow: View {
             .foregroundColor(Color(UIColor.tertiaryLabel))
             .font(.footnote)
         }
+        .contextMenu {
+            Button {
+                showDeleteAction = true
+            } label: {
+                Image(systemName: "trash")
+                Text("Delete")
+            }
+        }
+        .actionSheet(isPresented: $showDeleteAction) {
+            deleteActionSheet(payment)
+        }
+    }
+    
+    private func deleteActionSheet(_ payment: Payment) -> ActionSheet {
+        func delete() {
+            let generator = UINotificationFeedbackGenerator()
+            withAnimation {
+                if portfolio.delete(payment, from: project, keyPath: \.payments) {
+                    generator.notificationOccurred(.success)
+                } else {
+                    generator.notificationOccurred(.error)
+                }
+            }
+        }
+        
+        return ActionSheet(
+            title: Text("Delete?".uppercased()),
+            message: Text("Do you really want to delete this Payment of \(payment.currency.symbol)\(payment.amount, specifier: "%.f") on \(payment.date, style: .date)?\nThis operation cannot be undone."),
+            buttons: [
+                .destructive(Text("Yes, delete"), action: delete),
+                .cancel()
+            ])
     }
 }
 

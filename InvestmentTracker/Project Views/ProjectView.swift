@@ -40,7 +40,6 @@ struct ProjectView: View {
     @State private var showModal = false
     
     @State private var showAddAction = false
-    @State private var showDeleteAction = false
     
     var body: some View {
         List {
@@ -64,17 +63,6 @@ struct ProjectView: View {
                                 .environmentObject(portfolio)
                         ) {
                             PaymentRow(payment: payment, project: project)
-                                .contextMenu {
-                                    Button {
-                                        showDeleteAction = true
-                                    } label: {
-                                        Image(systemName: "trash")
-                                        Text("Delete")
-                                    }
-                                    .actionSheet(isPresented: $showDeleteAction) {
-                                        deleteActionSheet(payment)
-                                    }
-                                }
                         }
                     }
                 }
@@ -94,25 +82,6 @@ struct ProjectView: View {
                     }
             }
         )
-    }
-    
-    private func deleteActionSheet(_ payment: Payment) -> ActionSheet {
-        ActionSheet(
-            title: Text("Delete?".uppercased()),
-            message: Text("Do you really want to delete this Payment of \(payment.currency.symbol)\(payment.amount, specifier: "%.f") on \(payment.date, style: .date)?\nThis operation cannot be undone."),
-            buttons: [
-                .destructive(Text("Yes, delete")) {
-                    let generator = UINotificationFeedbackGenerator()
-                    withAnimation {
-                        if portfolio.delete(payment, from: project, keyPath: \.payments) {
-                            generator.notificationOccurred(.success)
-                        } else {
-                            generator.notificationOccurred(.error)
-                        }
-                    }
-                },
-                .cancel()
-            ])
     }
     
     private func handleEditorsOnDismiss() {
