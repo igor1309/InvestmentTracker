@@ -12,10 +12,11 @@ struct EntitySelector: View {
     @EnvironmentObject var portfolio: Portfolio
     
     enum EntityType: String {
-        case sender = "Sender"
-        case recipient = "Recipient"
+        case sender, recipient
         
-        var header: String {
+        var id: String { rawValue.capitalized }
+        
+        var preposition: String {
             switch self {
             case .sender:
                 return "from"
@@ -28,35 +29,48 @@ struct EntitySelector: View {
     let type: EntityType
     let paymentType: Payment.PaymentType
     
-    @Binding var entity: Entity
+    @Binding var entityID: UUID
     let project: Project
     
     @State private var draftEntity: Entity?
     @State private var showModal = false
     
+    var entityName: String {
+        if let entity = portfolio.entityForID(entityID, in: project) {
+            return entity.name.isEmpty ? "select…" : entity.name
+        } else {
+            return "select…"
+        }
+    }
+    
     var isOk: Bool {
         portfolio.isEntityOk(
-            entity: entity,
+            entityID: entityID,
             as: type,
             for: paymentType,
             in: project
         )
     }
     
-    var body: some View {
-        Section(
-            header: Text(type.header.uppercased()),
-            footer: Text(isOk ? "" : "NOT OK")
+    var header: Text {
+        if isOk {
+            return Text(type.preposition)
+        } else {
+            return Text("Error in \(type.id)")
                 .foregroundColor(isOk ? .secondary : .red)
-        ) {
+        }
+    }
+    
+    var body: some View {
+        Section(header: header) {
             Button {
                 showModal = true
             } label: {
-                Text(entity.name.isEmpty ? "select…" : entity.name)
+                Text(entityName)
             }
             .sheet(isPresented: $showModal) {
                 EntityPicker(
-                    entity: $entity,
+                    entityID: $entityID,
                     entityType: type,
                     paymentType: paymentType,
                     project: project
@@ -86,13 +100,13 @@ struct EntitySelector_Previews: PreviewProvider {
                 EntitySelector(
                     type: .sender,
                     paymentType: Payment.PaymentType.investment,
-                    entity: $entity,
+                    entityID: $entity.id,
                     project: project
                 )
                 EntitySelector(
                     type: .recipient,
                     paymentType: Payment.PaymentType.investment,
-                    entity: $entity,
+                    entityID: $entity.id,
                     project: project
                 )
             }

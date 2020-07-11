@@ -16,4 +16,13 @@ extension Array where Element: Identifiable {
         }
         return nil
     }
+
+    func firstWithID(_ id: Element.ID) -> Element? {
+        for index in 0..<self.count {
+            if self[index].id == id {
+                return self[index]
+            }
+        }
+        return nil
+    }
 }

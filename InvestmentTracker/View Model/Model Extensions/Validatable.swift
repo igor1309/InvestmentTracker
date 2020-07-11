@@ -20,10 +20,7 @@ extension Entity: Validatable {
 
 extension Payment: Validatable {
     var isValid: Bool {
-        amount > 0
-            && !sender.name.isEmpty
-            && !recipient.name.isEmpty
-            && sender.name != recipient.name
+        amount > 0 && senderID != recipientID
     }
 }
 

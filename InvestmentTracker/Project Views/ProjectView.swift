@@ -69,7 +69,7 @@ struct ProjectView: View {
                             destination: PaymentView(payment: payment, in: project)
                                 .environmentObject(portfolio)
                         ) {
-                            PaymentRow(payment: payment)
+                            PaymentRow(payment: payment, project: project)
                                 .contextMenu {
                                     Button {
                                         showDeleteAction = true

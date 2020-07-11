@@ -12,6 +12,7 @@ struct PaymentRow: View {
     @EnvironmentObject var portfolio: Portfolio
     
     let payment: Payment
+    let project: Project
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -27,9 +28,9 @@ struct PaymentRow: View {
                 }
             }
             .font(.subheadline)
-            
+
             VStack(alignment: .leading, spacing: 4) {
-                Text("from \(payment.sender.name) to \(payment.recipient.name)")
+                Text("from \(portfolio.entityForID(payment.senderID, in: project)?.name ?? "") to \(portfolio.entityForID(payment.recipientID, in: project)?.name ?? "")")
                 Text(payment.note)
             }
             .foregroundColor(Color(UIColor.tertiaryLabel))
@@ -42,7 +43,7 @@ struct PaymentRow_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             List(/*@START_MENU_TOKEN@*/0 ..< 5/*@END_MENU_TOKEN@*/) { item in
-                PaymentRow(payment: Payment.payment01)
+                PaymentRow(payment: Payment(), project: Project())
             }
         }
         .environmentObject(Portfolio())

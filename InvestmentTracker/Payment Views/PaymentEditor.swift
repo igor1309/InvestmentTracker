@@ -71,14 +71,14 @@ struct PaymentEditor: View {
             EntitySelector(
                 type: .sender,
                 paymentType: payment.type,
-                entity: $payment.sender,
+                entityID: $payment.senderID,
                 project: project
             )
             
             EntitySelector(
                 type: .recipient,
                 paymentType: payment.type,
-                entity: $payment.recipient,
+                entityID: $payment.recipientID,
                 project: project
             )
         }

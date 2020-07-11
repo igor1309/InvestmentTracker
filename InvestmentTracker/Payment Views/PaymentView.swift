@@ -42,10 +42,10 @@ struct PaymentView: View {
             }
             
             Section(header: Text("from".uppercased())) {
-                Text(payment.sender.name)
+                Text(portfolio.entityForID(payment.senderID, in: project)?.name ?? "")
             }
             Section(header: Text("to".uppercased())) {
-                Text(payment.recipient.name)
+                Text(portfolio.entityForID(payment.recipientID, in: project)?.name ?? "")
             }
         }
         .listStyle(InsetGroupedListStyle())

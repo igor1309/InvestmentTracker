@@ -18,8 +18,8 @@ extension Payment {
             amount: 10_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.kitProgressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.kitProgressOOO.id,
             note: "Sample payment for App Testing"
         )
     }()
@@ -43,8 +43,8 @@ extension Project {
             amount: 1_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.progressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.progressOOO.id,
             note: "Первый транш по займу")
         
         let date2 = calendar.date(from: DateComponents(year: 2020, month: 02, day: 15))!
@@ -53,8 +53,8 @@ extension Project {
             amount: 2_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.progressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.progressOOO.id,
             note: "Первый транш по займу")
         
         let date3 = calendar.date(from: DateComponents(year: 2020, month: 03, day: 20))!
@@ -63,8 +63,8 @@ extension Project {
             amount: 3_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.progressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.progressOOO.id,
             note: "Первый транш по займу")
         
         return Project(
@@ -83,8 +83,8 @@ extension Project {
             amount: 6_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.progressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.progressOOO.id,
             note: "Транш по договору займа"
         )
         
@@ -94,8 +94,8 @@ extension Project {
             amount: 4_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.progressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.progressOOO.id,
             note: "Транш по договору займа"
         )
         
@@ -105,8 +105,8 @@ extension Project {
             amount: 5_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.progressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.progressOOO.id,
             note: "Транш по договору займа"
         )
         
@@ -116,8 +116,8 @@ extension Project {
             amount: 5_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.progressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.progressOOO.id,
             note: "Транш по договору займа"
         )
         
@@ -127,8 +127,8 @@ extension Project {
             amount: 5_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.progressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.progressOOO.id,
             note: "Транш по договору займа"
         )
         
@@ -138,8 +138,8 @@ extension Project {
             amount: 5_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.progressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.progressOOO.id,
             note: "Транш по договору займа"
         )
         
@@ -160,8 +160,8 @@ extension Project {
             amount: 9_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.kitProgressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.kitProgressOOO.id,
             note: "Транш по договору займа"
         )
         
@@ -171,8 +171,8 @@ extension Project {
             amount: 2_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.kitProgressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.kitProgressOOO.id,
             note: "Транш по договору займа"
         )
         
@@ -182,8 +182,8 @@ extension Project {
             amount: 2_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity.igor,
-            recipient: Entity.kitProgressOOO,
+            senderID: Entity.igor.id,
+            recipientID: Entity.kitProgressOOO.id,
             note: "Транш по договору займа"
         )
         
@@ -193,8 +193,8 @@ extension Project {
             amount: 500_000,
             currency: .rub,
             type: .return,
-            sender: Entity.kitProgressOOO,
-            recipient: Entity.igor,
+            senderID: Entity.kitProgressOOO.id,
+            recipientID: Entity.igor.id,
             note: "ВОЗВРАТНЫЙ ПЛАТЕЖ ДЛЯ ТЕСТИРОВАНИЯ"
         )
         

@@ -12,7 +12,7 @@ struct EntityPicker: View {
     @Environment(\.presentationMode) var presentation
     @EnvironmentObject var portfolio: Portfolio
     
-    @Binding var entity: Entity
+    @Binding var entityID: UUID
     
     let entityType: EntitySelector.EntityType
     let paymentType: Payment.PaymentType
@@ -36,7 +36,7 @@ struct EntityPicker: View {
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        self.entity = entity
+                        self.entityID = entity.id
                         presentation.wrappedValue.dismiss()
                     }
                 }
@@ -93,7 +93,7 @@ struct EntityPicker: View {
     }
     
     func color(for entity: Entity) -> Color {
-        self.entity == entity ? Color(UIColor.systemOrange) : .primary
+        self.entityID == entity.id ? Color(UIColor.systemOrange) : .primary
     }
 }
 
@@ -103,7 +103,7 @@ struct EntityPicker_Previews: PreviewProvider {
     
     static var previews: some View {
         EntityPicker(
-            entity: $entity,
+            entityID: $entity.id,
             entityType: EntitySelector.EntityType.sender,
             paymentType: Payment.PaymentType.investment,
             project: project

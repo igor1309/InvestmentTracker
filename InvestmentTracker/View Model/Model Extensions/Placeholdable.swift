@@ -32,8 +32,8 @@ extension Payment: Placeholdable {
             amount: 1_000_000,
             currency: .rub,
             type: .investment,
-            sender: Entity(),
-            recipient: Entity(),
+            senderID: UUID(),
+            recipientID: UUID(),
             note: ""
         )
     }
