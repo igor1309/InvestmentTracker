@@ -15,6 +15,8 @@
 		241DABD824B91E95001B5FB8 /* Portfolio+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABD724B91E95001B5FB8 /* Portfolio+Entity.swift */; };
 		241DABDA24B9A406001B5FB8 /* Portfolio+Totals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABD924B9A406001B5FB8 /* Portfolio+Totals.swift */; };
 		241DABDC24B9B326001B5FB8 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABDB24B9B326001B5FB8 /* ProjectRow.swift */; };
+		241DABDE24BA18C9001B5FB8 /* SimpleEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABDD24BA18C9001B5FB8 /* SimpleEditor.swift */; };
+		241DABE024BA5D96001B5FB8 /* EntityRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABDF24BA5D96001B5FB8 /* EntityRow.swift */; };
 		24277C8B24B334D0006DE82A /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C8A24B334D0006DE82A /* Extension+Date.swift */; };
 		24277C8F24B364A7006DE82A /* EditorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C8E24B364A7006DE82A /* EditorWrapper.swift */; };
 		24277C9124B37EA1006DE82A /* Project Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9024B37EA1006DE82A /* Project Extensions.swift */; };
@@ -55,6 +57,8 @@
 		241DABD724B91E95001B5FB8 /* Portfolio+Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Portfolio+Entity.swift"; sourceTree = "<group>"; };
 		241DABD924B9A406001B5FB8 /* Portfolio+Totals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Portfolio+Totals.swift"; sourceTree = "<group>"; };
 		241DABDB24B9B326001B5FB8 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
+		241DABDD24BA18C9001B5FB8 /* SimpleEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleEditor.swift; sourceTree = "<group>"; };
+		241DABDF24BA5D96001B5FB8 /* EntityRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityRow.swift; sourceTree = "<group>"; };
 		24277C8A24B334D0006DE82A /* Extension+Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		24277C8E24B364A7006DE82A /* EditorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWrapper.swift; sourceTree = "<group>"; };
 		24277C9024B37EA1006DE82A /* Project Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project Extensions.swift"; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 				245B673E24B13BC7004F35F4 /* EntityEditor.swift */,
 				241DABD024B86435001B5FB8 /* EntitySelector.swift */,
 				245B674B24B1F63E004F35F4 /* EntityPicker.swift */,
+				241DABDF24BA5D96001B5FB8 /* EntityRow.swift */,
 			);
 			path = "Entity Views";
 			sourceTree = "<group>";
@@ -237,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				24277C8E24B364A7006DE82A /* EditorWrapper.swift */,
+				241DABDD24BA18C9001B5FB8 /* SimpleEditor.swift */,
 				24F5E1D024B5C96400D8453F /* Usage */,
 			);
 			path = EditorWrapper;
@@ -333,6 +339,7 @@
 				245B674124B13CB6004F35F4 /* PaymentEditor.swift in Sources */,
 				241DABD624B8E279001B5FB8 /* Portfolio+Ext NOT USED.swift in Sources */,
 				24277C8B24B334D0006DE82A /* Extension+Date.swift in Sources */,
+				241DABE024BA5D96001B5FB8 /* EntityRow.swift in Sources */,
 				245B673B24B12A67004F35F4 /* ProjectView.swift in Sources */,
 				24F5E1D224B5C98D00D8453F /* EditorWrapper_Edit_Test.swift in Sources */,
 				245B674A24B1D973004F35F4 /* PaymentView.swift in Sources */,
@@ -356,6 +363,7 @@
 				24277C8F24B364A7006DE82A /* EditorWrapper.swift in Sources */,
 				241DABDC24B9B326001B5FB8 /* ProjectRow.swift in Sources */,
 				24277C9924B398F1006DE82A /* ProjectEditor.swift in Sources */,
+				241DABDE24BA18C9001B5FB8 /* SimpleEditor.swift in Sources */,
 				241DABCA24B856CA001B5FB8 /* AmountPicker.swift in Sources */,
 				241DABDA24B9A406001B5FB8 /* Portfolio+Totals.swift in Sources */,
 				245B673D24B13B0E004F35F4 /* EntityListEditor.swift in Sources */,

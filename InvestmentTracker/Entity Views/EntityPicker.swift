@@ -14,6 +14,7 @@ struct EntityPicker: View {
     
     @Binding var entityID: UUID
     
+    let title: String// = "Select Entity"
     let entityType: EntitySelector.EntityType
     let paymentType: Payment.PaymentType
     let project: Project
@@ -29,20 +30,16 @@ struct EntityPicker: View {
         NavigationView {
             List {
                 ForEach(entities) { entity in
-                    HStack {
-                        Text(entity.name).tag(entity)
-                            .foregroundColor(color(for: entity))
-                        Spacer()
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        self.entityID = entity.id
-                        presentation.wrappedValue.dismiss()
-                    }
+                    EntityRow(entity: entity, project: project)
+                        .foregroundColor(color(for: entity))
+                        .onTapGesture {
+                            self.entityID = entity.id
+                            presentation.wrappedValue.dismiss()
+                        }
                 }
             }
             .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Select Entity")
+            .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(
                 trailing: Button {
@@ -51,15 +48,15 @@ struct EntityPicker: View {
                     Image(systemName: "plus")
                         .padding([.vertical, .leading])
                 }
-                .sheet(isPresented: $showEditor) {
-                    ///  on Dismiss
-                    handleEditorOnDismiss()
-                } content: {
-                    EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
-                        EntityEditor(entity: draft, project: project)
-                    }
-                }
             )
+            .sheet(isPresented: $showEditor) {
+                ///  on Dismiss
+                handleEditorOnDismiss()
+            } content: {
+                EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
+                    EntityEditor(entity: draft, project: project)
+                }
+            }
         }
     }
     
@@ -104,6 +101,7 @@ struct EntityPicker_Previews: PreviewProvider {
     static var previews: some View {
         EntityPicker(
             entityID: $entity.id,
+            title: "Select Entity",
             entityType: EntitySelector.EntityType.sender,
             paymentType: Payment.PaymentType.investment,
             project: project

@@ -29,7 +29,7 @@ struct AmountPicker: View {
                     }
                 }
             }
-            .listStyle(InsetListStyle())
+            .listStyle(InsetGroupedListStyle())
             .navigationTitle("Select Amount")
             .navigationBarTitleDisplayMode(.inline)
         }

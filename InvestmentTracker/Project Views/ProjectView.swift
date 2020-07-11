@@ -34,7 +34,7 @@ struct ProjectView: View {
     @State private var draftEntity: Entity?
     @State private var draftPayment: Payment?
     
-    enum Modal { case entityEditor, paymentEditor }
+    enum Modal { case entityEditor, paymentEditor, entityList }
     
     @State private var modal: Modal = .paymentEditor
     @State private var showModal = false
@@ -49,7 +49,12 @@ struct ProjectView: View {
             
             if !project.entities.isEmpty {
                 Section(header: Text("Entities".uppercased())) {
-                    Text(project.entities.map { $0.name }.joined(separator: "; "))
+                    Button {
+                        modal = .entityList
+                        showModal = true
+                    } label: {
+                        Text(project.entities.map { $0.name }.joined(separator: "; "))
+                    }
                 }
             }
             
@@ -114,6 +119,9 @@ struct ProjectView: View {
             } else {
                 print("nothing was created or edit was cancelled")
             }
+        case .entityList:
+            //  MARK: FINISH THIS
+            print("")
         }
     }
     
@@ -128,6 +136,16 @@ struct ProjectView: View {
             EditorWrapper(original: $draftPayment, isPresented: $showModal) { draft in
                 PaymentEditor(payment: draft, project: project)
             }
+            .environmentObject(portfolio)
+        case .entityList:
+            //  MARK: FINISH THIS
+            EntityPicker(
+                entityID: .constant(UUID()),
+                title: "Entity List",
+                entityType: EntitySelector.EntityType.recipient,
+                paymentType: Payment.PaymentType.investment,
+                project: project
+            )
             .environmentObject(portfolio)
         }
     }

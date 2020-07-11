@@ -40,6 +40,12 @@ struct PaymentRow: View {
         }
         .contextMenu {
             Button {
+                //  MARK: FINISH THIS
+            } label: {
+                Image(systemName: "square.and.pencil")
+                Text("TBD: Edit")
+            }
+            Button {
                 showDeleteAction = true
             } label: {
                 Image(systemName: "trash")

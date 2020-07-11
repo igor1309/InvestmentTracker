@@ -10,49 +10,14 @@ import InvestmentDataModel
 
 extension Project {
     
-//    //  MARK: -
-//    
-//    var allEntities: [Entity] {
-//        let senders = payments.map { $0.sender }
-//        let recipients = payments.map { $0.recipient }
-//        
-//        let all = entities + senders + recipients
-//        let uniqueEntities = Set(all)
-//        
-//        return Array(uniqueEntities).sorted { $0.name < $1.name }
-//    }
-
+    //    //  MARK: - Entity...
     
-    //  MARK: - Entity Handling
-    
-    private mutating func addEntity(_ entity: Entity) -> Bool {
-        if entity.isValid {
-            entities.append(entity)
-            return true
-        }
-        return false
-    }
-    
-    private mutating func deleteEntity(_ entity: Entity) {
-        guard let index = entities.firstIndex(matching: entity) else { return }
+    func canDelete(_ entityID: UUID) -> Bool {
+        let senderIDs = payments.map { $0.senderID }
+        let recipientIDs = payments.map { $0.recipientID }
+        let allIDs = senderIDs + recipientIDs
         
-        entities.remove(at: index)
+        return !allIDs.contains(entityID)
     }
-    
-    //  MARK: - Payment Handling
-    private mutating func addPayment(_ payment: Payment) -> Bool {
-        if payment.isValid {
-            payments.append(payment)
-            return true
-        }
-        return false
-    }
-    
-    private mutating func deletePayment(_ payment: Payment) {
-        guard let index = payments.firstIndex(matching: payment) else { return }
-        
-        payments.remove(at: index)
-    }
-
 }
 

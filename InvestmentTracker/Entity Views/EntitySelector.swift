@@ -71,6 +71,7 @@ struct EntitySelector: View {
             .sheet(isPresented: $showModal) {
                 EntityPicker(
                     entityID: $entityID,
+                    title: "Select Entity",
                     entityType: type,
                     paymentType: paymentType,
                     project: project
