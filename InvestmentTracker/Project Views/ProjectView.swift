@@ -31,18 +31,12 @@ struct ProjectView: View {
     
     let project: Project
     
-    init(project: Project) {
-        self.project = project
-        _original = State(initialValue: project)
-    }
-    
-    @State private var original: Project?
     @State private var draftEntity: Entity?
     @State private var draftPayment: Payment?
     
-    enum Modal { case entityEditor, paymentEditor, projectEditor }
+    enum Modal { case entityEditor, paymentEditor }
     
-    @State private var modal: Modal = .projectEditor
+    @State private var modal: Modal = .paymentEditor
     @State private var showModal = false
     
     @State private var showAddAction = false
@@ -92,7 +86,6 @@ struct ProjectView: View {
         .navigationBarItems(
             trailing: HStack {
                 plusButton()
-                editButton()
                     .sheet(isPresented: $showModal) {
                         // onDismiss
                         handleEditorsOnDismiss()
@@ -126,19 +119,6 @@ struct ProjectView: View {
         let generator = UINotificationFeedbackGenerator()
         
         switch modal {
-        case .projectEditor:
-            if let original = original {
-                print("Entity with name '\(original.name)' was created or edited, ready to use")
-                withAnimation {
-                    if portfolio.update(project, keyPath: \.projects) {
-                        generator.notificationOccurred(.success)
-                    } else {
-                        generator.notificationOccurred(.error)
-                    }
-                }
-            } else {
-                print("nothing was created or edit was cancelled")
-            }
         case .entityEditor:
             if let draftEntity = draftEntity {
                 print("Entity with name '\(draftEntity.name)' was created or edited, ready to use")
@@ -180,11 +160,6 @@ struct ProjectView: View {
                 PaymentEditor(payment: draft, project: project)
             }
             .environmentObject(portfolio)
-        case .projectEditor:
-            EditorWrapper(original: $original, isPresented: $showModal) { draft in
-                ProjectEditor(draft: draft)
-            }
-            .environmentObject(portfolio)
         }
     }
     
@@ -193,17 +168,9 @@ struct ProjectView: View {
             showAddAction = true
         } label: {
             Image(systemName: "plus")
-                .padding()
+                .padding([.vertical, .leading])
         }
         .actionSheet(isPresented: $showAddAction) { selectWhatToAdd()   }
-    }
-    
-    private func editButton() -> some View {
-        Button("Edit") {
-            original = project
-            modal = .projectEditor
-            showModal = true
-        }
     }
     
     private func selectWhatToAdd() -> ActionSheet {
