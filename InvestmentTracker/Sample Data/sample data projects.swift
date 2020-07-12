@@ -31,7 +31,7 @@ extension Entity {
 }
 
 extension Project {
-    static let projects: [Project] = [natachtari]//[saperavi, vaiMe]
+    static let projects: [Project] = [natachtari, saperavi, vaiMe]
     
     static let natachtari: Project = {
         let calendar = Calendar.autoupdatingCurrent
@@ -52,7 +52,7 @@ extension Project {
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.progressOOO.id,
-            note: "Первый транш по займу")
+            note: "Второй транш по займу")
         
         let date3 = calendar.date(from: DateComponents(year: 2020, month: 03, day: 20))!
         let payment3 = Payment(
@@ -61,14 +61,23 @@ extension Project {
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.progressOOO.id,
-            note: "Первый транш по займу")
+            note: "Третий транш по займу")
+        
+        let date4 = calendar.date(from: DateComponents(year: 2020, month: 6, day: 30))!
+        let payment4 = Payment(
+            date: date4,
+            amount: 3_000_000,
+            type: .return,
+            senderID: Entity.progressOOO.id,
+            recipientID: Entity.igor.id,
+            note: "Первый возврат")
         
         return Project(
             name: "Натахтари",
             note: "Проект для тестирования приложения",
             currency: .rub,
             entities: [Entity.progressOOO, Entity.kitProgressOOO],
-            payments: [payment1, payment2, payment3])
+            payments: [payment1, payment2, payment3, payment4])
     }()
     
     static let saperavi: Project = {
@@ -176,22 +185,12 @@ extension Project {
             note: "Транш по договору займа"
         )
         
-        let date4 = calendar.date(from: DateComponents(year: 2020, month: 7, day: 1))!
-        let payment4 = Payment(
-            date: date4,
-            amount: 500_000,
-            type: .return,
-            senderID: Entity.kitProgressOOO.id,
-            recipientID: Entity.igor.id,
-            note: "ВОЗВРАТНЫЙ ПЛАТЕЖ ДЛЯ ТЕСТИРОВАНИЯ"
-        )
-        
         return Project(
             name: "ВайМэ! Щелково",
             note: "МФК Щелковский, ГК Киевская площадь",
             currency: .rub,
             entities: [Entity.kitProgressOOO],
-            payments: [payment1, payment2, payment3, payment4]
+            payments: [payment1, payment2, payment3]
         )
     }()
 }

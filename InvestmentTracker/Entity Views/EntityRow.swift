@@ -38,7 +38,7 @@ struct EntityRow: View {
                 Text("TBD: Edit")
             }
             
-            if project.canDelete(entity.id) {
+            if portfolio.canDelete(entity.id) {
                 Button {
                     showDeleteAction = true
                 } label: {
@@ -65,7 +65,7 @@ struct EntityRow: View {
         let generator = UINotificationFeedbackGenerator()
         
         withAnimation {
-            if portfolio.delete(entity, from: project, keyPath: \.entities) {
+            if portfolio.deleteEntity(entity, from: project) {
                 generator.notificationOccurred(.success)
             } else {
                 generator.notificationOccurred(.error)
@@ -76,6 +76,9 @@ struct EntityRow: View {
 
 struct EntityRow_Previews: PreviewProvider {
     static var previews: some View {
-        EntityRow(entity: Entity(), project: Project())
+        List(/*@START_MENU_TOKEN@*/0 ..< 5/*@END_MENU_TOKEN@*/) { item in
+            EntityRow(entity: Entity.kitProgressOOO, project: Project())
+        }
+        .preferredColorScheme(.dark)
     }
 }

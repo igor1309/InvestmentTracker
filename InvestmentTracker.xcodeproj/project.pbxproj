@@ -12,14 +12,13 @@
 		241DABD124B86435001B5FB8 /* EntitySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABD024B86435001B5FB8 /* EntitySelector.swift */; };
 		241DABD424B8E208001B5FB8 /* Portfolio+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABD324B8E208001B5FB8 /* Portfolio+Ext.swift */; };
 		241DABD624B8E279001B5FB8 /* Portfolio+Ext NOT USED.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABD524B8E279001B5FB8 /* Portfolio+Ext NOT USED.swift */; };
-		241DABD824B91E95001B5FB8 /* Portfolio+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABD724B91E95001B5FB8 /* Portfolio+Entity.swift */; };
 		241DABDA24B9A406001B5FB8 /* Portfolio+Totals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABD924B9A406001B5FB8 /* Portfolio+Totals.swift */; };
 		241DABDC24B9B326001B5FB8 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABDB24B9B326001B5FB8 /* ProjectRow.swift */; };
 		241DABDE24BA18C9001B5FB8 /* SimpleEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABDD24BA18C9001B5FB8 /* SimpleEditor.swift */; };
 		241DABE024BA5D96001B5FB8 /* EntityRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABDF24BA5D96001B5FB8 /* EntityRow.swift */; };
+		241DABE324BB8341001B5FB8 /* Portfolio+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241DABE224BB8341001B5FB8 /* Portfolio+Entity.swift */; };
 		24277C8B24B334D0006DE82A /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C8A24B334D0006DE82A /* Extension+Date.swift */; };
 		24277C8F24B364A7006DE82A /* EditorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C8E24B364A7006DE82A /* EditorWrapper.swift */; };
-		24277C9124B37EA1006DE82A /* Project Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9024B37EA1006DE82A /* Project Extensions.swift */; };
 		24277C9324B37FB2006DE82A /* Placeholdable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9224B37FB2006DE82A /* Placeholdable.swift */; };
 		24277C9924B398F1006DE82A /* ProjectEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9824B398F1006DE82A /* ProjectEditor.swift */; };
 		24277C9E24B4A599006DE82A /* Uniqued+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9D24B4A599006DE82A /* Uniqued+String.swift */; };
@@ -53,14 +52,13 @@
 		241DABD224B8B18E001B5FB8 /* ReferenceWritableKeyPathTest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = ReferenceWritableKeyPathTest.playground; path = "../../../../Library/Autosave Information/ReferenceWritableKeyPathTest.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		241DABD324B8E208001B5FB8 /* Portfolio+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Portfolio+Ext.swift"; sourceTree = "<group>"; };
 		241DABD524B8E279001B5FB8 /* Portfolio+Ext NOT USED.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Portfolio+Ext NOT USED.swift"; sourceTree = "<group>"; };
-		241DABD724B91E95001B5FB8 /* Portfolio+Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Portfolio+Entity.swift"; sourceTree = "<group>"; };
 		241DABD924B9A406001B5FB8 /* Portfolio+Totals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Portfolio+Totals.swift"; sourceTree = "<group>"; };
 		241DABDB24B9B326001B5FB8 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		241DABDD24BA18C9001B5FB8 /* SimpleEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleEditor.swift; sourceTree = "<group>"; };
 		241DABDF24BA5D96001B5FB8 /* EntityRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityRow.swift; sourceTree = "<group>"; };
+		241DABE224BB8341001B5FB8 /* Portfolio+Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Portfolio+Entity.swift"; sourceTree = "<group>"; };
 		24277C8A24B334D0006DE82A /* Extension+Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		24277C8E24B364A7006DE82A /* EditorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWrapper.swift; sourceTree = "<group>"; };
-		24277C9024B37EA1006DE82A /* Project Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project Extensions.swift"; sourceTree = "<group>"; };
 		24277C9224B37FB2006DE82A /* Placeholdable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholdable.swift; sourceTree = "<group>"; };
 		24277C9824B398F1006DE82A /* ProjectEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditor.swift; sourceTree = "<group>"; };
 		24277C9D24B4A599006DE82A /* Uniqued+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Uniqued+String.swift"; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 			children = (
 				24BBF15424B845F200CDF613 /* Validatable.swift */,
 				24277C9224B37FB2006DE82A /* Placeholdable.swift */,
-				24277C9024B37EA1006DE82A /* Project Extensions.swift */,
 			);
 			path = "Model Extensions";
 			sourceTree = "<group>";
@@ -159,9 +156,9 @@
 			children = (
 				245B673524B0B92E004F35F4 /* Settings.swift */,
 				245B673224B0B894004F35F4 /* Portfolio.swift */,
+				241DABE224BB8341001B5FB8 /* Portfolio+Entity.swift */,
 				241DABD924B9A406001B5FB8 /* Portfolio+Totals.swift */,
 				241DABD324B8E208001B5FB8 /* Portfolio+Ext.swift */,
-				241DABD724B91E95001B5FB8 /* Portfolio+Entity.swift */,
 				241DABD524B8E279001B5FB8 /* Portfolio+Ext NOT USED.swift */,
 				242B4B6B24B845220084AF8B /* Model Extensions */,
 			);
@@ -353,10 +350,9 @@
 				245B673624B0B92E004F35F4 /* Settings.swift in Sources */,
 				241DABCF24B85CE4001B5FB8 /* View+debugPrint.swift in Sources */,
 				24F5E1CE24B5C8CE00D8453F /* EditorWrapper_Create_Test.swift in Sources */,
-				241DABD824B91E95001B5FB8 /* Portfolio+Entity.swift in Sources */,
 				24277C9324B37FB2006DE82A /* Placeholdable.swift in Sources */,
 				245B673824B0BAC8004F35F4 /* SettingsView.swift in Sources */,
-				24277C9124B37EA1006DE82A /* Project Extensions.swift in Sources */,
+				241DABE324BB8341001B5FB8 /* Portfolio+Entity.swift in Sources */,
 				241DABD124B86435001B5FB8 /* EntitySelector.swift in Sources */,
 				245B674824B1C07F004F35F4 /* PaymentRow.swift in Sources */,
 				246269FB24B07A930008D0CB /* ContentView.swift in Sources */,

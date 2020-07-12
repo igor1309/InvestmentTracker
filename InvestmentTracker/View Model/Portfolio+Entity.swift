@@ -12,6 +12,28 @@ extension Portfolio {
     
     //  MARK: - Entities...
     
+    func canDelete(_ entityID: UUID) -> Bool {
+        let senderIDs = projects.flatMap { $0.payments }.map { $0.senderID }
+        let recipientIDs = projects.flatMap { $0.payments }.map { $0.recipientID }
+        let allIDs = senderIDs + recipientIDs
+        
+        return !allIDs.contains(entityID)
+    }
+    
+    func deleteEntity(_ entity: Entity, from project: Project) -> Bool {
+        guard canDelete(entity.id) else { return false }
+        
+        if let _ = investors.firstWithID(entity.id) {
+            return delete(entity, keyPath: \.investors)
+        }
+        
+        if let _ = project.entities.firstWithID(entity.id) {
+            return delete(entity, from: project, keyPath: \.entities)
+        }
+        
+        return false
+    }
+    
     func entityForID(_ id: UUID, in project: Project) -> Entity? {
         if let investor = investors.firstWithID(id) {
             return investor
@@ -28,12 +50,12 @@ extension Portfolio {
         as entityType: EntitySelector.EntityType,
         for paymentType: Payment.PaymentType,
         in project: Project
-    ) -> [Entity] {
+    ) -> (entities: [Entity], kind: String) {
         switch (entityType, paymentType) {
         case (.sender, .investment), (.recipient, .return):
-            return investors
+            return (investors, "investors")
         default:
-            return project.entities
+            return (project.entities, "entities")
         }
     }
     

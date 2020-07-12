@@ -22,20 +22,24 @@ struct EntityPicker: View {
     @State private var draft: Entity?
     @State private var showEditor = false
     
-    var entities: [Entity] {
+    var entitiesToPickFrom: (entities: [Entity], kind: String) {
         portfolio.entitiesToPickFrom(as: entityType, for: paymentType, in: project)
     }
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(entities) { entity in
-                    EntityRow(entity: entity, project: project)
-                        .foregroundColor(color(for: entity))
-                        .onTapGesture {
-                            self.entityID = entity.id
-                            presentation.wrappedValue.dismiss()
-                        }
+                Section(
+                    footer: Text("Edit and add \(entitiesToPickFrom.kind) here.\n\(entitiesToPickFrom.kind.capitalized) used in payments can't be deleted.")
+                ) {
+                    ForEach(entitiesToPickFrom.entities) { entity in
+                        EntityRow(entity: entity, project: project)
+                            .foregroundColor(color(for: entity))
+                            .onTapGesture {
+                                self.entityID = entity.id
+                                presentation.wrappedValue.dismiss()
+                            }
+                    }
                 }
             }
             .listStyle(InsetGroupedListStyle())

@@ -26,8 +26,6 @@ struct EditorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
          isPresented: Binding<Bool>,
          @ViewBuilder editor: @escaping (Binding<T>) -> Editor
     ) {
-        print("init: original.wrappedValue: \(String(describing: original.wrappedValue))")
-        
         self._original = original
         self._isPresented = isPresented
         

@@ -76,20 +76,20 @@ struct PaymentRow: View {
                 Image(systemName: "square.and.pencil")
                 Text("Edit")
             }
-            .sheet(isPresented: $showEditor) {
-                handleEditor()
-            } content: {
-                EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
-                    PaymentEditor(payment: draft, project: project)
-                }
-                .environmentObject(portfolio)
-            }
             Button {
                 showDeleteAction = true
             } label: {
                 Image(systemName: "trash")
                 Text("Delete")
             }
+        }
+        .sheet(isPresented: $showEditor) {
+            handleEditor()
+        } content: {
+            EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
+                PaymentEditor(payment: draft, project: project)
+            }
+            .environmentObject(portfolio)
         }
         .actionSheet(isPresented: $showDeleteAction) {
             deleteActionSheet(payment)
