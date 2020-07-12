@@ -25,6 +25,22 @@ struct PaymentRow: View {
     
     @State private var showDeleteAction = false
     
+    @ScaledMetric var size: CGFloat = 24
+    
+    var image: some View {
+        let name = payment.type == .investment
+            ? "arrow.right.square"
+            : "arrow.left.square"
+        let color = payment.type == .investment
+            ? Color(UIColor.orange)
+            : Color(UIColor.green)
+        
+        return Image(systemName: name)
+            .foregroundColor(color.opacity(0.7))
+            .font(.system(size: size, weight: .light))
+    }
+    
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .firstTextBaseline) {
@@ -40,9 +56,15 @@ struct PaymentRow: View {
             }
             .font(.subheadline)
             
-            VStack(alignment: .leading, spacing: 4) {
-                Text("from \(portfolio.entityForID(payment.senderID, in: project)?.name ?? "") to \(portfolio.entityForID(payment.recipientID, in: project)?.name ?? "")")
-                Text(payment.note)
+            HStack {
+                image
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("from \(portfolio.entityForID(payment.senderID, in: project)?.name ?? "") to \(portfolio.entityForID(payment.recipientID, in: project)?.name ?? "")")
+                    if !payment.note.isEmpty {
+                        Text(payment.note)
+                    }
+                }
             }
             .foregroundColor(Color(UIColor.tertiaryLabel))
             .font(.footnote)
@@ -118,10 +140,15 @@ struct PaymentRow: View {
 }
 
 struct PaymentRow_Previews: PreviewProvider {
+    static let payment = Payment(date: Date(), amount: 3_000_000, type: .return, senderID: UUID(), recipientID: UUID(), note: "Return")
+    
     static var previews: some View {
         NavigationView {
-            List(/*@START_MENU_TOKEN@*/0 ..< 5/*@END_MENU_TOKEN@*/) { item in
-                PaymentRow(payment: Payment.payment01, in: Project())
+            List {
+                PaymentRow(payment: payment, in: Project())
+                ForEach(/*@START_MENU_TOKEN@*/0 ..< 5/*@END_MENU_TOKEN@*/) { item in
+                    PaymentRow(payment: Payment.payment01, in: Project())
+                }
             }
         }
         .environmentObject(Portfolio())

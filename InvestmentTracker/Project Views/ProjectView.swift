@@ -199,6 +199,7 @@ struct ProjectView: View {
                             Text("\(project.totalOutflows, specifier: "%.f")")
                                 .font(.system(.subheadline, design: .monospaced))
                         }
+                        .foregroundColor(Color(UIColor.green).opacity(0.7))
                     }
                     
                     HStack(alignment: .firstTextBaseline) {
