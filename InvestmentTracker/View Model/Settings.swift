@@ -9,4 +9,6 @@ import SwiftUI
 
 final class Settings: ObservableObject {
     @AppStorage("DiscountRate") var rate: Double = 12 / 100
+    
+    @AppStorage("CompactRow") var compactRow: Bool = true
 }

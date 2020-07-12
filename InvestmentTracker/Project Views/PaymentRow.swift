@@ -10,6 +10,7 @@ import InvestmentDataModel
 
 struct PaymentRow: View {
     @EnvironmentObject var portfolio: Portfolio
+    @EnvironmentObject var settings: Settings
     
     let payment: Payment
     let project: Project
@@ -26,48 +27,62 @@ struct PaymentRow: View {
     @State private var showDeleteAction = false
     
     @ScaledMetric var size: CGFloat = 24
+
+    @ViewBuilder var paymentTypeImage: some View {
+        let color: Color = {
+            let color = payment.type == .investment
+                ? Color(UIColor.orange)
+                : Color(UIColor.green)
+            let opacity = 0.7
+            return color.opacity(opacity)
+        }()
     
-    var image: some View {
         let name = payment.type == .investment
             ? "arrow.right.square"
             : "arrow.left.square"
-        let color = payment.type == .investment
-            ? Color(UIColor.orange)
-            : Color(UIColor.green)
         
-        return Image(systemName: name)
-            .foregroundColor(color.opacity(0.7))
-            .font(.system(size: size, weight: .light))
+        if settings.compactRow {
+            Image(systemName: "circle.fill")
+                .imageScale(.small)
+                .foregroundColor(color)
+        } else {
+            Image(systemName: name)
+                .foregroundColor(color)
+                .font(.system(size: size, weight: .light))
+        }
     }
-    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .firstTextBaseline) {
+                if settings.compactRow {
+                    paymentTypeImage
+                }
+                
                 Text(payment.date, style: .date)
-                    .font(.system(.footnote, design: .monospaced))
                 
                 Spacer()
                 
                 VStack(alignment: .trailing) {
                     Text("\(payment.amount, specifier: "%.f")")
-                        .font(.system(.footnote, design: .monospaced))
                 }
             }
-            .font(.subheadline)
+            .font(.system(.footnote, design: .monospaced))
             
-            HStack {
-                image
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("from \(portfolio.entityForID(payment.senderID, in: project)?.name ?? "") to \(portfolio.entityForID(payment.recipientID, in: project)?.name ?? "")")
-                    if !payment.note.isEmpty {
-                        Text(payment.note)
+            if !settings.compactRow {
+                HStack {
+                    paymentTypeImage
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("from \(portfolio.entityForID(payment.senderID, in: project)?.name ?? "") to \(portfolio.entityForID(payment.recipientID, in: project)?.name ?? "")")
+                        if !payment.note.isEmpty {
+                            Text(payment.note)
+                        }
                     }
                 }
+                .foregroundColor(Color(UIColor.tertiaryLabel))
+                .font(.footnote)
             }
-            .foregroundColor(Color(UIColor.tertiaryLabel))
-            .font(.footnote)
         }
         .contextMenu {
             Button {
@@ -117,7 +132,7 @@ struct PaymentRow: View {
     private func deleteActionSheet(_ payment: Payment) -> ActionSheet {
         ActionSheet(
             title: Text("Delete?".uppercased()),
-            message: Text("Do you really want to delete this Payment of \(payment.amount, specifier: "%.f") on \(payment.date, style: .date)?\nThis operation cannot be undone."),
+            message: Text("Do you really want to delete this Payment of \(project.currency.symbol)\(payment.amount, specifier: "%.f") on \(payment.date, style: .date)?\nThis operation cannot be undone."),
             buttons: [
                 .destructive(Text("Yes, delete")) {
                     delete(payment, from: project)
@@ -152,6 +167,7 @@ struct PaymentRow_Previews: PreviewProvider {
             }
         }
         .environmentObject(Portfolio())
+        .environmentObject(Settings())
         .preferredColorScheme(.dark)
     }
 }

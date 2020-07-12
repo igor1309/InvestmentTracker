@@ -25,6 +25,12 @@ struct SettingsView: View {
                     TextField("Rate", value: $settings.rate, formatter: formatter())
                         .keyboardType(.decimalPad)
                 }
+                
+                Section(
+                header: Text("View Options")
+                ) {
+                    Toggle("Compact Row", isOn: $settings.compactRow)
+                }
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Settings")
@@ -40,6 +46,7 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .preferredColorScheme(.dark)
             .environmentObject(Settings())
     }
 }
