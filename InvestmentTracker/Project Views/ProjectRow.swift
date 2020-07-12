@@ -18,7 +18,7 @@ struct ProjectRow: View {
     
     @State private var showModal = false
     @State private var showDeleteAction = false
-
+    
     init(project: Project) {
         self.project = project
         self._original = State(initialValue: project)
@@ -41,7 +41,7 @@ struct ProjectRow: View {
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 0) {
-                    Text("\(project.totalInflows, specifier: "%.f")")
+                    Text("\(project.currency.symbol)\(project.totalInflows, specifier: "%.f")")
                         .font(.system(.footnote, design: .monospaced))
                     Text("total investment")
                         .font(.caption2)
@@ -51,12 +51,12 @@ struct ProjectRow: View {
             
             VStack(alignment: .trailing, spacing: 2) {
                 if project.totalOutflows > 0 {
-                    Text("return \(project.totalOutflows, specifier: "%.f")")
+                    Text("return \(project.currency.symbol)\(project.totalOutflows, specifier: "%.f")")
                 }
                 
-                Text("net \(project.netFlows, specifier: "%.f")")
+                Text("net \(project.currency.symbol)\(project.netFlows, specifier: "%.f")")
                 
-                Text("npv \(project.npv(rate: settings.rate), specifier: "%.f")")
+                Text("npv \(project.currency.symbol)\(project.npv(rate: settings.rate), specifier: "%.f")")
                     .foregroundColor(Color(UIColor.systemTeal))
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
@@ -132,8 +132,16 @@ struct ProjectRow: View {
 
 struct ProjectRow_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectRow(project: Project())
-            .environmentObject(Portfolio())
-            .environmentObject(Settings())
+        NavigationView {
+            List {
+                ProjectRow(project: Project.natachtari)
+                ProjectRow(project: Project.vaiMe)
+                ProjectRow(project: Project.saperavi)
+            }
+            .listStyle(InsetGroupedListStyle())
+        }
+        .environmentObject(Portfolio())
+        .environmentObject(Settings())
+        .preferredColorScheme(.dark)
     }
 }

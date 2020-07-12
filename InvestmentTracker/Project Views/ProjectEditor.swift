@@ -18,7 +18,7 @@ struct ProjectEditor: View {
                 TextField("Note", text: $draft.note)
             }
             
-            Section(header: Text("Project Currency")) {
+            Section {
                 Picker("Currency", selection: $draft.currency) {
                     ForEach(Currency.allCases, id: \.self) { currency in
                         Text(currency.symbol).tag(currency)

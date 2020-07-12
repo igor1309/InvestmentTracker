@@ -55,15 +55,15 @@ struct PaymentView: View {
             trailing: Button("Edit") {
                 showEditor = true
             }
-        )
-        .sheet(isPresented: $showEditor) {
-            handleEditor()
-        } content: {
-            EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
-                PaymentEditor(payment: draft, project: project)
+            .sheet(isPresented: $showEditor) {
+                handleEditor()
+            } content: {
+                EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
+                    PaymentEditor(payment: draft, project: project)
+                }
+                .environmentObject(portfolio)
             }
-            .environmentObject(portfolio)
-        }
+        )
     }
     
     private func handleEditor() {
