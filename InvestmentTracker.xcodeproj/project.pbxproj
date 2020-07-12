@@ -139,6 +139,14 @@
 			path = "Project Views";
 			sourceTree = "<group>";
 		};
+		241DABE124BB0216001B5FB8 /* Settings View */ = {
+			isa = PBXGroup;
+			children = (
+				245B673724B0BAC8004F35F4 /* SettingsView.swift */,
+			);
+			path = "Settings View";
+			sourceTree = "<group>";
+		};
 		242B4B6B24B845220084AF8B /* Model Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,12 +211,12 @@
 			children = (
 				246269F824B07A930008D0CB /* InvestmentTrackerApp.swift */,
 				246269FA24B07A930008D0CB /* ContentView.swift */,
-				245B673724B0BAC8004F35F4 /* SettingsView.swift */,
 				241DABCD24B8597F001B5FB8 /* Project Views */,
 				241DABCB24B85966001B5FB8 /* Entity Views */,
 				241DABCC24B85975001B5FB8 /* Payment Views */,
 				24F5E1CF24B5C94900D8453F /* EditorWrapper */,
 				245B673424B0B91F004F35F4 /* View Model */,
+				241DABE124BB0216001B5FB8 /* Settings View */,
 				245B673924B105F1004F35F4 /* Sample Data */,
 				245B674424B1B762004F35F4 /* Extensions */,
 				24B4F70024B4AF7500DA8EA5 /* Playgrounds */,

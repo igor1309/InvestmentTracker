@@ -191,21 +191,24 @@ struct ProjectView: View {
                 }
                 .foregroundColor(Color(UIColor.systemOrange))
                 
-                if project.totalOutflows >= 0 {
+                Group {
+                    if project.totalOutflows > 0 {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text("Return")
+                            Spacer()
+                            Text("\(project.totalOutflows, specifier: "%.f")")
+                                .font(.system(.subheadline, design: .monospaced))
+                        }
+                    }
+                    
                     HStack(alignment: .firstTextBaseline) {
-                        Text("Return")
+                        Text("Net")
                         Spacer()
-                        Text("\(project.totalOutflows, specifier: "%.f")")
+                        Text("\(project.netFlows, specifier: "%.f")")
                             .font(.system(.subheadline, design: .monospaced))
                     }
                 }
-                
-                HStack(alignment: .firstTextBaseline) {
-                    Text("Net")
-                    Spacer()
-                    Text("\(project.netFlows, specifier: "%.f")")
-                        .font(.system(.subheadline, design: .monospaced))
-                }
+                .foregroundColor(.secondary)
                 
                 HStack(alignment: .firstTextBaseline) {
                     Text("NPV")

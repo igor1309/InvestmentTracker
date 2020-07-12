@@ -20,12 +20,13 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationView {
-            Form {
+            List {
                 Section(header: Text("Discount Rate".uppercased())) {
                     TextField("Rate", value: $settings.rate, formatter: formatter())
                         .keyboardType(.decimalPad)
                 }
             }
+            .listStyle(InsetGroupedListStyle())
             .navigationTitle("Settings")
             .navigationBarItems(
                 trailing: Button("Done") {
