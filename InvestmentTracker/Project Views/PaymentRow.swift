@@ -54,6 +54,14 @@ struct PaymentRow: View {
                 Image(systemName: "square.and.pencil")
                 Text("Edit")
             }
+            .sheet(isPresented: $showEditor) {
+                handleEditor()
+            } content: {
+                EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
+                    PaymentEditor(payment: draft, project: project)
+                }
+                .environmentObject(portfolio)
+            }
             Button {
                 showDeleteAction = true
             } label: {
@@ -63,14 +71,6 @@ struct PaymentRow: View {
         }
         .actionSheet(isPresented: $showDeleteAction) {
             deleteActionSheet(payment)
-        }
-        .sheet(isPresented: $showEditor) {
-            handleEditor()
-        } content: {
-            EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
-                PaymentEditor(payment: draft, project: project)
-            }
-            .environmentObject(portfolio)
         }
     }
     
@@ -121,7 +121,7 @@ struct PaymentRow_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             List(/*@START_MENU_TOKEN@*/0 ..< 5/*@END_MENU_TOKEN@*/) { item in
-                PaymentRow(payment: Payment(), in: Project())
+                PaymentRow(payment: Payment.payment01, in: Project())
             }
         }
         .environmentObject(Portfolio())

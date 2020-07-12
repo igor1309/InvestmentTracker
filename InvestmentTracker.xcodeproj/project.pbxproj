@@ -30,7 +30,6 @@
 		245B673624B0B92E004F35F4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673524B0B92E004F35F4 /* Settings.swift */; };
 		245B673824B0BAC8004F35F4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673724B0BAC8004F35F4 /* SettingsView.swift */; };
 		245B673B24B12A67004F35F4 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673A24B12A67004F35F4 /* ProjectView.swift */; };
-		245B673D24B13B0E004F35F4 /* EntityListEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673C24B13B0E004F35F4 /* EntityListEditor.swift */; };
 		245B673F24B13BC7004F35F4 /* EntityEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673E24B13BC7004F35F4 /* EntityEditor.swift */; };
 		245B674124B13CB6004F35F4 /* PaymentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674024B13CB6004F35F4 /* PaymentEditor.swift */; };
 		245B674624B1B771004F35F4 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B674524B1B771004F35F4 /* Array+Identifiable.swift */; };
@@ -74,7 +73,6 @@
 		245B673524B0B92E004F35F4 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		245B673724B0BAC8004F35F4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		245B673A24B12A67004F35F4 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
-		245B673C24B13B0E004F35F4 /* EntityListEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityListEditor.swift; sourceTree = "<group>"; };
 		245B673E24B13BC7004F35F4 /* EntityEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityEditor.swift; sourceTree = "<group>"; };
 		245B674024B13CB6004F35F4 /* PaymentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentEditor.swift; sourceTree = "<group>"; };
 		245B674524B1B771004F35F4 /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 		241DABCB24B85966001B5FB8 /* Entity Views */ = {
 			isa = PBXGroup;
 			children = (
-				245B673C24B13B0E004F35F4 /* EntityListEditor.swift */,
 				245B673E24B13BC7004F35F4 /* EntityEditor.swift */,
 				241DABD024B86435001B5FB8 /* EntitySelector.swift */,
 				245B674B24B1F63E004F35F4 /* EntityPicker.swift */,
@@ -160,13 +157,13 @@
 		245B673424B0B91F004F35F4 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				245B673524B0B92E004F35F4 /* Settings.swift */,
 				245B673224B0B894004F35F4 /* Portfolio.swift */,
 				241DABD924B9A406001B5FB8 /* Portfolio+Totals.swift */,
 				241DABD324B8E208001B5FB8 /* Portfolio+Ext.swift */,
 				241DABD724B91E95001B5FB8 /* Portfolio+Entity.swift */,
 				241DABD524B8E279001B5FB8 /* Portfolio+Ext NOT USED.swift */,
 				242B4B6B24B845220084AF8B /* Model Extensions */,
-				245B673524B0B92E004F35F4 /* Settings.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -374,7 +371,6 @@
 				241DABDE24BA18C9001B5FB8 /* SimpleEditor.swift in Sources */,
 				241DABCA24B856CA001B5FB8 /* AmountPicker.swift in Sources */,
 				241DABDA24B9A406001B5FB8 /* Portfolio+Totals.swift in Sources */,
-				245B673D24B13B0E004F35F4 /* EntityListEditor.swift in Sources */,
 				246269F924B07A930008D0CB /* InvestmentTrackerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
