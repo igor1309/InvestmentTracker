@@ -23,6 +23,10 @@ struct EntityRow: View {
                 Text(entity.name).tag(entity)
                 Spacer()
             }
+            
+            Text(entity.id.uuidString)
+                .font(.caption2)
+            
             if !entity.note.isEmpty {
                 Text(entity.note)
                     .foregroundColor(.secondary)

@@ -34,6 +34,11 @@ struct ProjectView: View {
     @State private var draftEntity: Entity?
     @State private var draftPayment: Payment?
     
+    init(project: Project) {
+        self.project = project
+        _draftPayment = State(initialValue: project.lastPaymentCopy())
+    }
+    
     enum Modal { case entityEditor, paymentEditor, entityList }
     
     @State private var modal: Modal = .paymentEditor
@@ -57,7 +62,7 @@ struct ProjectView: View {
                     }
                 }
             }
-            
+                        
             if !project.payments.isEmpty {
                 Section(
                     header: Text("Payments".uppercased())
@@ -107,6 +112,7 @@ struct ProjectView: View {
             } else {
                 print("nothing was created or edit was cancelled")
             }
+            draftEntity = nil
         case .paymentEditor:
             if let draftPayment = draftPayment {
                 print("Payment for \(draftPayment.amount) was created or edited, ready to use")
@@ -120,6 +126,7 @@ struct ProjectView: View {
             } else {
                 print("nothing was created or edit was cancelled")
             }
+            draftPayment = project.lastPaymentCopy()
         case .entityList:
             print("nothing to do here")
         }

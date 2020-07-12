@@ -91,6 +91,8 @@ struct EntityPicker: View {
         } else {
             print("nothing was created or edit was cancelled")
         }
+        
+        draft = nil
     }
     
     func color(for entity: Entity) -> Color {

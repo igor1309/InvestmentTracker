@@ -27,6 +27,9 @@ struct ProjectRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 3) {
             
+            Text(project.id.uuidString)
+                .font(.caption2)
+            
             HStack(alignment: .firstTextBaseline) {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(project.name)
@@ -122,6 +125,8 @@ struct ProjectRow: View {
         } else {
             print("nothing was created or edit was cancelled")
         }
+        
+        original = nil
     }
 }
 

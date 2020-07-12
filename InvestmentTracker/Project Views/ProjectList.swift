@@ -64,6 +64,7 @@ struct ProjectList: View {
     
     private func handleEditorOnDismiss() {
         let generator = UINotificationFeedbackGenerator()
+        
         withAnimation {
             if original == nil {
                 print("nothing was created or edit was cancelled")
@@ -77,6 +78,7 @@ struct ProjectList: View {
                 }
             }
         }
+        
         original = nil
     }
     
