@@ -15,7 +15,13 @@ protocol Placeholdable {
 
 extension Project: Placeholdable {
     init() {
-        self.init(name: "", note: "", entities: [], payments: [])
+        self.init(
+            name: "",
+            note: "",
+            currency: .rub,
+            entities: [],
+            payments: []
+        )
     }
 }
 
@@ -30,7 +36,6 @@ extension Payment: Placeholdable {
         self.init(
             date: Date(),
             amount: 1_000_000,
-            currency: .rub,
             type: .investment,
             senderID: UUID(),
             recipientID: UUID(),

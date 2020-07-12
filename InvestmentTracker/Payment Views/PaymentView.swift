@@ -34,7 +34,7 @@ struct PaymentView: View {
             HStack {
                 Text(payment.type.id)
                 Spacer()
-                Text("\(payment.currency.symbol)\(payment.amount, specifier: "%.f")")
+                Text("\(payment.amount, specifier: "%.f")")
             }
             
             if !payment.note.isEmpty {
@@ -70,7 +70,7 @@ struct PaymentView: View {
         let generator = UINotificationFeedbackGenerator()
         
         if let draft = draft {
-            print("Payment for \(draft.currency.symbol)\(draft.amount) was created or edited, ready to use")
+            print("Payment for \(draft.amount) was created or edited, ready to use")
             withAnimation {
                 if portfolio.update(draft, in: project, keyPath: \.payments) {
                     generator.notificationOccurred(.success)

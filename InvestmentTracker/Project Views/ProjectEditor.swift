@@ -18,6 +18,16 @@ struct ProjectEditor: View {
                 TextField("Note", text: $draft.note)
             }
             
+            Section(header: Text("Project Currency")) {
+                Picker("Currency", selection: $draft.currency) {
+                    ForEach(Currency.allCases, id: \.self) { currency in
+                        Text(currency.symbol).tag(currency)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+            }
+            
+            
 //            Section(header: Text("Entities".uppercased())) {
 //                if !draft.entities.isEmpty {
 //                    Button {

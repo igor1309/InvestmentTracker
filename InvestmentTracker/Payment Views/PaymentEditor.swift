@@ -46,13 +46,6 @@ struct PaymentEditor: View {
                 //TextField("Amount", value: $payment.amount, formatter: formatter())
                     //.keyboardType(.decimalPad)
                 
-                Picker("Currency", selection: $payment.currency) {
-                    ForEach(Currency.allCases, id: \.self) { currency in
-                        Text(currency.symbol).tag(currency)
-                    }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                
                 Stepper(onIncrement: increase, onDecrement: decrease) {
                     Button {
                         showModal = true

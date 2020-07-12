@@ -108,7 +108,7 @@ struct ProjectView: View {
             }
         case .paymentEditor:
             if let draftPayment = draftPayment {
-                print("Payment for \(draftPayment.currency.symbol)\(draftPayment.amount) was created or edited, ready to use")
+                print("Payment for \(draftPayment.amount) was created or edited, ready to use")
                 withAnimation {
                     if portfolio.add(draftPayment, to: project, keyPath: \.payments) {
                         generator.notificationOccurred(.success)

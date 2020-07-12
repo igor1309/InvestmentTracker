@@ -34,7 +34,7 @@ struct PaymentRow: View {
                 Spacer()
                 
                 VStack(alignment: .trailing) {
-                    Text("\(payment.currency.symbol)\(payment.amount, specifier: "%.f")")
+                    Text("\(payment.amount, specifier: "%.f")")
                         .font(.system(.footnote, design: .monospaced))
                 }
             }
@@ -78,7 +78,7 @@ struct PaymentRow: View {
         let generator = UINotificationFeedbackGenerator()
         
         if let draft = draft {
-            print("Payment for \(draft.currency.symbol)\(draft.amount) was created or edited, ready to use")
+            print("Payment for \(draft.amount) was created or edited, ready to use")
             withAnimation {
                 if portfolio.update(draft, in: project, keyPath: \.payments) {
                     generator.notificationOccurred(.success)
@@ -95,7 +95,7 @@ struct PaymentRow: View {
     private func deleteActionSheet(_ payment: Payment) -> ActionSheet {
         ActionSheet(
             title: Text("Delete?".uppercased()),
-            message: Text("Do you really want to delete this Payment of \(payment.currency.symbol)\(payment.amount, specifier: "%.f") on \(payment.date, style: .date)?\nThis operation cannot be undone."),
+            message: Text("Do you really want to delete this Payment of \(payment.amount, specifier: "%.f") on \(payment.date, style: .date)?\nThis operation cannot be undone."),
             buttons: [
                 .destructive(Text("Yes, delete")) {
                     delete(payment, from: project)

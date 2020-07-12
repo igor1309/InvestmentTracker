@@ -16,7 +16,6 @@ extension Payment {
         return Payment(
             date: date,
             amount: 10_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.kitProgressOOO.id,
@@ -41,7 +40,6 @@ extension Project {
         let payment1 = Payment(
             date: date1,
             amount: 1_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.progressOOO.id,
@@ -51,7 +49,6 @@ extension Project {
         let payment2 = Payment(
             date: date2,
             amount: 2_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.progressOOO.id,
@@ -61,7 +58,6 @@ extension Project {
         let payment3 = Payment(
             date: date3,
             amount: 3_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.progressOOO.id,
@@ -70,6 +66,7 @@ extension Project {
         return Project(
             name: "Натахтари",
             note: "Проект для тестирования приложения",
+            currency: .rub,
             entities: [Entity.progressOOO, Entity.kitProgressOOO],
             payments: [payment1, payment2, payment3])
     }()
@@ -81,7 +78,6 @@ extension Project {
         let payment1 = Payment(
             date: date1,
             amount: 6_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.progressOOO.id,
@@ -92,7 +88,6 @@ extension Project {
         let payment2 = Payment(
             date: date2,
             amount: 4_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.progressOOO.id,
@@ -103,7 +98,6 @@ extension Project {
         let payment3 = Payment(
             date: date3,
             amount: 5_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.progressOOO.id,
@@ -114,7 +108,6 @@ extension Project {
         let payment4 = Payment(
             date: date4,
             amount: 5_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.progressOOO.id,
@@ -125,7 +118,6 @@ extension Project {
         let payment5 = Payment(
             date: date5,
             amount: 5_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.progressOOO.id,
@@ -136,7 +128,6 @@ extension Project {
         let payment6 = Payment(
             date: date6,
             amount: 5_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.progressOOO.id,
@@ -146,6 +137,7 @@ extension Project {
         return Project(
             name: "Саперави Аминьевка",
             note: "ТЦ Квартал W (Ташир)",
+            currency: .rub,
             entities: [Entity.progressOOO, Entity.kitProgressOOO],
             payments: [payment1, payment2, payment3, payment4, payment5, payment6]
         )
@@ -158,7 +150,6 @@ extension Project {
         let payment1 = Payment(
             date: date1,
             amount: 9_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.kitProgressOOO.id,
@@ -169,7 +160,6 @@ extension Project {
         let payment2 = Payment(
             date: date2,
             amount: 2_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.kitProgressOOO.id,
@@ -180,7 +170,6 @@ extension Project {
         let payment3 = Payment(
             date: date3,
             amount: 2_000_000,
-            currency: .rub,
             type: .investment,
             senderID: Entity.igor.id,
             recipientID: Entity.kitProgressOOO.id,
@@ -191,7 +180,6 @@ extension Project {
         let payment4 = Payment(
             date: date4,
             amount: 500_000,
-            currency: .rub,
             type: .return,
             senderID: Entity.kitProgressOOO.id,
             recipientID: Entity.igor.id,
@@ -201,6 +189,7 @@ extension Project {
         return Project(
             name: "ВайМэ! Щелково",
             note: "МФК Щелковский, ГК Киевская площадь",
+            currency: .rub,
             entities: [Entity.kitProgressOOO],
             payments: [payment1, payment2, payment3, payment4]
         )
