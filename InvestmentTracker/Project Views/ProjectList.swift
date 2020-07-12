@@ -100,13 +100,6 @@ struct ProjectList: View {
     private var allProjectsTotals: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(alignment: .firstTextBaseline) {
-                Text("No of Projects")
-                Spacer()
-                Text("\(portfolio.projects.count)")
-                    .font(.system(.footnote, design: .monospaced))
-            }
-            
-            HStack(alignment: .firstTextBaseline) {
                 Text("Total Investment")
                 Spacer()
                 Text("\(portfolio.totalInvestment, specifier: "%.f")")
@@ -120,7 +113,7 @@ struct ProjectList: View {
                 Text("\(portfolio.totalReturn, specifier: "%.f")")
                     .font(.system(.footnote, design: .monospaced))
             }
-            .foregroundColor(.secondary)
+            .foregroundColor(Color(UIColor.green).opacity(0.7))
             
             HStack(alignment: .firstTextBaseline) {
                 Text("Total Net Investment")
@@ -138,10 +131,9 @@ struct ProjectList: View {
             }
             .foregroundColor(Color(UIColor.systemTeal))
             
-            Text("Projects:")
+            Text("Projects (\(portfolio.projects.count)):")
                 .foregroundColor(.primary)
-                .font(.headline)
-                .padding(.top)
+                .font(.subheadline)
         }
         .font(.footnote)
     }

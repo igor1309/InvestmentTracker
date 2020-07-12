@@ -186,7 +186,7 @@ struct ProjectView: View {
                 HStack(alignment: .firstTextBaseline) {
                     Text("Total Investment")
                     Spacer()
-                    Text("\(project.totalInflows, specifier: "%.f")")
+                    Text("\(project.currency.symbol) \(project.totalInflows, specifier: "%.f")")
                         .font(.system(.subheadline, design: .monospaced))
                 }
                 .foregroundColor(Color(UIColor.systemOrange))

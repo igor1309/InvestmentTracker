@@ -40,28 +40,23 @@ struct ProjectRow: View {
                 
                 Spacer()
                 
-                VStack(alignment: .trailing, spacing: 0) {
-                    Text("\(project.currency.symbol)\(project.totalInflows, specifier: "%.f")")
-                        .font(.system(.footnote, design: .monospaced))
-                    Text("total investment")
-                        .font(.caption2)
+                VStack(alignment: .trailing, spacing: 2) {
+                    Text("\(project.currency.symbol) \(project.totalInflows, specifier: "%.f")")
+                        .foregroundColor(Color(UIColor.systemOrange))
+                    
+                    if project.totalOutflows > 0 {
+                        Text("\(project.totalOutflows, specifier: "%.f")")
+                            .foregroundColor(Color(UIColor.green).opacity(0.7))
+                    }
+                    
+                    Text("\(project.netFlows, specifier: "%.f")")
+                    
+                    Text("\(project.npv(rate: settings.rate), specifier: "%.f")")
+                        .foregroundColor(Color(UIColor.systemTeal))
                 }
-                .foregroundColor(Color(UIColor.systemOrange))
+                .font(.system(.caption, design: .monospaced))
+                .foregroundColor(.secondary)
             }
-            
-            VStack(alignment: .trailing, spacing: 2) {
-                if project.totalOutflows > 0 {
-                    Text("return \(project.currency.symbol)\(project.totalOutflows, specifier: "%.f")")
-                }
-                
-                Text("net \(project.currency.symbol)\(project.netFlows, specifier: "%.f")")
-                
-                Text("npv \(project.currency.symbol)\(project.npv(rate: settings.rate), specifier: "%.f")")
-                    .foregroundColor(Color(UIColor.systemTeal))
-            }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            .foregroundColor(.secondary)
-            .font(.system(.caption, design: .monospaced))
         }
         .padding(.vertical, 8)
         .contextMenu {
