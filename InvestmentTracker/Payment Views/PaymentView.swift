@@ -23,6 +23,14 @@ struct PaymentView: View {
     @State private var draft: Payment?
     @State private var showEditor = false
     
+    var color: Color {
+        let color = payment.type == .investment
+            ? Color(UIColor.orange)
+            : Color(UIColor.green)
+        let opacity = 1.0//0.7
+        return color.opacity(opacity)
+    }
+    
     var body: some View {
         List {
             HStack {
@@ -33,6 +41,7 @@ struct PaymentView: View {
             
             HStack {
                 Text(payment.type.id)
+                    .foregroundColor(color)
                 Spacer()
                 Text("\(payment.amount, specifier: "%.f")")
             }

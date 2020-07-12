@@ -76,6 +76,7 @@ struct ProjectView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(project.name)
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(
             trailing: HStack {
                 plusButton()
