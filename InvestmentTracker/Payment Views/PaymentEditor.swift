@@ -24,22 +24,13 @@ struct PaymentEditor: View {
             DatePicker("Payment Date", selection: $payment.date, displayedComponents: .date)
                 .labelsHidden()
             
-            //  MARK: - changing payment type leads to swap in sender-recipient
-            //  TODO: FINISH THIS
-//            Section(
-//                header: Text("Type".uppercased())
-//                ,
-//                footer: Text(errorNote()).foregroundColor(Color(UIColor.red))
-//            ) {
-                Picker("Type", selection: $payment.type) {
+                    Picker("Type", selection: $payment.type) {
                     ForEach(Payment.PaymentType.allCases, id: \.self) { type in
                         Text(type.id).tag(type)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
-//                .debugPrint(payment.type)
             }
-            
             
             Section(header: Text("Amount".uppercased())) {
                 //  MARK: FINISH THIS!!!

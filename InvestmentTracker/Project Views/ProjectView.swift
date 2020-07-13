@@ -165,6 +165,7 @@ struct ProjectView: View {
                 project: project
             )
             .environmentObject(portfolio)
+            .environmentObject(settings)
         }
     }
     

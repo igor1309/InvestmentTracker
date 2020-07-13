@@ -69,8 +69,10 @@ struct PaymentRow: View {
             }
             .font(.system(.footnote, design: .monospaced))
             
-            Text(payment.id.uuidString)
-                .font(.caption2)
+            if settings.showUUID {
+                Text(payment.id.uuidString)
+                    .font(.caption2)
+            }
             
             if !settings.compactRow {
                 HStack {

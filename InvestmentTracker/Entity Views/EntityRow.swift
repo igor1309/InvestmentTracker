@@ -15,6 +15,15 @@ struct EntityRow: View {
     var entity: Entity
     var project: Project
     
+    init(entity: Entity, project: Project) {
+        self.entity = entity
+        self.project = project
+        _draftEntity = State(initialValue: entity)
+    }
+    
+    @State private var draftEntity: Entity?
+    @State private var showModal = false
+    
     @State private var showDeleteAction = false
     
     var body: some View {
@@ -24,8 +33,10 @@ struct EntityRow: View {
                 Spacer()
             }
             
-            Text(entity.id.uuidString)
-                .font(.caption2)
+            if settings.showUUID {
+                Text(entity.id.uuidString)
+                    .font(.caption2)
+            }
             
             if !entity.note.isEmpty {
                 Text(entity.note)
@@ -36,7 +47,7 @@ struct EntityRow: View {
         .contentShape(Rectangle())
         .contextMenu {
             Button {
-                //  MARK: FINISH THIS
+                showModal = true
             } label: {
                 Image(systemName: "square.and.pencil")
                 Text("TBD: Edit")
@@ -51,6 +62,20 @@ struct EntityRow: View {
                 }
             }
         }
+        .sheet(isPresented: $showModal) {
+            //  onDismiss
+            handleEditorOnDismiss()
+        } content: {
+            EditorWrapper(
+                original: $draftEntity,
+                isPresented: $showModal
+            ) { draft in
+                draft.isValid
+            } editor: { draft in
+                EntityEditor(entity: draft, project: project)
+            }
+            .environmentObject(portfolio)
+        }
         .actionSheet(isPresented: $showDeleteAction) {
             ActionSheet(
                 title: Text("Delete?".uppercased()),
@@ -62,6 +87,23 @@ struct EntityRow: View {
                     .cancel()
                 ]
             )
+        }
+    }
+    
+    private func handleEditorOnDismiss() {
+        let generator = UINotificationFeedbackGenerator()
+        
+        if let draftEntity = draftEntity {
+            print("Entity with name '\(draftEntity.name)' was created or edited, ready to use")
+            withAnimation {
+                if portfolio.update(draftEntity, in: project, keyPath: \.entities) {
+                    generator.notificationOccurred(.success)
+                } else {
+                    generator.notificationOccurred(.error)
+                }
+            }
+        } else {
+            print("nothing was created or edit was cancelled")
         }
     }
     

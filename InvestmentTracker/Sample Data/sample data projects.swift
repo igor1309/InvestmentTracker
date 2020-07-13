@@ -26,7 +26,14 @@ extension Payment {
 
 extension Entity {
     static let progressOOO = Entity("Прогресс, ООО", note: "")
+    static let progressOOO_2 = Entity("Прогресс-2, ООО", note: "For Testing only")
+
+    static let natOOO_1 = Entity("Натахт-1, ООО", note: "For Testing only")
+    static let natOOO_2 = Entity("Натахт-2, ООО", note: "For Testing only")
+
     static let kitProgressOOO = Entity("Кит-Прогресс, ООО", note: "")
+    static let kitProgressOOO_2 = Entity("Кит-Прогресс-2, ООО", note: "For Testing only")
+    
     static let igor = Entity("IM", note: "")
 }
 
@@ -42,7 +49,7 @@ extension Project {
             amount: 1_000_000,
             type: .investment,
             senderID: Entity.igor.id,
-            recipientID: Entity.progressOOO.id,
+            recipientID: Entity.natOOO_1.id,
             note: "Первый транш по займу")
         
         let date2 = calendar.date(from: DateComponents(year: 2020, month: 02, day: 15))!
@@ -51,7 +58,7 @@ extension Project {
             amount: 2_000_000,
             type: .investment,
             senderID: Entity.igor.id,
-            recipientID: Entity.progressOOO.id,
+            recipientID: Entity.natOOO_1.id,
             note: "Второй транш по займу")
         
         let date3 = calendar.date(from: DateComponents(year: 2020, month: 03, day: 20))!
@@ -60,7 +67,7 @@ extension Project {
             amount: 3_000_000,
             type: .investment,
             senderID: Entity.igor.id,
-            recipientID: Entity.progressOOO.id,
+            recipientID: Entity.natOOO_1.id,
             note: "Третий транш по займу")
         
         let date4 = calendar.date(from: DateComponents(year: 2020, month: 6, day: 30))!
@@ -68,7 +75,7 @@ extension Project {
             date: date4,
             amount: 3_000_000,
             type: .return,
-            senderID: Entity.progressOOO.id,
+            senderID: Entity.natOOO_1.id,
             recipientID: Entity.igor.id,
             note: "Первый возврат")
         
@@ -76,7 +83,7 @@ extension Project {
             name: "Натахтари",
             note: "Проект для тестирования приложения",
             currency: .rub,
-            entities: [Entity.progressOOO, Entity.kitProgressOOO],
+            entities: [Entity.natOOO_1, Entity.natOOO_2],
             payments: [payment1, payment2, payment3, payment4])
     }()
     
@@ -147,7 +154,7 @@ extension Project {
             name: "Саперави Аминьевка",
             note: "ТЦ Квартал W (Ташир)",
             currency: .rub,
-            entities: [Entity.progressOOO, Entity.kitProgressOOO],
+            entities: [Entity.progressOOO, Entity.progressOOO_2],
             payments: [payment1, payment2, payment3, payment4, payment5, payment6]
         )
     }()

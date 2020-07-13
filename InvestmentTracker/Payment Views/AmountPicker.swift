@@ -12,7 +12,7 @@ struct AmountPicker: View {
     
     @Binding var amount: Double
     
-    let amounts: [Double] = [10_000, 100_000, 500_000, 1_000_000, 2_000_000, 3_000_000, 5_000_000, 10_000_000]
+    let amounts: [Double] = [10_000, 50_000, 100_000, 500_000, 1_000_000, 2_000_000, 3_000_000, 5_000_000, 10_000_000]
     
     var body: some View {
         NavigationView {

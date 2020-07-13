@@ -18,19 +18,33 @@ struct SettingsView: View {
         return formatter
     }
     
+    private let rates: [Double] = [0, 3, 6, 9, 12, 15, 18].map { $0/100 }
+    
     var body: some View {
         NavigationView {
             List {
                 Section(header: Text("Discount Rate".uppercased())) {
-                    TextField("Rate", value: $settings.rate, formatter: formatter())
-                        .keyboardType(.decimalPad)
+                    Picker("Discount Rate", selection: $settings.rate) {
+                        ForEach(rates, id:\.self) { rate in
+                            Text("\(rate * 100, specifier: "%.f%%")").tag(rate)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
                 }
                 
                 Section(
-                header: Text("View Options")
+                    header: Text("View Options")
                 ) {
                     Toggle("Compact Row", isOn: $settings.compactRow)
                 }
+                
+                #if DEBUG
+                Section(
+                    header: Text("Debug only")
+                ) {
+                    Toggle("Show UUID", isOn: $settings.showUUID)
+                }
+                #endif
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Settings")

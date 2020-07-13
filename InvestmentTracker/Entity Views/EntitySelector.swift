@@ -10,6 +10,7 @@ import InvestmentDataModel
 
 struct EntitySelector: View {
     @EnvironmentObject var portfolio: Portfolio
+    @EnvironmentObject var settings: Settings
     
     enum EntityType: String {
         case sender, recipient
@@ -77,6 +78,7 @@ struct EntitySelector: View {
                     project: project
                 )
                 .environmentObject(portfolio)
+                .environmentObject(settings)
             }
         }
     }
@@ -115,5 +117,6 @@ struct EntitySelector_Previews: PreviewProvider {
         }
         .preferredColorScheme(.dark)
         .environmentObject(Portfolio())
+        .environmentObject(Settings())
     }
 }
