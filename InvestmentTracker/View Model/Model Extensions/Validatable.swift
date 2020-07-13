@@ -12,20 +12,20 @@ protocol Validatable {
     var isValid: Bool { get }
 }
 
+extension Project: Validatable {
+    var isValid: Bool {
+        name.count > 2 && note.count > 2
+    }
+}
+
 extension Entity: Validatable {
     var isValid: Bool {
-        !name.isEmpty
+        name.count > 2
     }
 }
 
 extension Payment: Validatable {
     var isValid: Bool {
         amount > 0 && senderID != recipientID
-    }
-}
-
-extension Project: Validatable {    
-    var isValid: Bool {
-        !name.isEmpty && !note.isEmpty
     }
 }

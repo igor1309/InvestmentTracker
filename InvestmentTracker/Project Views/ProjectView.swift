@@ -100,6 +100,8 @@ struct ProjectView: View {
         
         switch modal {
         case .entityEditor:
+            defer { draftEntity = nil }
+
             if let draftEntity = draftEntity {
                 print("Entity with name '\(draftEntity.name)' was created or edited, ready to use")
                 withAnimation {
@@ -112,8 +114,9 @@ struct ProjectView: View {
             } else {
                 print("nothing was created or edit was cancelled")
             }
-            draftEntity = nil
         case .paymentEditor:
+            defer { draftPayment = project.lastPaymentCopy() }
+
             if let draftPayment = draftPayment {
                 print("Payment for \(draftPayment.amount) was created or edited, ready to use")
                 withAnimation {
@@ -126,7 +129,6 @@ struct ProjectView: View {
             } else {
                 print("nothing was created or edit was cancelled")
             }
-            draftPayment = project.lastPaymentCopy()
         case .entityList:
             print("nothing to do here")
         }

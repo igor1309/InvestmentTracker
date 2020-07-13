@@ -70,6 +70,8 @@ struct EntityPicker: View {
     }
     
     private func handleEditorOnDismiss() {
+        defer { draft = nil }
+        
         if let draft = draft {
             print("Entity with name '\(draft.name)' was created or edited, ready to use")
             
@@ -96,8 +98,6 @@ struct EntityPicker: View {
         } else {
             print("nothing was created or edit was cancelled")
         }
-        
-        draft = nil
     }
     
     func color(for entity: Entity) -> Color {

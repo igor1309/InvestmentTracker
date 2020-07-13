@@ -116,6 +116,8 @@ struct ProjectRow: View {
     }
     
     private func handleEditorOnDismiss() {
+        defer { original = nil }
+        
         let generator = UINotificationFeedbackGenerator()
         
         if let original = original {
@@ -130,8 +132,6 @@ struct ProjectRow: View {
         } else {
             print("nothing was created or edit was cancelled")
         }
-        
-        original = nil
     }
 }
 

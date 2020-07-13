@@ -26,12 +26,12 @@ struct EditorWrapper_Create_Test: View {
             
             .sheet(isPresented: $isPresented) {
                 //  onDismiss
+                defer { original = nil }
                 if let original = original {
                     print("Entity with name '\(original.name)' was created or edited, ready to use")
                 } else {
                     print("nothing was created or edit was cancelled")
                 }
-                original = nil
             } content: {
                 EditorWrapper(
                     original: $original,

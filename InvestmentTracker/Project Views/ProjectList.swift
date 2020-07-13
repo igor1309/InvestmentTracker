@@ -65,6 +65,8 @@ struct ProjectList: View {
     }
     
     private func handleEditorOnDismiss() {
+        defer { original = nil }
+        
         let generator = UINotificationFeedbackGenerator()
         
         withAnimation {
@@ -80,8 +82,6 @@ struct ProjectList: View {
                 }
             }
         }
-        
-        original = nil
     }
     
     private var showSettingsButton: some View {

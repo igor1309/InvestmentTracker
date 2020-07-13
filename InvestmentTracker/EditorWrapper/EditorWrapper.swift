@@ -10,19 +10,19 @@ import InvestmentDataModel
 
 /// This Wrapper returns nil if creation of new object or editind was cancelled,
 /// or returns edited value if object was validated and 'saved' ("Save" button was pressed)
+/// Validation function prevents saving non-valid drafts
 /// Return of values is done by binding
-struct EditorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
+struct EditorWrapper<T: Placeholdable, Editor: View>: View {
     
     @Binding var original: T?
     @Binding var isPresented: Bool
     
     let validator: (T) -> Bool
     let editor: (Binding<T>) -> Editor
-    
-    @State private var draft: T
-    
     let title: String
     
+    @State private var draft: T
+        
     init(original: Binding<T?>,
          isPresented: Binding<Bool>,
          validator: @escaping (T) -> Bool,
@@ -31,7 +31,7 @@ struct EditorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
         self._original = original
         self._isPresented = isPresented
         
-        /// if original is nil than object is created with empty initializer (init(), since it is Placeholdable it has such init)
+        /// if original is nil than object is created with empty initializer init(), since it is Placeholdable it has such init
         self._draft = State(initialValue: original.wrappedValue ?? T.init())
         
         self.validator = validator
@@ -57,7 +57,6 @@ struct EditorWrapper<T: Validatable & Placeholdable, Editor: View>: View {
                         original = draft
                         isPresented = false
                     }
-//                    .disabled(!draft.isValid)
                     .disabled(!validator(draft))
                 )
         }
