@@ -50,7 +50,7 @@ struct EntityRow: View {
                 showModal = true
             } label: {
                 Image(systemName: "square.and.pencil")
-                Text("TBD: Edit")
+                Text("Edit")
             }
             
             if portfolio.canDelete(entity.id) {
@@ -64,7 +64,12 @@ struct EntityRow: View {
         }
         .sheet(isPresented: $showModal) {
             //  onDismiss
-            handleEditorOnDismiss()
+            portfolio.onDismissUpdate(
+                draft: &draftEntity,
+                original: entity,
+                in: project,
+                keyPath: \.entities
+            )
         } content: {
             EditorWrapper(
                 original: $draftEntity,
@@ -87,23 +92,6 @@ struct EntityRow: View {
                     .cancel()
                 ]
             )
-        }
-    }
-    
-    private func handleEditorOnDismiss() {
-        let generator = UINotificationFeedbackGenerator()
-        
-        if let draftEntity = draftEntity {
-            print("Entity with name '\(draftEntity.name)' was created or edited, ready to use")
-            withAnimation {
-                if portfolio.update(draftEntity, in: project, keyPath: \.entities) {
-                    generator.notificationOccurred(.success)
-                } else {
-                    generator.notificationOccurred(.error)
-                }
-            }
-        } else {
-            print("nothing was created or edit was cancelled")
         }
     }
     

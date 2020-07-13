@@ -14,14 +14,14 @@ struct ProjectRow: View {
     
     var project: Project
     
-    @State private var original: Project?
+    @State private var draft: Project?
     
     @State private var showModal = false
     @State private var showDeleteAction = false
     
     init(project: Project) {
         self.project = project
-        self._original = State(initialValue: project)
+        self._draft = State(initialValue: project)
     }
     
     var body: some View {
@@ -81,10 +81,14 @@ struct ProjectRow: View {
         }
         .sheet(isPresented: $showModal) {
             // onDismiss
-            handleEditorOnDismiss()
+            portfolio.onDismissUpdate(
+                draft: &draft,
+                original: project,
+                keyPath: \.projects
+            )
         } content: {
             EditorWrapper(
-                original: $original,
+                original: $draft,
                 isPresented: $showModal
             ) { draft in
                 draft.isValid
@@ -114,25 +118,6 @@ struct ProjectRow: View {
                     .cancel()
                 ]
             )
-        }
-    }
-    
-    private func handleEditorOnDismiss() {
-        defer { original = nil }
-        
-        let generator = UINotificationFeedbackGenerator()
-        
-        if let original = original {
-            print("Project with name '\(original.name)' was created or edited, ready to use")
-            withAnimation {
-                if portfolio.update(original, keyPath: \.projects) {
-                    generator.notificationOccurred(.success)
-                } else {
-                    generator.notificationOccurred(.error)
-                }
-            }
-        } else {
-            print("nothing was created or edit was cancelled")
         }
     }
 }

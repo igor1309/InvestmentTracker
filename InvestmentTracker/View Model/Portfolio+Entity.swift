@@ -10,6 +10,8 @@ import InvestmentDataModel
 
 extension Portfolio {
     
+    //  MARK: - Entities...
+    
     func isPaymentValid(_ payment: Payment, in project: Project) -> Bool {
         payment.isValid
             && isEntityOk(
@@ -25,9 +27,6 @@ extension Portfolio {
                 in: project
             )
     }
-    
-    
-    //  MARK: - Entities...
     
     func canDelete(_ entityID: UUID) -> Bool {
         let senderIDs = projects.flatMap { $0.payments }.map { $0.senderID }

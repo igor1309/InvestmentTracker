@@ -27,7 +27,7 @@ struct PaymentRow: View {
     @State private var showDeleteAction = false
     
     @ScaledMetric var size: CGFloat = 24
-
+    
     @ViewBuilder var paymentTypeImage: some View {
         let color: Color = {
             let color = payment.type == .investment
@@ -36,7 +36,7 @@ struct PaymentRow: View {
             let opacity = 0.7
             return color.opacity(opacity)
         }()
-    
+        
         let name = payment.type == .investment
             ? "arrow.right.square"
             : "arrow.left.square"
@@ -104,7 +104,12 @@ struct PaymentRow: View {
             }
         }
         .sheet(isPresented: $showEditor) {
-            handleEditor()
+            portfolio.onDismissUpdate(
+                draft: &draft,
+                original: payment,
+                in: project,
+                keyPath: \.payments
+            )
         } content: {
             EditorWrapper(
                 original: $draft,
@@ -118,24 +123,6 @@ struct PaymentRow: View {
         }
         .actionSheet(isPresented: $showDeleteAction) {
             deleteActionSheet(payment)
-        }
-    }
-    
-    private func handleEditor() {
-        let generator = UINotificationFeedbackGenerator()
-        
-        if let draft = draft {
-            print("Payment for \(draft.amount) was created or edited, ready to use")
-            withAnimation {
-                if portfolio.update(draft, in: project, keyPath: \.payments) {
-                    generator.notificationOccurred(.success)
-                } else {
-                    generator.notificationOccurred(.error)
-                }
-            }
-        } else {
-            print("nothing was created or edit was cancelled")
-            draft = payment
         }
     }
     

@@ -87,7 +87,7 @@ struct ProjectView: View {
                 plusButton()
                     .sheet(isPresented: $showModal) {
                         // onDismiss
-                        handleEditorsOnDismiss()
+                        onDismissAdd()
                     } content: {
                         presentModal()
                     }
@@ -95,42 +95,23 @@ struct ProjectView: View {
         )
     }
     
-    private func handleEditorsOnDismiss() {
-        let generator = UINotificationFeedbackGenerator()
-        
+    private func onDismissAdd() {
         switch modal {
         case .entityEditor:
-            defer { draftEntity = nil }
-
-            if let draftEntity = draftEntity {
-                print("Entity with name '\(draftEntity.name)' was created or edited, ready to use")
-                withAnimation {
-                    if portfolio.add(draftEntity, to: project, keyPath: \.entities) {
-                        generator.notificationOccurred(.success)
-                    } else {
-                        generator.notificationOccurred(.error)
-                    }
-                }
-            } else {
-                print("nothing was created or edit was cancelled")
-            }
+            portfolio.onDismissAdd(
+                draft: &draftEntity,
+                to: project,
+                keyPath: \.entities
+            )
         case .paymentEditor:
-            defer { draftPayment = project.lastPaymentCopy() }
-
-            if let draftPayment = draftPayment {
-                print("Payment for \(draftPayment.amount) was created or edited, ready to use")
-                withAnimation {
-                    if portfolio.add(draftPayment, to: project, keyPath: \.payments) {
-                        generator.notificationOccurred(.success)
-                    } else {
-                        generator.notificationOccurred(.error)
-                    }
-                }
-            } else {
-                print("nothing was created or edit was cancelled")
-            }
+            portfolio.onDismissAdd(
+                draft: &draftPayment,
+                initialValue: project.lastPaymentCopy(),
+                to: project,
+                keyPath: \.payments
+            )
         case .entityList:
-            print("nothing to do here")
+            print("nothing here")
         }
     }
     

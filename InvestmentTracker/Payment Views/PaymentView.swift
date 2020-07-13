@@ -65,7 +65,12 @@ struct PaymentView: View {
                 showEditor = true
             }
             .sheet(isPresented: $showEditor) {
-                handleEditor()
+                // onDismiss
+                portfolio.onDismissUpdate(
+                    draft: &draft,
+                    original: payment,
+                    in: project,
+                    keyPath: \.payments)
             } content: {
                 EditorWrapper(
                     original: $draft,
@@ -78,24 +83,6 @@ struct PaymentView: View {
                 .environmentObject(portfolio)
             }
         )
-    }
-    
-    private func handleEditor() {
-        let generator = UINotificationFeedbackGenerator()
-        
-        if let draft = draft {
-            print("Payment for \(draft.amount) was created or edited, ready to use")
-            withAnimation {
-                if portfolio.update(draft, in: project, keyPath: \.payments) {
-                    generator.notificationOccurred(.success)
-                } else {
-                    generator.notificationOccurred(.error)
-                }
-            }
-        } else {
-            print("nothing was created or edit was cancelled")
-            draft = payment
-        }
     }
 }
 

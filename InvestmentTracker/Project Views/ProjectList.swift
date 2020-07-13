@@ -15,7 +15,7 @@ struct ProjectList: View {
     @State private var showSettings = false
     @State private var showProjectEditor = false
     
-    @State private var original: Project?
+    @State private var draft: Project?
     
     var body: some View {
         NavigationView {
@@ -48,10 +48,13 @@ struct ProjectList: View {
                 trailing: plusButton
                     .sheet(isPresented: $showProjectEditor) {
                         //  onDismiss
-                        handleEditorOnDismiss()
+                        portfolio.onDismissAdd(
+                            draft: &draft,
+                            keyPath: \.projects
+                        )
                     } content: {
                         EditorWrapper(
-                            original: $original,
+                            original: $draft,
                             isPresented: $showProjectEditor
                         ) { draft in
                             draft.isValid
@@ -61,26 +64,6 @@ struct ProjectList: View {
                         .environmentObject(portfolio)
                     }
             )
-        }
-    }
-    
-    private func handleEditorOnDismiss() {
-        defer { original = nil }
-        
-        let generator = UINotificationFeedbackGenerator()
-        
-        withAnimation {
-            if original == nil {
-                print("nothing was created or edit was cancelled")
-            } else {
-                if portfolio.add(original!, keyPath: \.projects) {
-                    print("project added ok")
-                    generator.notificationOccurred(.success)
-                } else {
-                    print("error adding project")
-                    generator.notificationOccurred(.error)
-                }
-            }
         }
     }
     
