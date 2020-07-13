@@ -135,12 +135,20 @@ struct ProjectView: View {
     @ViewBuilder private func presentModal() -> some View {
         switch modal {
         case .entityEditor:
-            EditorWrapper(original: $draftEntity, isPresented: $showModal) { draft in
+            EditorWrapper(
+                original: $draftEntity,
+                isPresented: $showModal
+            ) { draft in
+                draft.isValid
+            } editor: { draft in
                 EntityEditor(entity: draft, project: project)
             }
             .environmentObject(portfolio)
         case .paymentEditor:
-            EditorWrapper2(original: $draftPayment, isPresented: $showModal) { draft in
+            EditorWrapper(
+                original: $draftPayment,
+                isPresented: $showModal
+            ) { draft in
                 portfolio.isPaymentValid(draft, in: project)
             } editor: { draft in
                 PaymentEditor(payment: draft, project: project)

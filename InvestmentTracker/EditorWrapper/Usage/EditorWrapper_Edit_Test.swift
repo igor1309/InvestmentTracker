@@ -46,6 +46,8 @@ struct EditorWrapper_Edit: View {
                     original: $original,
                     isPresented: $isPresented
                 ) { draft in
+                    draft.isValid
+                } editor: { draft in
                     Form {
                         TextField("Name", text: draft.name)
                         TextField("Note", text: draft.note)

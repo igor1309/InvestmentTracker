@@ -81,7 +81,12 @@ struct ProjectRow: View {
             // onDismiss
             handleEditorOnDismiss()
         } content: {
-            EditorWrapper(original: $original, isPresented: $showModal) { draft in
+            EditorWrapper(
+                original: $original,
+                isPresented: $showModal
+            ) { draft in
+                draft.isValid
+            } editor: { draft in
                 ProjectEditor(draft: draft)
             }
             .environmentObject(portfolio)

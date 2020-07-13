@@ -107,7 +107,12 @@ struct PaymentEditor_Previews: PreviewProvider {
     static let project = Project.natachtari
     
     static var previews: some View {
-        EditorWrapper(original: $payment, isPresented: .constant(true)) { draft in
+        EditorWrapper(
+            original: $payment,
+            isPresented: .constant(true)
+        ) { draft in
+            draft.isValid
+        } editor: { draft in
             PaymentEditor(payment: draft, project: project)
         }
         .environmentObject(Portfolio())

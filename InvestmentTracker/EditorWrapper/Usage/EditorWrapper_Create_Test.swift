@@ -33,7 +33,12 @@ struct EditorWrapper_Create_Test: View {
                 }
                 original = nil
             } content: {
-                EditorWrapper(original: $original, isPresented: $isPresented) { draft in
+                EditorWrapper(
+                    original: $original,
+                    isPresented: $isPresented
+                ) { draft in
+                    draft.isValid
+                } editor: { draft in
                     Form {
                         TextField("Name", text: draft.name)
                         TextField("Note", text: draft.note)

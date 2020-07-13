@@ -54,6 +54,8 @@ struct ProjectList: View {
                             original: $original,
                             isPresented: $showProjectEditor
                         ) { draft in
+                            draft.isValid
+                        } editor: { draft in
                             ProjectEditor(draft: draft)
                         }
                         .environmentObject(portfolio)
