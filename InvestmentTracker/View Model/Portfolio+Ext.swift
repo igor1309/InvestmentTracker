@@ -5,11 +5,12 @@
 //  Created by Igor Malyarov on 10.07.2020.
 //
 
+import SwiftUI
 import InvestmentDataModel
 
 extension Portfolio {
-    
-    //  MARK: - Generic functions to handle Portfolio and Investors
+        
+    //  MARK: - Generic functions to handle Projects and Investors
     //          and other possible arrays in Portfolio
     
     func add<T: Identifiable & Validatable>(

@@ -23,6 +23,7 @@
 		24277C9324B37FB2006DE82A /* Placeholdable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9224B37FB2006DE82A /* Placeholdable.swift */; };
 		24277C9924B398F1006DE82A /* ProjectEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9824B398F1006DE82A /* ProjectEditor.swift */; };
 		24277C9E24B4A599006DE82A /* Uniqued+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24277C9D24B4A599006DE82A /* Uniqued+String.swift */; };
+		2446639524BD0B0D00172EE9 /* Portfolio+onDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2446639424BD0B0D00172EE9 /* Portfolio+onDismiss.swift */; };
 		245B672924B080D3004F35F4 /* InvestmentDataModel in Frameworks */ = {isa = PBXBuildFile; productRef = 245B672824B080D3004F35F4 /* InvestmentDataModel */; };
 		245B672F24B0B4C4004F35F4 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B672E24B0B4C4004F35F4 /* ProjectList.swift */; };
 		245B673124B0B4FF004F35F4 /* sample data projects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B673024B0B4FF004F35F4 /* sample data projects.swift */; };
@@ -67,6 +68,7 @@
 		24277C9D24B4A599006DE82A /* Uniqued+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Uniqued+String.swift"; sourceTree = "<group>"; };
 		24277C9F24B4A6E2006DE82A /* String uniqued.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "String uniqued.playground"; path = "InvestmentTracker/Playgrounds/String uniqued.playground"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		242B4B6A24B757330084AF8B /* WritableKeyPathTesting.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = WritableKeyPathTesting.playground; path = "../../../../Library/Autosave Information/WritableKeyPathTesting.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		2446639424BD0B0D00172EE9 /* Portfolio+onDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Portfolio+onDismiss.swift"; sourceTree = "<group>"; };
 		24523B2924B5FD3100FB0D97 /* EditorResult.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = EditorResult.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		245B672E24B0B4C4004F35F4 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		245B673024B0B4FF004F35F4 /* sample data projects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "sample data projects.swift"; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				245B673224B0B894004F35F4 /* Portfolio.swift */,
 				241DABE224BB8341001B5FB8 /* Portfolio+Entity.swift */,
 				241DABD924B9A406001B5FB8 /* Portfolio+Totals.swift */,
+				2446639424BD0B0D00172EE9 /* Portfolio+onDismiss.swift */,
 				241DABD324B8E208001B5FB8 /* Portfolio+Ext.swift */,
 				241DABD524B8E279001B5FB8 /* Portfolio+Ext NOT USED.swift */,
 				242B4B6B24B845220084AF8B /* Model Extensions */,
@@ -362,6 +365,7 @@
 				24F5E1D224B5C98D00D8453F /* EditorWrapper_Edit_Test.swift in Sources */,
 				245B674A24B1D973004F35F4 /* PaymentView.swift in Sources */,
 				245B674624B1B771004F35F4 /* Array+Identifiable.swift in Sources */,
+				2446639524BD0B0D00172EE9 /* Portfolio+onDismiss.swift in Sources */,
 				24BBF15524B845F200CDF613 /* Validatable.swift in Sources */,
 				245B673624B0B92E004F35F4 /* Settings.swift in Sources */,
 				241DABCF24B85CE4001B5FB8 /* View+debugPrint.swift in Sources */,

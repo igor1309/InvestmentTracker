@@ -64,24 +64,24 @@ struct ProjectList: View {
                         .environmentObject(portfolio)
                     }
             )
-//            .modifier(
-//                UniversalEditor(
-//                    isPresented: $showEditor,
-//                    draft: $draft
-//                ) { version in
-//                    version.isValid
-//                } onDismiss: {
-//                    portfolio.onDismissAdd(
-//                        draft: &draft,
-//                        keyPath: \.projects
-//                    )
-//
-//                    print("onDismiss draft:\(String(describing: draft))")
-//
-//                } editor: { project in
-//                    ProjectEditor(project: project)
-//                }
-//            )
+            //            .modifier(
+            //                UniversalEditor(
+            //                    isPresented: $showEditor,
+            //                    draft: $draft
+            //                ) { version in
+            //                    version.isValid
+            //                } onDismiss: {
+            //                    portfolio.onDismissAdd(
+            //                        draft: &draft,
+            //                        keyPath: \.projects
+            //                    )
+            //
+            //                    print("onDismiss draft:\(String(describing: draft))")
+            //
+            //                } editor: { project in
+            //                    ProjectEditor(project: project)
+            //                }
+            //            )
         }
     }
     
