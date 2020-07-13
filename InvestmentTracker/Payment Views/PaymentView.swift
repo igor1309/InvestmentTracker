@@ -75,10 +75,10 @@ struct PaymentView: View {
                 EditorWrapper(
                     original: $draft,
                     isPresented: $showEditor
-                ) { draft in
-                    portfolio.isPaymentValid(draft, in: project)
-                } editor: { draft in
-                    PaymentEditor(payment: draft, project: project)
+                ) { payment in
+                    portfolio.isPaymentValid(payment, in: project)
+                } editor: { payment in
+                    PaymentEditor(payment: payment, project: project)
                 }
                 .environmentObject(portfolio)
             }

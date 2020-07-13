@@ -101,10 +101,10 @@ struct PaymentEditor_Previews: PreviewProvider {
         EditorWrapper(
             original: $payment,
             isPresented: .constant(true)
-        ) { draft in
-            draft.isValid
-        } editor: { draft in
-            PaymentEditor(payment: draft, project: project)
+        ) { payment in
+            payment.isValid
+        } editor: { payment in
+            PaymentEditor(payment: payment, project: project)
         }
         .environmentObject(Portfolio())
         .preferredColorScheme(.dark)

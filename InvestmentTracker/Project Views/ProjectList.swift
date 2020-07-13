@@ -46,23 +46,41 @@ struct ProjectList: View {
                     }
                 ,
                 trailing: plusButton
-                    .sheet(isPresented: $showEditor) {
-                        //  onDismiss
-                        portfolio.onDismissAdd(
-                            draft: &draft,
-                            keyPath: \.projects
-                        )
-                    } content: {
-                        EditorWrapper(
-                            original: $draft,
-                            isPresented: $showEditor
-                        ) { draft in
-                            draft.isValid
-                        } editor: { draft in
-                            ProjectEditor(draft: draft)
-                        }
-                        .environmentObject(portfolio)
-                    }
+//                    .sheet(isPresented: $showEditor) {
+//                        //  onDismiss
+//                        portfolio.onDismissAdd(
+//                            draft: &draft,
+//                            keyPath: \.projects
+//                        )
+//                    } content: {
+//                        EditorWrapper(
+//                            original: $draft,
+//                            isPresented: $showEditor
+//                        ) { project in
+//                            project.isValid
+//                        } editor: { project in
+//                            ProjectEditor(project: project)
+//                        }
+//                        .environmentObject(portfolio)
+//                    }
+            )
+            .modifier(
+                UniversalEditor(
+                    isPresented: $showEditor,
+                    draft: $draft
+                ) { version in
+                    version.isValid
+                } onDismiss: {
+                    portfolio.onDismissAdd(
+                        draft: &draft,
+                        keyPath: \.projects
+                    )
+                  
+                    print("onDismiss draft:\(String(describing: draft))")
+                    
+                } editor: { project in
+                    ProjectEditor(project: project)
+                }
             )
         }
     }

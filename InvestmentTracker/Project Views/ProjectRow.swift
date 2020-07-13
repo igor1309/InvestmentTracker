@@ -90,10 +90,10 @@ struct ProjectRow: View {
             EditorWrapper(
                 original: $draft,
                 isPresented: $showEditor
-            ) { draft in
-                draft.isValid
-            } editor: { draft in
-                ProjectEditor(draft: draft)
+            ) { project in
+                project.isValid
+            } editor: { project in
+                ProjectEditor(project: project)
             }
             .environmentObject(portfolio)
         }

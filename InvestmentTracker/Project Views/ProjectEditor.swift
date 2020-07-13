@@ -9,17 +9,17 @@ import SwiftUI
 import InvestmentDataModel
 
 struct ProjectEditor: View {
-    @Binding var draft: Project
+    @Binding var project: Project
     
     var body: some View {
         List {
             Section {
-                TextField("Project Name", text: $draft.name)
-                TextField("Note", text: $draft.note)
+                TextField("Project Name", text: $project.name)
+                TextField("Note", text: $project.note)
             }
             
             Section {
-                Picker("Currency", selection: $draft.currency) {
+                Picker("Currency", selection: $project.currency) {
                     ForEach(Currency.allCases, id: \.self) { currency in
                         Text(currency.symbol).tag(currency)
                     }
@@ -34,7 +34,7 @@ struct ProjectEditor: View {
 struct ProjectEditor_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ProjectEditor(draft: .constant(Project()))
+            ProjectEditor(project: .constant(Project()))
         }
         .preferredColorScheme(.dark)
     }

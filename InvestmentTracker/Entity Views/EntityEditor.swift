@@ -33,10 +33,10 @@ struct EntityEditor_Previews: PreviewProvider {
             EditorWrapper(
                 original: $entity,
                 isPresented: .constant(true)
-            ) { draft in
-                draft.isValid
-            } editor: { draft in
-                EntityEditor(entity: draft, project: project)
+            ) { entity in
+                entity.isValid
+            } editor: { entity in
+                EntityEditor(entity: entity, project: project)
             }
         }
         .preferredColorScheme(.dark)

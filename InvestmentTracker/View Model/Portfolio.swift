@@ -67,11 +67,11 @@ final class Portfolio: ObservableObject {
         
         let generator = UINotificationFeedbackGenerator()
         
-        withAnimation {
-            if draft == nil {
-                print("nothing was created or edit was cancelled")
-            } else {
-                if add(draft!, keyPath: keyPath) {
+        if let draft = draft {
+            print("Object was created, ready to use")
+            
+            withAnimation {
+                if add(draft, keyPath: keyPath) {
                     print("project added ok")
                     generator.notificationOccurred(.success)
                 } else {
@@ -79,6 +79,8 @@ final class Portfolio: ObservableObject {
                     generator.notificationOccurred(.error)
                 }
             }
+        } else {
+            print("nothing was created or edit was cancelled")
         }
     }
     
@@ -92,11 +94,11 @@ final class Portfolio: ObservableObject {
         
         let generator = UINotificationFeedbackGenerator()
         
-        withAnimation {
-            if draft == nil {
-                print("nothing was created or edit was cancelled")
-            } else {
-                if add(draft!, to: project, keyPath: keyPath) {
+        if let draft = draft {
+            print("Object was created, ready to use")
+            
+            withAnimation {
+                if add(draft, to: project, keyPath: keyPath) {
                     print("project added ok")
                     generator.notificationOccurred(.success)
                 } else {
@@ -104,6 +106,8 @@ final class Portfolio: ObservableObject {
                     generator.notificationOccurred(.error)
                 }
             }
+        } else {
+            print("nothing was created or edit was cancelled")
         }
     }
     
@@ -120,6 +124,7 @@ final class Portfolio: ObservableObject {
         
         if let draft = draft {
             print("Object was edited, ready to use")
+            
             withAnimation {
                 if update(draft, in: project, keyPath: keyPath) {
                     generator.notificationOccurred(.success)
@@ -142,6 +147,7 @@ final class Portfolio: ObservableObject {
         
         if let draft = draft {
             print("Object was edited, ready to use")
+            
             withAnimation {
                 if update(draft, keyPath: keyPath) {
                     generator.notificationOccurred(.success)

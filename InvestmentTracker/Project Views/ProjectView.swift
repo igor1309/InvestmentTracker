@@ -121,20 +121,20 @@ struct ProjectView: View {
             EditorWrapper(
                 original: $draftEntity,
                 isPresented: $showModal
-            ) { draft in
-                draft.isValid
-            } editor: { draft in
-                EntityEditor(entity: draft, project: project)
+            ) { entity in
+                entity.isValid
+            } editor: { entity in
+                EntityEditor(entity: entity, project: project)
             }
             .environmentObject(portfolio)
         case .paymentEditor:
             EditorWrapper(
                 original: $draftPayment,
                 isPresented: $showModal
-            ) { draft in
-                portfolio.isPaymentValid(draft, in: project)
-            } editor: { draft in
-                PaymentEditor(payment: draft, project: project)
+            ) { payment in
+                portfolio.isPaymentValid(payment, in: project)
+            } editor: { payment in
+                PaymentEditor(payment: payment, project: project)
             }
             .environmentObject(portfolio)
         case .entityList:
