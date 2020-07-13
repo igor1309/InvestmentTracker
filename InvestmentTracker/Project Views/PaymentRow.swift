@@ -112,8 +112,8 @@ struct PaymentRow: View {
             )
         } content: {
             EditorWrapper(
-                original: $draft,
-                isPresented: $showEditor
+                isPresented: $showEditor,
+                original: $draft
             ) { payment in
                 payment.isValid
             } editor: { payment in

@@ -99,8 +99,8 @@ struct PaymentEditor_Previews: PreviewProvider {
     
     static var previews: some View {
         EditorWrapper(
-            original: $payment,
-            isPresented: .constant(true)
+            isPresented: .constant(true),
+            original: $payment
         ) { payment in
             payment.isValid
         } editor: { payment in

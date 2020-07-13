@@ -31,8 +31,8 @@ struct EntityEditor_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             EditorWrapper(
-                original: $entity,
-                isPresented: .constant(true)
+                isPresented: .constant(true),
+                original: $entity
             ) { entity in
                 entity.isValid
             } editor: { entity in

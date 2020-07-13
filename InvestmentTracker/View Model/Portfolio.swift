@@ -84,6 +84,30 @@ final class Portfolio: ObservableObject {
         }
     }
     
+    func onDismissUpdate<T: Identifiable & Validatable>(
+        draft: inout T?,
+        original: T,
+        keyPath: ReferenceWritableKeyPath<Portfolio, [T]>
+    ) {
+        let generator = UINotificationFeedbackGenerator()
+        
+        if let draft = draft {
+            print("Object was edited, ready to use")
+            
+            withAnimation {
+                if update(draft, keyPath: keyPath) {
+                    generator.notificationOccurred(.success)
+                } else {
+                    generator.notificationOccurred(.error)
+                }
+            }
+        } else {
+            print("nothing was created or edit was cancelled")
+            draft = original
+        }
+    }
+
+    
     func onDismissAdd<T: Identifiable & Validatable>(
         draft: inout T?,
         initialValue: T? = nil,
@@ -138,26 +162,4 @@ final class Portfolio: ObservableObject {
         }
     }
     
-    func onDismissUpdate<T: Identifiable & Validatable>(
-        draft: inout T?,
-        original: T,
-        keyPath: ReferenceWritableKeyPath<Portfolio, [T]>
-    ) {
-        let generator = UINotificationFeedbackGenerator()
-        
-        if let draft = draft {
-            print("Object was edited, ready to use")
-            
-            withAnimation {
-                if update(draft, keyPath: keyPath) {
-                    generator.notificationOccurred(.success)
-                } else {
-                    generator.notificationOccurred(.error)
-                }
-            }
-        } else {
-            print("nothing was created or edit was cancelled")
-            draft = original
-        }
-    }
 }

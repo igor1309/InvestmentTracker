@@ -73,8 +73,8 @@ struct PaymentView: View {
                     keyPath: \.payments)
             } content: {
                 EditorWrapper(
-                    original: $draft,
-                    isPresented: $showEditor
+                    isPresented: $showEditor,
+                    original: $draft
                 ) { payment in
                     portfolio.isPaymentValid(payment, in: project)
                 } editor: { payment in

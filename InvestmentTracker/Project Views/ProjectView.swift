@@ -119,8 +119,8 @@ struct ProjectView: View {
         switch modal {
         case .entityEditor:
             EditorWrapper(
-                original: $draftEntity,
-                isPresented: $showModal
+                isPresented: $showModal,
+                original: $draftEntity
             ) { entity in
                 entity.isValid
             } editor: { entity in
@@ -129,14 +129,15 @@ struct ProjectView: View {
             .environmentObject(portfolio)
         case .paymentEditor:
             EditorWrapper(
-                original: $draftPayment,
-                isPresented: $showModal
+                isPresented: $showModal,
+                original: $draftPayment
             ) { payment in
                 portfolio.isPaymentValid(payment, in: project)
             } editor: { payment in
                 PaymentEditor(payment: payment, project: project)
             }
             .environmentObject(portfolio)
+            .environmentObject(settings)
         case .entityList:
             EntityPicker(
                 entityID: .constant(UUID()),

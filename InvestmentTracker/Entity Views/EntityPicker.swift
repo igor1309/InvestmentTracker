@@ -58,8 +58,8 @@ struct EntityPicker: View {
                 handleEditorOnDismiss()
             } content: {
                 EditorWrapper(
-                    original: $draft,
-                    isPresented: $showEditor
+                    isPresented: $showEditor,
+                    original: $draft
                 ) { entity in
                     entity.isValid
                 } editor: { entity in

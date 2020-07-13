@@ -34,8 +34,8 @@ struct EditorWrapper_Create_Test: View {
                 }
             } content: {
                 EditorWrapper(
-                    original: $original,
-                    isPresented: $showEditor
+                    isPresented: $showEditor,
+                    original: $original
                 ) { draft in
                     draft.isValid
                 } editor: { draft in

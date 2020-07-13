@@ -72,8 +72,8 @@ struct EntityRow: View {
             )
         } content: {
             EditorWrapper(
-                original: $draftEntity,
-                isPresented: $showEditor
+                isPresented: $showEditor,
+                original: $draftEntity
             ) { entity in
                 entity.isValid
             } editor: { entity in

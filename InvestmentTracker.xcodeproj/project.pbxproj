@@ -41,6 +41,7 @@
 		246269FD24B07A930008D0CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246269FC24B07A930008D0CB /* Assets.xcassets */; };
 		24626A0024B07A930008D0CB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246269FF24B07A930008D0CB /* Preview Assets.xcassets */; };
 		24BBF15524B845F200CDF613 /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BBF15424B845F200CDF613 /* Validatable.swift */; };
+		24C8159124BCF80000A3AB19 /* UniversalEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C8159024BCF80000A3AB19 /* UniversalEditor.swift */; };
 		24F5E1CE24B5C8CE00D8453F /* EditorWrapper_Create_Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F5E1CD24B5C8CE00D8453F /* EditorWrapper_Create_Test.swift */; };
 		24F5E1D224B5C98D00D8453F /* EditorWrapper_Edit_Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F5E1D124B5C98D00D8453F /* EditorWrapper_Edit_Test.swift */; };
 		24FCF68D24B07D420035FC1C /* SwiftPI in Frameworks */ = {isa = PBXBuildFile; productRef = 24FCF68C24B07D420035FC1C /* SwiftPI */; };
@@ -86,6 +87,7 @@
 		246269FF24B07A930008D0CB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		24626A0124B07A930008D0CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24BBF15424B845F200CDF613 /* Validatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validatable.swift; path = "InvestmentTracker/View Model/Model Extensions/Validatable.swift"; sourceTree = SOURCE_ROOT; };
+		24C8159024BCF80000A3AB19 /* UniversalEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalEditor.swift; sourceTree = "<group>"; };
 		24F5E1CD24B5C8CE00D8453F /* EditorWrapper_Create_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWrapper_Create_Test.swift; sourceTree = "<group>"; };
 		24F5E1D124B5C98D00D8453F /* EditorWrapper_Edit_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWrapper_Edit_Test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -243,10 +245,19 @@
 			path = Playgrounds;
 			sourceTree = "<group>";
 		};
+		24C8159224BCF89B00A3AB19 /* WORK IN PROGRESS */ = {
+			isa = PBXGroup;
+			children = (
+				24C8159024BCF80000A3AB19 /* UniversalEditor.swift */,
+			);
+			path = "WORK IN PROGRESS";
+			sourceTree = "<group>";
+		};
 		24F5E1CF24B5C94900D8453F /* EditorWrapper */ = {
 			isa = PBXGroup;
 			children = (
 				24277C8E24B364A7006DE82A /* EditorWrapper.swift */,
+				24C8159224BCF89B00A3AB19 /* WORK IN PROGRESS */,
 				241DABDD24BA18C9001B5FB8 /* SimpleEditor.swift */,
 				24F5E1D024B5C96400D8453F /* Usage */,
 			);
@@ -341,6 +352,7 @@
 			files = (
 				245B673124B0B4FF004F35F4 /* sample data projects.swift in Sources */,
 				245B674C24B1F63E004F35F4 /* EntityPicker.swift in Sources */,
+				24C8159124BCF80000A3AB19 /* UniversalEditor.swift in Sources */,
 				245B674124B13CB6004F35F4 /* PaymentEditor.swift in Sources */,
 				241DABD624B8E279001B5FB8 /* Portfolio+Ext NOT USED.swift in Sources */,
 				24277C8B24B334D0006DE82A /* Extension+Date.swift in Sources */,

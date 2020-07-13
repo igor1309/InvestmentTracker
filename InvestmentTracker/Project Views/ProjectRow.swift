@@ -88,8 +88,8 @@ struct ProjectRow: View {
             )
         } content: {
             EditorWrapper(
-                original: $draft,
-                isPresented: $showEditor
+                isPresented: $showEditor,
+                original: $draft
             ) { project in
                 project.isValid
             } editor: { project in
