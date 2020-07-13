@@ -67,7 +67,9 @@ struct PaymentView: View {
             .sheet(isPresented: $showEditor) {
                 handleEditor()
             } content: {
-                EditorWrapper(original: $draft, isPresented: $showEditor) { draft in
+                EditorWrapper2(original: $draft, isPresented: $showEditor) { draft in
+                    portfolio.isPaymentValid(draft, in: project)
+                } editor: { draft in
                     PaymentEditor(payment: draft, project: project)
                 }
                 .environmentObject(portfolio)

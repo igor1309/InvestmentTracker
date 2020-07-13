@@ -140,7 +140,9 @@ struct ProjectView: View {
             }
             .environmentObject(portfolio)
         case .paymentEditor:
-            EditorWrapper(original: $draftPayment, isPresented: $showModal) { draft in
+            EditorWrapper2(original: $draftPayment, isPresented: $showModal) { draft in
+                portfolio.isPaymentValid(draft, in: project)
+            } editor: { draft in
                 PaymentEditor(payment: draft, project: project)
             }
             .environmentObject(portfolio)

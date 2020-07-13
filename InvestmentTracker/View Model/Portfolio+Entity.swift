@@ -10,6 +10,23 @@ import InvestmentDataModel
 
 extension Portfolio {
     
+    func isPaymentValid(_ payment: Payment, in project: Project) -> Bool {
+        payment.isValid
+            && isEntityOk(
+                entityID: payment.senderID,
+                as: .sender,
+                for: payment.type,
+                in: project
+            )
+            && isEntityOk(
+                entityID: payment.recipientID,
+                as: .recipient,
+                for: payment.type,
+                in: project
+            )
+    }
+    
+    
     //  MARK: - Entities...
     
     func canDelete(_ entityID: UUID) -> Bool {
