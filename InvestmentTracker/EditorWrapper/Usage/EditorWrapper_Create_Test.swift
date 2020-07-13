@@ -13,18 +13,18 @@ struct EditorWrapper_Create_Test: View {
     var entity: Entity
     
     @State private var original: Entity?
-    @State private var isPresented = false
+    @State private var showEditor = false
     
     var body: some View {
         VStack {
             Text(original?.name ?? "")
             Text(original?.note ?? "")
-
+            
             Button("Create New Entity") {
-                isPresented = true
+                showEditor = true
             }
             
-            .sheet(isPresented: $isPresented) {
+            .sheet(isPresented: $showEditor) {
                 //  onDismiss
                 defer { original = nil }
                 if let original = original {
@@ -35,7 +35,7 @@ struct EditorWrapper_Create_Test: View {
             } content: {
                 EditorWrapper(
                     original: $original,
-                    isPresented: $isPresented
+                    isPresented: $showEditor
                 ) { draft in
                     draft.isValid
                 } editor: { draft in

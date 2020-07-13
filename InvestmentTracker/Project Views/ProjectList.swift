@@ -13,7 +13,7 @@ struct ProjectList: View {
     @EnvironmentObject var settings: Settings
     
     @State private var showSettings = false
-    @State private var showProjectEditor = false
+    @State private var showEditor = false
     
     @State private var draft: Project?
     
@@ -46,7 +46,7 @@ struct ProjectList: View {
                     }
                 ,
                 trailing: plusButton
-                    .sheet(isPresented: $showProjectEditor) {
+                    .sheet(isPresented: $showEditor) {
                         //  onDismiss
                         portfolio.onDismissAdd(
                             draft: &draft,
@@ -55,7 +55,7 @@ struct ProjectList: View {
                     } content: {
                         EditorWrapper(
                             original: $draft,
-                            isPresented: $showProjectEditor
+                            isPresented: $showEditor
                         ) { draft in
                             draft.isValid
                         } editor: { draft in
@@ -77,7 +77,7 @@ struct ProjectList: View {
     
     private var plusButton: some View {
         Button {
-            showProjectEditor = true
+            showEditor = true
         } label: {
             Image(systemName: "plus")
                 .padding([.vertical, .leading])

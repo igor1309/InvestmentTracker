@@ -69,6 +69,8 @@ struct EntityPicker: View {
         }
     }
     
+    //  MARK: FINISH THIS
+    //  Что делать с этой func????
     private func handleEditorOnDismiss() {
         defer { draft = nil }
         

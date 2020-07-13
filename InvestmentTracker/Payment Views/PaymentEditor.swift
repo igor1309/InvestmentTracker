@@ -11,10 +11,10 @@ import InvestmentDataModel
 struct PaymentEditor: View {
     @EnvironmentObject var portfolio: Portfolio
     
-    @State private var showModal = false
-    
     @Binding var payment: Payment
     let project: Project
+    
+    @State private var showEditor = false
     
     var body: some View {
         List {
@@ -39,7 +39,7 @@ struct PaymentEditor: View {
                 
                 Stepper(onIncrement: increase, onDecrement: decrease) {
                     Button {
-                        showModal = true
+                        showEditor = true
                     } label: {
                         Text("\(payment.amount, specifier: "%.f")")
                     }
@@ -66,7 +66,7 @@ struct PaymentEditor: View {
                 project: project
             )
         }
-        .sheet(isPresented: $showModal) {
+        .sheet(isPresented: $showEditor) {
             AmountPicker(amount: $payment.amount)
         }
         .listStyle(InsetGroupedListStyle())

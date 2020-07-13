@@ -14,15 +14,15 @@ struct ProjectRow: View {
     
     var project: Project
     
-    @State private var draft: Project?
-    
-    @State private var showModal = false
-    @State private var showDeleteAction = false
-    
     init(project: Project) {
         self.project = project
         self._draft = State(initialValue: project)
     }
+    
+    @State private var draft: Project?
+    
+    @State private var showEditor = false
+    @State private var showDeleteAction = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 3) {
@@ -66,7 +66,7 @@ struct ProjectRow: View {
         .padding(.vertical, 8)
         .contextMenu {
             Button {
-                showModal = true
+                showEditor = true
             } label: {
                 Image(systemName: "square.and.pencil")
                 Text("Edit")
@@ -79,7 +79,7 @@ struct ProjectRow: View {
                 Text("Delete")
             }
         }
-        .sheet(isPresented: $showModal) {
+        .sheet(isPresented: $showEditor) {
             // onDismiss
             portfolio.onDismissUpdate(
                 draft: &draft,
@@ -89,7 +89,7 @@ struct ProjectRow: View {
         } content: {
             EditorWrapper(
                 original: $draft,
-                isPresented: $showModal
+                isPresented: $showEditor
             ) { draft in
                 draft.isValid
             } editor: { draft in

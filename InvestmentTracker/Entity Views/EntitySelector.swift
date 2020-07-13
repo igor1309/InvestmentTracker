@@ -34,7 +34,7 @@ struct EntitySelector: View {
     let project: Project
     
     @State private var draftEntity: Entity?
-    @State private var showModal = false
+    @State private var showEditor = false
     
     var entityName: String {
         if let entity = portfolio.entityForID(entityID, in: project) {
@@ -65,11 +65,11 @@ struct EntitySelector: View {
     var body: some View {
         Section(header: header) {
             Button {
-                showModal = true
+                showEditor = true
             } label: {
                 Text(entityName)
             }
-            .sheet(isPresented: $showModal) {
+            .sheet(isPresented: $showEditor) {
                 EntityPicker(
                     entityID: $entityID,
                     title: "Select Entity",

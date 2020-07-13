@@ -31,13 +31,13 @@ struct ProjectView: View {
     
     let project: Project
     
-    @State private var draftEntity: Entity?
-    @State private var draftPayment: Payment?
-    
     init(project: Project) {
         self.project = project
         _draftPayment = State(initialValue: project.lastPaymentCopy())
     }
+    
+    @State private var draftPayment: Payment?
+    @State private var draftEntity: Entity?
     
     enum Modal { case entityEditor, paymentEditor, entityList }
     

@@ -12,13 +12,14 @@ import InvestmentDataModel
 struct EditorWrapper_Edit: View {
     var entity: Entity
     
-    @State private var original: Entity?
-    @State private var isPresented = false
-    
     init(entity: Entity) {
         self.entity = entity
         _original = State(initialValue: entity)
     }
+    
+    @State private var original: Entity?
+    
+    @State private var showEditor = false
     
     var body: some View {
         VStack {
@@ -31,9 +32,9 @@ struct EditorWrapper_Edit: View {
                 print("original: \(String(describing: original))")
                 original = entity
                 print("original: \(String(describing: original))")
-                isPresented = true
+                showEditor = true
             }
-            .sheet(isPresented: $isPresented) {
+            .sheet(isPresented: $showEditor) {
                 //  onDismiss
                 if let original = original {
                     print("Entity with name '\(original.name)' was created or edited, ready to use")
@@ -44,7 +45,7 @@ struct EditorWrapper_Edit: View {
             } content: {
                 EditorWrapper(
                     original: $original,
-                    isPresented: $isPresented
+                    isPresented: $showEditor
                 ) { draft in
                     draft.isValid
                 } editor: { draft in

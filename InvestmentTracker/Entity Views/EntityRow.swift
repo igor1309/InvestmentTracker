@@ -22,7 +22,7 @@ struct EntityRow: View {
     }
     
     @State private var draftEntity: Entity?
-    @State private var showModal = false
+    @State private var showEditor = false
     
     @State private var showDeleteAction = false
     
@@ -47,7 +47,7 @@ struct EntityRow: View {
         .contentShape(Rectangle())
         .contextMenu {
             Button {
-                showModal = true
+                showEditor = true
             } label: {
                 Image(systemName: "square.and.pencil")
                 Text("Edit")
@@ -62,7 +62,7 @@ struct EntityRow: View {
                 }
             }
         }
-        .sheet(isPresented: $showModal) {
+        .sheet(isPresented: $showEditor) {
             //  onDismiss
             portfolio.onDismissUpdate(
                 draft: &draftEntity,
@@ -73,7 +73,7 @@ struct EntityRow: View {
         } content: {
             EditorWrapper(
                 original: $draftEntity,
-                isPresented: $showModal
+                isPresented: $showEditor
             ) { draft in
                 draft.isValid
             } editor: { draft in
