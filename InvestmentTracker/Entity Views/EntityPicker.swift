@@ -55,12 +55,14 @@ struct EntityPicker: View {
             )
             .sheet(isPresented: $showEditor) {
                 ///  on Dismiss
-                portfolio.addEntityOnDismiss(
-                    draft: &draft,
+                portfolio.addEntityOrInvestor(
+                    draft: draft,
                     entityType: entityType,
                     paymentType: paymentType,
                     to: project
                 )
+                /// reset draft
+                draft = nil
             } content: {
                 EditorWrapper(
                     isPresented: $showEditor,
