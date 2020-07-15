@@ -23,6 +23,7 @@ struct AmountPicker: View {
                         Text("\(amount, specifier: "%.f")").tag(amount)
                             .foregroundColor(color(for: amount))
                     }
+                    contentShape(Rectangle())
                     .onTapGesture {
                         self.amount = amount
                         presentation.wrappedValue.dismiss()

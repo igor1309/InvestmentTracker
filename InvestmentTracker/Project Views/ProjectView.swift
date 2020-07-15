@@ -98,18 +98,13 @@ struct ProjectView: View {
     private func onDismissAdd() {
         switch modal {
         case .entityEditor:
-            portfolio.onDismissAdd(
-                draft: &draftEntity,
-                to: project,
-                keyPath: \.entities
-            )
+            portfolio.addEntity(draftEntity, to: project)
+            /// reset draft
+            draftEntity = nil
         case .paymentEditor:
-            portfolio.onDismissAdd(
-                draft: &draftPayment,
-                initialValue: project.lastPaymentCopy(),
-                to: project,
-                keyPath: \.payments
-            )
+            portfolio.addPayment(draftPayment, to: project)
+            /// reset draft
+            draftPayment = project.lastPaymentCopy()
         case .entityList:
             print("nothing here")
         }

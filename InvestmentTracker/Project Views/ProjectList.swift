@@ -48,10 +48,8 @@ struct ProjectList: View {
                 trailing: plusButton
                     .sheet(isPresented: $showEditor) {
                         //  onDismiss
-                        portfolio.onDismissAdd(
-                            draft: &draft,
-                            keyPath: \.projects
-                        )
+                        portfolio.addProject(draft)
+                        draft = nil
                     } content: {
                         EditorWrapper(
                             isPresented: $showEditor,

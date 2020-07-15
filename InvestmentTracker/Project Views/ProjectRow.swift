@@ -81,11 +81,8 @@ struct ProjectRow: View {
         }
         .sheet(isPresented: $showEditor) {
             // onDismiss
-            portfolio.onDismissUpdate(
-                draft: &draft,
-                original: project,
-                keyPath: \.projects
-            )
+            portfolio.updateProject(draft)
+            draft = project
         } content: {
             EditorWrapper(
                 isPresented: $showEditor,

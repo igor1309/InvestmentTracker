@@ -104,12 +104,8 @@ struct PaymentRow: View {
             }
         }
         .sheet(isPresented: $showEditor) {
-            portfolio.onDismissUpdate(
-                draft: &draft,
-                original: payment,
-                in: project,
-                keyPath: \.payments
-            )
+            portfolio.updatePayment(draft, in: project)
+            draft = payment
         } content: {
             EditorWrapper(
                 isPresented: $showEditor,

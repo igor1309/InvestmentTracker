@@ -64,12 +64,8 @@ struct EntityRow: View {
         }
         .sheet(isPresented: $showEditor) {
             //  onDismiss
-            portfolio.onDismissUpdate(
-                draft: &draftEntity,
-                original: entity,
-                in: project,
-                keyPath: \.entities
-            )
+            portfolio.updateEntity(entity, in: project)
+            draftEntity = entity
         } content: {
             EditorWrapper(
                 isPresented: $showEditor,
