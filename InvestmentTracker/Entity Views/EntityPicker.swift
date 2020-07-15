@@ -45,34 +45,35 @@ struct EntityPicker: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(
-                trailing: Button {
-                    showEditor = true
-                } label: {
-                    Image(systemName: "plus")
-                        .padding([.vertical, .leading])
-                }
-            )
+            .navigationBarItems(trailing: plusButton)
             .sheet(isPresented: $showEditor) {
-                ///  on Dismiss
-                portfolio.addEntityOrInvestor(
-                    draft: draft,
-                    entityType: entityType,
-                    paymentType: paymentType,
-                    to: project
-                )
-                /// reset draft
-                draft = nil
-            } content: {
-                EditorWrapper(
-                    isPresented: $showEditor,
-                    original: $draft
-                ) { entity in
+                EditorWrapper(draft) { entity in
                     entity.isValid
+                } handler: { draft in
+                    portfolio.addEntityOrInvestor(
+                        draft: draft,
+                        entityType: entityType,
+                        paymentType: paymentType,
+                        to: project
+                    )
+                    /// reset draft
+                    self.draft = nil
+                    /// dismiss sheet
+                    showEditor = false
                 } editor: { entity in
                     EntityEditor(entity: entity, project: project)
                 }
+                .debugPrint("RUNNING EditorWrapper2")
             }
+        }
+    }
+    
+    private var plusButton: some View {
+        Button {
+            showEditor = true
+        } label: {
+            Image(systemName: "plus")
+                .padding([.vertical, .leading])
         }
     }
     

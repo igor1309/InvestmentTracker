@@ -47,39 +47,21 @@ struct ProjectList: View {
                 ,
                 trailing: plusButton
                     .sheet(isPresented: $showEditor) {
-                        //  onDismiss
-                        portfolio.addProject(draft)
-                        draft = nil
-                    } content: {
-                        EditorWrapper(
-                            isPresented: $showEditor,
-                            original: $draft
-                        ) { project in
+                        EditorWrapper(draft) {
+                            project in
                             project.isValid
+                        } handler: { project in
+                            portfolio.addProject(project)
+                            /// reset draft
+                            draft = nil
+                            /// dismiss sheet
+                            showEditor = false
                         } editor: { project in
                             ProjectEditor(project: project)
                         }
                         .environmentObject(portfolio)
                     }
             )
-            //            .modifier(
-            //                UniversalEditor(
-            //                    isPresented: $showEditor,
-            //                    draft: $draft
-            //                ) { version in
-            //                    version.isValid
-            //                } onDismiss: {
-            //                    portfolio.onDismissAdd(
-            //                        draft: &draft,
-            //                        keyPath: \.projects
-            //                    )
-            //
-            //                    print("onDismiss draft:\(String(describing: draft))")
-            //
-            //                } editor: { project in
-            //                    ProjectEditor(project: project)
-            //                }
-            //            )
         }
     }
     

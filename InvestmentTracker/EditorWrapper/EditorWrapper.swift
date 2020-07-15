@@ -14,32 +14,31 @@ import InvestmentDataModel
 /// Return of values is done by binding
 struct EditorWrapper<T: Placeholdable, Editor: View>: View {
     
-    @Binding var isPresented: Bool
-    @Binding var draft: T?
-    
+    let draft: T?
     let validator: (T) -> Bool
+    let handler: (T?) -> Void
     let editor: (Binding<T>) -> Editor
     let title: String
     
     @State private var version: T
     
     init(
-        isPresented: Binding<Bool>,
-        original: Binding<T?>,
+        _ draft: T?,
         validator: @escaping (T) -> Bool,
+        handler: @escaping (T?) -> Void,
         @ViewBuilder editor: @escaping (Binding<T>) -> Editor
     ) {
-        self._isPresented = isPresented
-        self._draft = original
+        self.draft = draft
         
         self.validator = validator
+        self.handler = handler
         self.editor = editor
         
         /// if draft is nil than it's creation of the new object, otherwise editing of the existing one
-        self.title = original.wrappedValue == nil ? "Add" : "Edit"
+        self.title = draft == nil ? "Add" : "Edit"
         
         /// if draft is nil than object is created with empty initializer init(), since it is Placeholdable it has such init
-        self._version = State(initialValue: original.wrappedValue ?? T.init())
+        self._version = State(initialValue: draft ?? T.init())
     }
     
     var body: some View {
@@ -51,12 +50,10 @@ struct EditorWrapper<T: Placeholdable, Editor: View>: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(
                     leading: Button("Cancel") {
-                        draft = nil
-                        isPresented = false
+                        handler(nil)
                     },
                     trailing: Button("Save") {
-                        draft = version
-                        isPresented = false
+                        handler(version)
                     }
                     .disabled(!validator(version))
                 )

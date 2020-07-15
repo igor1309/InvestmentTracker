@@ -80,15 +80,14 @@ struct ProjectRow: View {
             }
         }
         .sheet(isPresented: $showEditor) {
-            // onDismiss
-            portfolio.updateProject(draft)
-            draft = project
-        } content: {
-            EditorWrapper(
-                isPresented: $showEditor,
-                original: $draft
-            ) { project in
+            EditorWrapper(draft) { project in
                 project.isValid
+            } handler: { project in
+                portfolio.updateProject(project)
+                /// reset draft
+                self.draft = self.project
+                /// dismiss sheet
+                showEditor = false
             } editor: { project in
                 ProjectEditor(project: project)
             }

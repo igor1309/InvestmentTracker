@@ -86,48 +86,36 @@ struct ProjectView: View {
             trailing: HStack {
                 plusButton()
                     .sheet(isPresented: $showModal) {
-                        // onDismiss
-                        onDismissAdd()
-                    } content: {
                         presentModal()
                     }
             }
         )
     }
     
-    private func onDismissAdd() {
-        switch modal {
-        case .entityEditor:
-            portfolio.addEntity(draftEntity, to: project)
-            /// reset draft
-            draftEntity = nil
-        case .paymentEditor:
-            portfolio.addPayment(draftPayment, to: project)
-            /// reset draft
-            draftPayment = project.lastPaymentCopy()
-        case .entityList:
-            print("nothing here")
-        }
-    }
-    
     @ViewBuilder private func presentModal() -> some View {
         switch modal {
         case .entityEditor:
-            EditorWrapper(
-                isPresented: $showModal,
-                original: $draftEntity
-            ) { entity in
+            EditorWrapper(draftEntity) { entity in
                 entity.isValid
+            } handler: { entity in
+                portfolio.addEntity(entity, to: project)
+                /// reset draft
+                draftEntity = nil
+                /// dismiss sheet
+                showModal = false
             } editor: { entity in
                 EntityEditor(entity: entity, project: project)
             }
             .environmentObject(portfolio)
         case .paymentEditor:
-            EditorWrapper(
-                isPresented: $showModal,
-                original: $draftPayment
-            ) { payment in
+            EditorWrapper(draftPayment) { payment in
                 portfolio.isPaymentValid(payment, in: project)
+            } handler: { payment in
+                portfolio.addPayment(payment, to: project)
+                /// reset draft
+                draftPayment = project.lastPaymentCopy()
+                /// dismiss sheet
+                showModal = false
             } editor: { payment in
                 PaymentEditor(payment: payment, project: project)
             }
@@ -153,7 +141,9 @@ struct ProjectView: View {
             Image(systemName: "plus")
                 .padding([.vertical, .leading])
         }
-        .actionSheet(isPresented: $showAddAction) { selectWhatToAdd()   }
+        .actionSheet(isPresented: $showAddAction) {
+            selectWhatToAdd()
+        }
     }
     
     private func selectWhatToAdd() -> ActionSheet {

@@ -25,19 +25,18 @@ struct EditorWrapper_Create_Test: View {
             }
             
             .sheet(isPresented: $showEditor) {
-                //  onDismiss
-                defer { original = nil }
-                if let original = original {
-                    print("Entity with name '\(original.name)' was created or edited, ready to use")
-                } else {
-                    print("nothing was created or edit was cancelled")
-                }
-            } content: {
-                EditorWrapper(
-                    isPresented: $showEditor,
-                    original: $original
-                ) { draft in
+                EditorWrapper(original) { draft in
                     draft.isValid
+                } handler: { draft in
+                    if let original = original {
+                        print("Entity with name '\(original.name)' was created or edited, ready to use")
+                    } else {
+                        print("nothing was created or edit was cancelled")
+                    }
+                    /// reset draft
+                    self.original = nil
+                    /// dismiss sheet
+                    showEditor = false
                 } editor: { draft in
                     Form {
                         TextField("Name", text: draft.name)

@@ -64,14 +64,15 @@ struct EntityRow: View {
         }
         .sheet(isPresented: $showEditor) {
             //  onDismiss
-            portfolio.updateEntity(entity, in: project)
-            draftEntity = entity
         } content: {
-            EditorWrapper(
-                isPresented: $showEditor,
-                original: $draftEntity
-            ) { entity in
+            EditorWrapper(draftEntity) { entity in
                 entity.isValid
+            } handler: { entity in
+                portfolio.updateEntity(entity, in: project)
+                /// reset draft
+                draftEntity = self.entity
+                /// dismiss sheet
+                showEditor = false
             } editor: { entity in
                 EntityEditor(entity: entity, project: project)
             }

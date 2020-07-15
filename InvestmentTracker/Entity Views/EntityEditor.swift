@@ -30,11 +30,10 @@ struct EntityEditor_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            EditorWrapper(
-                isPresented: .constant(true),
-                original: $entity
-            ) { entity in
+            EditorWrapper(entity) { entity in
                 entity.isValid
+            } handler: { _ in
+                
             } editor: { entity in
                 EntityEditor(entity: entity, project: project)
             }

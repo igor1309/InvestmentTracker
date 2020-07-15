@@ -104,14 +104,15 @@ struct PaymentRow: View {
             }
         }
         .sheet(isPresented: $showEditor) {
-            portfolio.updatePayment(draft, in: project)
-            draft = payment
         } content: {
-            EditorWrapper(
-                isPresented: $showEditor,
-                original: $draft
-            ) { payment in
+            EditorWrapper(draft) { payment in
                 payment.isValid
+            } handler: { payment in
+                portfolio.updatePayment(payment, in: project)
+                /// reset draft
+                draft = self.payment
+                /// dismiss sheet
+                showEditor = false
             } editor: { payment in
                 PaymentEditor(payment: payment, project: project)
             }

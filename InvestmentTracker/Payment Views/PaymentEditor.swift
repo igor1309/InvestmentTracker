@@ -101,11 +101,10 @@ struct PaymentEditor_Previews: PreviewProvider {
     static let project = Project.natachtari
     
     static var previews: some View {
-        EditorWrapper(
-            isPresented: .constant(true),
-            original: $payment
-        ) { payment in
+        EditorWrapper(payment) { payment in
             payment.isValid
+        } handler: { _ in
+            
         } editor: { payment in
             PaymentEditor(payment: payment, project: project)
         }
