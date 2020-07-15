@@ -120,6 +120,7 @@ struct PaymentRow: View {
                 PaymentEditor(payment: payment, project: project)
             }
             .environmentObject(portfolio)
+            .environmentObject(settings)
         }
         .actionSheet(isPresented: $showDeleteAction) {
             deleteActionSheet(payment)

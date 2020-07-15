@@ -10,6 +10,7 @@ import InvestmentDataModel
 
 struct PaymentView: View {
     @EnvironmentObject var portfolio: Portfolio
+    @EnvironmentObject var settings: Settings
     
     let payment: Payment
     let project: Project
@@ -81,6 +82,7 @@ struct PaymentView: View {
                     PaymentEditor(payment: payment, project: project)
                 }
                 .environmentObject(portfolio)
+                .environmentObject(settings)
             }
         )
     }
@@ -90,8 +92,9 @@ struct PaymentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             PaymentView(payment: Payment(), in: Project())
-                .environmentObject(Portfolio())
         }
+        .environmentObject(Portfolio())
+        .environmentObject(Settings())
         .preferredColorScheme(.dark)
     }
 }

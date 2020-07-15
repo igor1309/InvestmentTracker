@@ -10,6 +10,7 @@ import InvestmentDataModel
 
 struct PaymentEditor: View {
     @EnvironmentObject var portfolio: Portfolio
+    @EnvironmentObject var settings: Settings
     
     @Binding var payment: Payment
     let project: Project
@@ -58,6 +59,7 @@ struct PaymentEditor: View {
                 entityID: $payment.senderID,
                 project: project
             )
+            .environmentObject(settings)
             
             EntitySelector(
                 type: .recipient,
@@ -65,6 +67,7 @@ struct PaymentEditor: View {
                 entityID: $payment.recipientID,
                 project: project
             )
+            .environmentObject(settings)
         }
         .sheet(isPresented: $showEditor) {
             AmountPicker(amount: $payment.amount)
@@ -107,6 +110,7 @@ struct PaymentEditor_Previews: PreviewProvider {
             PaymentEditor(payment: payment, project: project)
         }
         .environmentObject(Portfolio())
+        .environmentObject(Settings())
         .preferredColorScheme(.dark)
     }
 }

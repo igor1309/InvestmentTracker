@@ -55,7 +55,12 @@ struct EntityPicker: View {
             )
             .sheet(isPresented: $showEditor) {
                 ///  on Dismiss
-                handleEditorOnDismiss()
+                portfolio.addEntityOnDismiss(
+                    draft: &draft,
+                    entityType: entityType,
+                    paymentType: paymentType,
+                    to: project
+                )
             } content: {
                 EditorWrapper(
                     isPresented: $showEditor,
@@ -69,40 +74,7 @@ struct EntityPicker: View {
         }
     }
     
-    //  MARK: FINISH THIS
-    //  Что делать с этой func????
-    private func handleEditorOnDismiss() {
-        defer { draft = nil }
-        
-        if let draft = draft {
-            print("Entity with name '\(draft.name)' was created or edited, ready to use")
-            
-            let generator = UINotificationFeedbackGenerator()
-            
-            withAnimation {
-                switch (entityType, paymentType) {
-                case (.sender, .investment), (.recipient, .return):
-                    /// add investor
-                    if portfolio.add(draft, keyPath: \.investors) {
-                        generator.notificationOccurred(.success)
-                    } else {
-                        generator.notificationOccurred(.error)
-                    }
-                default:
-                    /// add Entity
-                    if portfolio.add(draft, to: project, keyPath: \.entities) {
-                        generator.notificationOccurred(.success)
-                    } else {
-                        generator.notificationOccurred(.error)
-                    }
-                }
-            }
-        } else {
-            print("nothing was created or edit was cancelled")
-        }
-    }
-    
-    func color(for entity: Entity) -> Color {
+    private func color(for entity: Entity) -> Color {
         self.entityID == entity.id ? Color(UIColor.systemOrange) : .primary
     }
 }
